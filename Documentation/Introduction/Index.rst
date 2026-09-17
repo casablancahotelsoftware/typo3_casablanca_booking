@@ -36,7 +36,7 @@ Compatibility
 | Component   | Supported versions                       |
 +=============+==========================================+
 | TYPO3       | **12.4 – 14.x** (12.4.0 through 14.99.99)|
-| PHP         | **8.1 – 8.4**                            |
+| PHP         | **8.1 – 8.6**                            |
 | Scheduler   | Required (daily sync task)               |
 +-------------+------------------------------------------+
 
