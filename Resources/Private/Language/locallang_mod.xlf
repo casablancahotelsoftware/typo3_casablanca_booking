@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en"
+          datatype="plaintext"
+          original="messages"
+          date="2026-01-01T00:00:00Z"
+          product-name="casablanca_booking">
+        <header/>
+        <body>
+
+            <trans-unit id="mlang_tabs_tab">
+                <source>CASABLANCA Booking</source>
+            </trans-unit>
+            <trans-unit id="mlang_labels_tablabel">
+                <source>CASABLANCA Booking</source>
+            </trans-unit>
+            <trans-unit id="mlang_labels_tabdescr">
+                <source>Configure CASABLANCA API credentials and sync settings per TYPO3 site.</source>
+            </trans-unit>
+
+            <trans-unit id="scheduler.task.title">
+                <source>CASABLANCA price sync</source>
+            </trans-unit>
+            <trans-unit id="scheduler.task.description">
+                <source>Synchronises room types, rates/packages and from-prices from the CASABLANCA API into the local cache tables.</source>
+            </trans-unit>
+
+            <trans-unit id="module.index.title">
+                <source>CASABLANCA site configurations</source>
+            </trans-unit>
+            <trans-unit id="module.index.intro">
+                <source>Manage API credentials and sync settings per TYPO3 site.</source>
+            </trans-unit>
+            <trans-unit id="module.index.add">
+                <source>Add configuration</source>
+            </trans-unit>
+            <trans-unit id="module.index.actions">
+                <source>Actions</source>
+            </trans-unit>
+            <trans-unit id="module.index.empty">
+                <source>No site configurations yet.</source>
+            </trans-unit>
+
+            <trans-unit id="module.edit.title">
+                <source>Edit configuration</source>
+            </trans-unit>
+            <trans-unit id="module.edit.titleNew">
+                <source>New configuration</source>
+            </trans-unit>
+
+            <trans-unit id="module.section.credentials">
+                <source>Credentials</source>
+            </trans-unit>
+            <trans-unit id="module.section.ibe">
+                <source>Booking Engine and Space settings</source>
+            </trans-unit>
+            <trans-unit id="module.section.sync">
+                <source>Sync</source>
+            </trans-unit>
+
+            <trans-unit id="module.field.siteIdentifier">
+                <source>Site identifier</source>
+            </trans-unit>
+            <trans-unit id="module.field.siteIdentifier.select">
+                <source>— select site —</source>
+            </trans-unit>
+            <trans-unit id="module.field.tenantId">
+                <source>Tenant ID</source>
+            </trans-unit>
+            <trans-unit id="module.field.apiKey">
+                <source>API key</source>
+            </trans-unit>
+            <trans-unit id="module.field.apiKey.hint">
+                <source>Leave blank to keep the existing key.</source>
+            </trans-unit>
+            <trans-unit id="module.field.useCustomIbeDomain">
+                <source>Use custom IBE domain</source>
+            </trans-unit>
+            <trans-unit id="module.field.ibeBaseUrl">
+                <source>IBE base URL</source>
+            </trans-unit>
+            <trans-unit id="module.field.urlFriendlyIbeContextId">
+                <source>URL-friendly IBE context ID</source>
+            </trans-unit>
+            <trans-unit id="module.field.spaceName">
+                <source>Space name</source>
+            </trans-unit>
+            <trans-unit id="module.field.spaceName.hint">
+                <source>The IBE context slug, e.g. bookingengine or wellness-days.</source>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle">
+                <source>Link style</source>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle.hint">
+                <source>Controls the IBE handover URL path. full_path is the default for CASABLANCA-hosted domains.</source>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle.full_path">
+                <source>Full path (culture/tenant/space)</source>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle.tenant_only">
+                <source>Tenant only (culture/tenant)</source>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle.culture_only">
+                <source>Culture only (culture)</source>
+            </trans-unit>
+            <trans-unit id="module.field.ibeUrlPreview">
+                <source>Booking Engine URL</source>
+            </trans-unit>
+            <trans-unit id="module.field.ibeUrlPreview.empty">
+                <source>Enter an IBE base URL to preview the Booking Engine URL.</source>
+            </trans-unit>
+            <trans-unit id="module.tab.configuration">
+                <source>Configuration</source>
+            </trans-unit>
+            <trans-unit id="module.tab.mappingCodes">
+                <source>Mapping codes</source>
+            </trans-unit>
+            <trans-unit id="module.connection.title">
+                <source>Connection check</source>
+            </trans-unit>
+            <trans-unit id="module.connection.ok">
+                <source>Connection OK</source>
+            </trans-unit>
+            <trans-unit id="module.connection.error">
+                <source>Connection failed</source>
+            </trans-unit>
+            <trans-unit id="module.connection.unknown">
+                <source>Connection not tested yet</source>
+            </trans-unit>
+            <trans-unit id="module.connection.checkedAt">
+                <source>Last checked:</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.spaceTitle">
+                <source>Space</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.spaceId">
+                <source>Space ID</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.companyId">
+                <source>Company ID</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.roomTypes">
+                <source>Room types</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.rates">
+                <source>Rates</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.ratesAll">
+                <source>Rates (all)</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.packages">
+                <source>Packages</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.empty">
+                <source>No mapping codes synced yet. Save a valid configuration and run Sync now.</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.id">
+                <source>Id</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.name">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.type">
+                <source>Type</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.code">
+                <source>Code</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.minOcc">
+                <source>Min. occupancy</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.stdOcc">
+                <source>Std. occupancy</source>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.maxOcc">
+                <source>Max. occupancy</source>
+            </trans-unit>
+            <trans-unit id="module.warning.linkStyleDefaultDomain">
+                <source>Tenant-only and culture-only link styles are intended for custom IBE domains.</source>
+            </trans-unit>
+            <trans-unit id="module.field.defaultCulture">
+                <source>Default culture</source>
+            </trans-unit>
+            <trans-unit id="module.sync.info">
+                <source>Availability syncs automatically once per day and after cache clears. Use Sync now for an immediate import.</source>
+            </trans-unit>
+
+            <trans-unit id="module.action.edit">
+                <source>Edit</source>
+            </trans-unit>
+            <trans-unit id="module.action.test">
+                <source>Test connection</source>
+            </trans-unit>
+            <trans-unit id="module.action.sync">
+                <source>Sync now</source>
+            </trans-unit>
+            <trans-unit id="module.action.save">
+                <source>Save</source>
+            </trans-unit>
+            <trans-unit id="module.action.cancel">
+                <source>Cancel</source>
+            </trans-unit>
+
+            <trans-unit id="module.success.saved">
+                <source>Configuration saved.</source>
+            </trans-unit>
+            <trans-unit id="module.success.sync">
+                <source>Sync completed successfully.</source>
+            </trans-unit>
+            <trans-unit id="module.error.not_found">
+                <source>Configuration not found.</source>
+            </trans-unit>
+            <trans-unit id="module.error.sync">
+                <source>Sync failed or partially failed.</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,94 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<!--
+    Multi-room occupancy selector (1–5 rooms).
+    Arguments: defaultRooms (int), rooms (array of {adults, children, childrenAges})
+-->
+
+<div class="cb-rooms" data-cb-rooms>
+    <label class="cb-field cb-field--rooms-count">
+        <span class="cb-field__label">
+            <f:translate key="widget.rooms.count" default="Rooms" />
+        </span>
+        <input type="number"
+               name="numberOfRooms"
+               min="1"
+               max="5"
+               value="{defaultRooms}"
+               data-cb-field="rooms-count" />
+    </label>
+
+    <div class="cb-rooms__list" data-cb-rooms-list>
+        <f:for each="{rooms}" as="room" iteration="roomIt">
+            <fieldset class="cb-room-block"
+                      data-cb-room-block
+                      data-cb-room-index="{roomIt.index}">
+                <legend class="cb-room-block__title">
+                    <f:translate key="widget.rooms.roomN"
+                                 default="Room {0}"
+                                 arguments="{0: roomIt.cycle}" />
+                </legend>
+
+                <label class="cb-field">
+                    <span class="cb-field__label">
+                        <f:translate key="widget.adults" default="Adults" />
+                    </span>
+                    <input type="number"
+                           name="rooms[{roomIt.index}][adults]"
+                           min="1"
+                           max="10"
+                           value="{room.adults}"
+                           data-cb-field="adults"
+                           required="required" />
+                </label>
+
+                <label class="cb-field">
+                    <span class="cb-field__label">
+                        <f:translate key="widget.children" default="Children" />
+                    </span>
+                    <input type="number"
+                           name="rooms[{roomIt.index}][children]"
+                           min="0"
+                           max="10"
+                           value="{room.children}"
+                           data-cb-field="children-count"
+                           required="required" />
+                </label>
+
+                <input type="hidden"
+                       name="rooms[{roomIt.index}][childrenAges]"
+                       value="{room.childrenAgesString}"
+                       data-cb-children-ages-hidden />
+
+                <div class="cb-field cb-field--ages"
+                     data-cb-ages-container
+                     hidden="{f:if(condition: '{room.children} > 0', then: '', else: 'hidden')}">
+                    <span class="cb-field__label cb-field__label--group">
+                        <f:translate key="widget.children.ages" default="Children ages" />
+                    </span>
+                    <div class="cb-ages" data-cb-ages-list>
+                        <f:for each="{room.childrenAges}" as="age" iteration="ageIt">
+                            <label class="cb-ages__item">
+                                <span class="cb-ages__label">
+                                    <f:translate key="widget.children.ageN"
+                                                 default="Child {0}"
+                                                 arguments="{0: ageIt.cycle}" />
+                                </span>
+                                <input type="number"
+                                       name="rooms[{roomIt.index}][childAge][]"
+                                       min="0"
+                                       max="17"
+                                       value="{age}"
+                                       required="required"
+                                       data-cb-child-age />
+                            </label>
+                        </f:for>
+                    </div>
+                </div>
+            </fieldset>
+        </f:for>
+    </div>
+</div>
+
+</html>

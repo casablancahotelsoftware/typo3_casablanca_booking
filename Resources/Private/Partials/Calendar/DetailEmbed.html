@@ -1,0 +1,43 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{showDetailCalendar}">
+    <f:render partial="Calendar/Widget"
+              arguments="{
+                  calendarFetchUrl: calendarFetchUrl,
+                  calendarRedirectUrl: calendarRedirectUrl,
+                  offersFetchUrl: offersFetchUrl,
+                  calendarInitialMonths: calendarInitialMonths,
+                  calendarOfferMode: calendarOfferMode,
+                  calendarOffersEnabled: calendarOffersEnabled,
+                  preselectedRoomTypeId: preselectedRoomTypeId,
+                  preselectedRateId: preselectedRateId,
+                  filterRateIds: filterRateIds,
+                  preselectedRoomType: preselectedRoomType,
+                  defaultRooms: defaultRooms,
+                  rooms: rooms,
+                  culture: culture,
+                  windowDays: windowDays,
+                  ibeBaseUrl: ibeBaseUrl,
+                  tenantId: tenantId,
+                  ibeContextId: ibeContextId,
+                  ibeLinkTarget: ibeLinkTarget,
+                  config: config,
+                  showEnquiryButton: showEnquiryButton,
+                  enquiryUrl: enquiryUrl,
+                  enquiryLinkTarget: enquiryLinkTarget,
+                  showCalendarLegend: showCalendarLegend,
+                  showCalendarHeading: showCalendarHeading,
+                  calendarLayoutClass: calendarLayoutClass,
+                  roomMaxOccupancy: roomMaxOccupancy,
+                  roomMinOccupancy: roomMinOccupancy,
+                  calendarDefaultAdults: calendarDefaultAdults,
+                  calendarDefaultChildren: calendarDefaultChildren,
+                  labels: labels,
+                  cbLabelsJson: cbLabelsJson,
+                  cbWidgetClasses: cbWidgetClasses,
+                  cbThemeStyle: cbThemeStyle
+              }" />
+</f:if>
+
+</html>

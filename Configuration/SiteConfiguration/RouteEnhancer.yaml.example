@@ -1,0 +1,22 @@
+# Example site configuration snippet for pretty room detail URLs.
+# Copy into your site config.yaml under routeEnhancers and replace limitToPages.
+#
+# Requires a detail page with the CASABLANCA Room Types plugin set to
+# Display mode: Detail (single room from URL slug).
+
+routeEnhancers:
+  CasablancaRoomDetail:
+    type: Extbase
+    extension: CasablancaBooking
+    plugin: RoomTypes
+    limitToPages:
+      - 123
+    routes:
+      - routePath: '/{roomSlug}'
+        _controller: 'RoomTypes::show'
+        _arguments:
+          roomSlug: roomSlug
+    defaultController: 'RoomTypes::show'
+    aspects:
+      roomSlug:
+        type: CasablancaRoomSlug

@@ -1,0 +1,61 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:casablanca="http://typo3.org/ns/Casablanca/CasablancaBooking/ViewHelper"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <f:if condition="{error} == 'not_configured'">
+        <f:then>
+            <div class="cb-widget__error" role="alert">
+                <f:translate key="widget.error.notConfigured"
+                             default="The CASABLANCA booking widget is not configured for this site." />
+            </div>
+        </f:then>
+        <f:else>
+
+            <div class="cb-price-teaser">
+                <f:if condition="{labels.heading}">
+                    <h2 id="cb-widget-heading" class="cb-price-teaser__heading">{labels.heading}</h2>
+                </f:if>
+
+                <f:if condition="{roomName}">
+                    <p class="cb-price-teaser__room">{roomName}</p>
+                </f:if>
+
+                <f:if condition="{fromPrice}">
+                    <f:then>
+                        <p class="cb-price-teaser__price" aria-live="polite">
+                            <span class="cb-price-teaser__label">
+                                <f:translate key="priceteaser.from" default="from" />
+                            </span>
+                            <span class="cb-price-teaser__value">
+                                <f:format.currency currencySign="{currency}">{fromPrice}</f:format.currency>
+                            </span>
+                            <span class="cb-price-teaser__window">
+                                <f:translate key="priceteaser.window"
+                                             default="in the next {0} days"
+                                             arguments="{0: windowDays}" />
+                            </span>
+                        </p>
+                    </f:then>
+                    <f:else>
+                        <p class="cb-price-teaser__empty">
+                            <f:translate key="priceteaser.empty"
+                                         default="No prices available in the selected window." />
+                        </p>
+                    </f:else>
+                </f:if>
+            </div>
+
+            <f:if condition="{jsonLd}">
+                <script type="application/ld+json">
+                    {jsonLd -> f:format.json() -> f:format.raw()}
+                </script>
+            </f:if>
+
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>

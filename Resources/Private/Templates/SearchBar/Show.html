@@ -1,0 +1,138 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:casablanca="http://typo3.org/ns/Casablanca/CasablancaBooking/ViewHelper"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <f:if condition="{error} == 'not_configured'">
+        <f:then>
+            <div class="cb-widget__error" role="alert">
+                <f:translate key="widget.error.notConfigured"
+                             default="The CASABLANCA booking widget is not configured for this site." />
+            </div>
+        </f:then>
+        <f:else>
+
+            <div class="cb-search-bar">
+                <h2 id="cb-widget-heading" class="cb-search-bar__heading">
+                    <casablanca:label key="searchbar.heading"
+                                      override="{labels.heading}"
+                                      default="Search availability" />
+                </h2>
+
+                <form class="cb-widget__form cb-search-bar__form{f:if(condition: compactOccupancy, then: ' cb-search-bar__form--compact-occupancy')}"
+                      method="get"
+                      action="{f:uri.action(action: 'redirect', controller: 'SearchBar', extensionName: 'CasablancaBooking', pluginName: 'SearchBar')}"
+                      data-cb-mode="search"
+                      data-cb-ibe-base="{ibeBaseUrl}"
+                      data-cb-tenant="{tenantId}"
+                      data-cb-ibe-context="{ibeContextId}"
+                      data-cb-link-style="{config.ibeLinkStyle}"
+                      data-cb-culture="{culture}"
+                      data-cb-link-target="{ibeLinkTarget}">
+
+                    <f:if condition="{compactOccupancy}">
+                        <f:then>
+                            <div class="cb-search-bar__toolbar">
+                                <label class="cb-field">
+                                    <span class="cb-field__label">
+                                        <f:translate key="widget.arrival" default="Arrival" />
+                                    </span>
+                                    <input type="date"
+                                           name="arrival"
+                                           required="required"
+                                           value="{formArrival -> f:format.date(format: 'Y-m-d')}"
+                                           data-cb-field="arrival" />
+                                </label>
+
+                                <label class="cb-field">
+                                    <span class="cb-field__label">
+                                        <f:translate key="widget.departure" default="Departure" />
+                                    </span>
+                                    <input type="date"
+                                           name="departure"
+                                           required="required"
+                                           min="{formArrival -> f:format.date(format: 'Y-m-d')}"
+                                           value="{formDeparture -> f:format.date(format: 'Y-m-d')}"
+                                           data-cb-field="departure" />
+                                </label>
+
+                                <button type="button"
+                                        class="cb-search-bar__occupancy-toggle"
+                                        data-cb-occupancy-toggle
+                                        aria-expanded="false"
+                                        aria-controls="cb-search-occupancy-panel"
+                                        title="{f:translate(key: 'searchbar.occupancyToggle', default: 'Guests and rooms')}">
+                                    <svg class="cb-search-bar__occupancy-icon"
+                                         viewBox="0 0 24 24"
+                                         aria-hidden="true"
+                                         focusable="false">
+                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                    </svg>
+                                    <span class="cb-sr-only">
+                                        <f:translate key="searchbar.occupancyToggle" default="Guests and rooms" />
+                                    </span>
+                                </button>
+
+                                <button type="submit" class="cb-widget__submit cb-search-bar__submit">
+                                    <casablanca:label key="searchbar.submit"
+                                                      override="{labels.submit}"
+                                                      default="Search &amp; book" />
+                                </button>
+                            </div>
+
+                            <div id="cb-search-occupancy-panel"
+                                 class="cb-search-bar__occupancy-panel"
+                                 data-cb-occupancy-panel
+                                 hidden="hidden">
+                                <f:render partial="OccupancyRooms"
+                                          arguments="{defaultRooms: defaultRooms, rooms: rooms}" />
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <div class="cb-widget__fields cb-search-bar__fields">
+                                <label class="cb-field">
+                                    <span class="cb-field__label">
+                                        <f:translate key="widget.arrival" default="Arrival" />
+                                    </span>
+                                    <input type="date"
+                                           name="arrival"
+                                           required="required"
+                                           value="{formArrival -> f:format.date(format: 'Y-m-d')}"
+                                           data-cb-field="arrival" />
+                                </label>
+
+                                <label class="cb-field">
+                                    <span class="cb-field__label">
+                                        <f:translate key="widget.departure" default="Departure" />
+                                    </span>
+                                    <input type="date"
+                                           name="departure"
+                                           required="required"
+                                           min="{formArrival -> f:format.date(format: 'Y-m-d')}"
+                                           value="{formDeparture -> f:format.date(format: 'Y-m-d')}"
+                                           data-cb-field="departure" />
+                                </label>
+
+                                <f:render partial="OccupancyRooms"
+                                          arguments="{defaultRooms: defaultRooms, rooms: rooms}" />
+                            </div>
+
+                            <button type="submit" class="cb-widget__submit cb-search-bar__submit">
+                                <casablanca:label key="searchbar.submit"
+                                                  override="{labels.submit}"
+                                                  default="Search &amp; book" />
+                            </button>
+                        </f:else>
+                    </f:if>
+                </form>
+            </div>
+
+            <f:render partial="Calendar/LabelsScript" />
+
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>

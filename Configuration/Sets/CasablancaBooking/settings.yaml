@@ -1,0 +1,6 @@
+casablancaBooking:
+  includeCss: true
+  theme:
+    accent: ''
+    accentContrast: ''
+    radius: ''

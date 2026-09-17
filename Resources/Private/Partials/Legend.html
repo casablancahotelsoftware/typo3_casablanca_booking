@@ -1,0 +1,28 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<!--
+    Colour-key legend for the calendar. Purely decorative — state is
+    conveyed redundantly in the cell's aria-label for screen readers.
+-->
+
+<ul class="cb-legend" role="list" aria-label="{f:translate(key: 'widget.legend.label', default: 'Calendar legend')}">
+    <li class="cb-legend__item">
+        <span class="cb-legend__swatch cb-state-available" aria-hidden="true"></span>
+        <f:translate key="widget.legend.available" default="Available" />
+    </li>
+    <li class="cb-legend__item">
+        <span class="cb-legend__swatch cb-state-restricted" aria-hidden="true"></span>
+        <f:translate key="widget.legend.restricted" default="Restrictions apply" />
+    </li>
+    <li class="cb-legend__item">
+        <span class="cb-legend__swatch cb-state-no-arrival" aria-hidden="true"></span>
+        <f:translate key="widget.legend.noArrival" default="No arrival" />
+    </li>
+    <li class="cb-legend__item">
+        <span class="cb-legend__swatch cb-state-unavailable" aria-hidden="true"></span>
+        <f:translate key="widget.legend.unavailable" default="Not available" />
+    </li>
+</ul>
+
+</html>

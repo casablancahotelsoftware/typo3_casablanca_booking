@@ -1,0 +1,77 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:casablanca="http://typo3.org/ns/Casablanca/CasablancaBooking/ViewHelper"
+      data-namespace-typo3-fluid="true">
+
+<f:for each="{cards}" as="card">
+    <article class="cb-package-detail">
+        <f:if condition="{showImage} && {card.package.imageUrl}">
+            <div class="cb-package-detail__image">
+                <img src="{card.package.imageUrl}"
+                     alt="{card.package.name}"
+                     loading="lazy" />
+            </div>
+        </f:if>
+
+        <div class="cb-package-detail__body">
+            <f:if condition="{showName}">
+                <h2 class="cb-package-detail__title">{card.package.name}</h2>
+            </f:if>
+
+            <f:if condition="{showDescription} && {card.package.description}">
+                <div class="cb-package-detail__description">
+                    <f:format.html>{card.package.description}</f:format.html>
+                </div>
+            </f:if>
+
+            <f:if condition="{card.package.formattedCateringType}">
+                <p class="cb-package-detail__meta">
+                    <f:translate key="packages.catering" default="Catering" />:
+                    {card.package.formattedCateringType}
+                </p>
+            </f:if>
+
+            <p class="cb-package-detail__nights">
+                <f:translate key="packages.nights"
+                             default="{0} nights"
+                             arguments="{0: stayNights}" />
+            </p>
+
+            <f:if condition="{showPrice} && {card.fromPrice}">
+                <p class="cb-package-detail__price">
+                    <span class="cb-package-detail__price-label">
+                        <f:translate key="packages.fromPrice" default="from" />
+                    </span>
+                    <span class="cb-package-detail__price-value">
+                        <f:format.currency currencySign="{card.currency}">{card.fromPrice}</f:format.currency>
+                    </span>
+                </p>
+            </f:if>
+
+            <f:if condition="{showDetailCalendar}">
+                <f:else>
+                    <a href="{card.ibeUrl}"
+                       class="cb-package-detail__book cb-button"
+                       target="{ibeLinkTarget}"
+                       rel="{f:if(condition: '{ibeLinkTarget} == \'_blank\'', then: 'noopener noreferrer')}"
+                       data-cb-ibe-base="{config.ibeBaseUrl}"
+                       data-cb-tenant="{config.tenantId}"
+                       data-cb-ibe-context="{config.urlFriendlyIbeContextId}"
+                       data-cb-link-style="{config.ibeLinkStyle}"
+                       data-cb-link-target="{ibeLinkTarget}"
+                       data-cb-culture="{culture}"
+                       data-cb-rate-ids="{card.package.rateId}"
+                       data-cb-adults="{defaultAdults}"
+                       data-cb-children="{defaultChildrenCount}"
+                       data-cb-arrival="{from -> f:format.date(format: 'Y-m-d')}"
+                       data-cb-stay-nights="{stayNights}">
+                        <casablanca:label key="packages.bookNow"
+                                          override="{labels.book}"
+                                          default="Book now" />
+                    </a>
+                </f:else>
+            </f:if>
+        </div>
+    </article>
+</f:for>
+
+</html>

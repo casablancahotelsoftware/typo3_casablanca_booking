@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en"
+          datatype="plaintext"
+          original="messages"
+          date="2026-01-01T00:00:00Z"
+          product-name="casablanca_booking">
+        <header/>
+        <body>
+
+            <trans-unit id="plugin.widget.title">
+                <source>CASABLANCA Booking Widget</source>
+            </trans-unit>
+            <trans-unit id="plugin.widget.description">
+                <source>Renders an SSR availability calendar with a PCI-safe handover to the CASABLANCA IBE v2.</source>
+            </trans-unit>
+
+            <trans-unit id="plugin.searchbar.title">
+                <source>CASABLANCA Search Bar</source>
+            </trans-unit>
+            <trans-unit id="plugin.searchbar.description">
+                <source>Compact arrival/departure search form without a calendar grid.</source>
+            </trans-unit>
+
+            <trans-unit id="plugin.roomtypes.title">
+                <source>CASABLANCA Room Types</source>
+            </trans-unit>
+            <trans-unit id="plugin.roomtypes.description">
+                <source>Room type cards with from-price and book buttons.</source>
+            </trans-unit>
+
+            <trans-unit id="plugin.packages.title">
+                <source>CASABLANCA Packages</source>
+            </trans-unit>
+            <trans-unit id="plugin.packages.description">
+                <source>Package cards filtered by bookable stay lengths.</source>
+            </trans-unit>
+
+            <trans-unit id="plugin.priceteaser.title">
+                <source>CASABLANCA Price Teaser</source>
+            </trans-unit>
+            <trans-unit id="plugin.priceteaser.description">
+                <source>Compact "from €X" price display with JSON-LD for SEO.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.sheet.general">
+                <source>General</source>
+            </trans-unit>
+            <trans-unit id="flexform.sheet.appearance">
+                <source>Appearance</source>
+            </trans-unit>
+            <trans-unit id="flexform.appearance.label">
+                <source>Layout style</source>
+            </trans-unit>
+            <trans-unit id="flexform.appearance.description">
+                <source>Controls outer chrome only (not colors). Use Inherit on themed pages; Compact for tight sidebars.</source>
+            </trans-unit>
+            <trans-unit id="flexform.appearance.default">
+                <source>Default (card with border)</source>
+            </trans-unit>
+            <trans-unit id="flexform.appearance.inherit">
+                <source>Inherit (transparent, no border)</source>
+            </trans-unit>
+            <trans-unit id="flexform.appearance.compact">
+                <source>Compact (reduced spacing)</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.sheet.texts">
+                <source>Texts</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.intro">
+                <source>Leave fields empty to use the default translation for the current site language. Custom texts here apply to all language versions of this content element.</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.heading.label">
+                <source>Heading</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.heading.description">
+                <source>Main heading above the plugin. Empty = default translation (e.g. “Check availability and book”).</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.bookNow.label">
+                <source>Book button</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.bookNow.description">
+                <source>Primary booking button in the calendar. Empty = “Book now”.</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.enquiry.label">
+                <source>Enquiry button</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.enquiry.description">
+                <source>Secondary enquiry link in the calendar. Empty = “Enquiry”.</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.submit.label">
+                <source>Submit button</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.submit.description">
+                <source>Search form submit button. Empty = “Search &amp; book”.</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.book.label">
+                <source>Book button</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.book.description">
+                <source>Card or detail book link. Empty = default translation.</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.details.label">
+                <source>Details button</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.details.description">
+                <source>Card details link. Empty = “Details”.</source>
+            </trans-unit>
+            <trans-unit id="flexform.labels.headingPriceTeaser.description">
+                <source>Optional heading above the price. Empty = no heading (price line only).</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.preselect.label">
+                <source>Pre-select Room Category</source>
+            </trans-unit>
+            <trans-unit id="flexform.preselect.description">
+                <source>When set, this widget restricts itself to a single room type — useful for room-specific landing pages. Requires at least one successful background sync.</source>
+            </trans-unit>
+            <trans-unit id="flexform.preselect.none">
+                <source>— no pre-selection (show all rooms) —</source>
+            </trans-unit>
+            <trans-unit id="flexform.preselect.none_synced">
+                <source>(No rooms synced yet — run casablanca-booking:sync)</source>
+            </trans-unit>
+            <trans-unit id="flexform.preselect.no_site">
+                <source>(Could not resolve TYPO3 site — place this content on a page within a Site configuration)</source>
+            </trans-unit>
+            <trans-unit id="flexform.preselect.no_site_config">
+                <source>(No CASABLANCA configuration for this site — configure in Tools → CASABLANCA Booking)</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.filterRoomType.label">
+                <source>Filter by room type</source>
+            </trans-unit>
+            <trans-unit id="flexform.filterRoomType.description">
+                <source>When set, only the selected room type card is shown. Leave empty to list all synced room types.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.filterPackage.label">
+                <source>Filter by package</source>
+            </trans-unit>
+            <trans-unit id="flexform.filterPackage.description">
+                <source>When set, only the selected package is shown. Leave empty to list all matching packages.</source>
+            </trans-unit>
+            <trans-unit id="flexform.filterPackage.none">
+                <source>— all packages —</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.roomType.label">
+                <source>Room type</source>
+            </trans-unit>
+            <trans-unit id="flexform.roomType.description">
+                <source>Restrict the price teaser to a single room type. Leave empty for the cheapest rate across all rooms.</source>
+            </trans-unit>
+            <trans-unit id="flexform.roomType.all">
+                <source>— all room types (cheapest overall) —</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.stayNights.label">
+                <source>Stay length (nights)</source>
+            </trans-unit>
+            <trans-unit id="flexform.stayNights.description">
+                <source>Default stay length for IBE book links and the nights label on cards. When filter by stay length is enabled, overview lists only packages bookable for this number of nights.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.filterByStayNights.label">
+                <source>Filter by stay length</source>
+            </trans-unit>
+            <trans-unit id="flexform.filterByStayNights.description">
+                <source>When enabled, overview lists only packages bookable for the stay length above. Disable to show all synced packages.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.defaultRooms.label">
+                <source>Default number of rooms</source>
+            </trans-unit>
+            <trans-unit id="flexform.defaultRooms.description">
+                <source>Pre-selected room count in the search form (1–5). Occupancy is configured per room.</source>
+            </trans-unit>
+            <trans-unit id="flexform.adults.label">
+                <source>Default number of adults</source>
+            </trans-unit>
+            <trans-unit id="flexform.adults.description">
+                <source>Used to pre-populate the adults field in the widget form.</source>
+            </trans-unit>
+            <trans-unit id="flexform.adultsIbe.description">
+                <source>Default occupancy passed to the IBE on book-button handover.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.childrenCount.label">
+                <source>Default number of children</source>
+            </trans-unit>
+            <trans-unit id="flexform.childrenCount.description">
+                <source>Used to pre-populate the children count in the widget form. Set to 0 to hide the ages field on the frontend.</source>
+            </trans-unit>
+            <trans-unit id="flexform.childrenCountIbe.description">
+                <source>Default number of children passed to the IBE on book-button handover.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.childrenAges.label">
+                <source>Default children ages (optional)</source>
+            </trans-unit>
+            <trans-unit id="flexform.childrenAges.description">
+                <source>Comma-separated list of ages (e.g. "4,8"). Only used when children count &gt; 0. If empty, the ages field on the frontend starts blank.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.language.label">
+                <source>Widget language</source>
+            </trans-unit>
+            <trans-unit id="flexform.language.description">
+                <source>Culture code passed to the IBE on handover. "Auto" follows the TYPO3 site's default language.</source>
+            </trans-unit>
+            <trans-unit id="flexform.language.auto">
+                <source>Auto (site default)</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.compactOccupancy.label">
+                <source>Compact occupancy (icon + expandable panel)</source>
+            </trans-unit>
+            <trans-unit id="flexform.compactOccupancy.description">
+                <source>When enabled, arrival, departure, a guest icon, and the search button appear in one row. Click the icon to show or hide rooms, adults, and children below.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.ibeLinkTarget.label">
+                <source>Booking link opens in</source>
+            </trans-unit>
+            <trans-unit id="flexform.ibeLinkTarget.description">
+                <source>Choose whether links to the Booking Engine open in the same browser window or a new tab. New tab requires JavaScript; the no-JavaScript form fallback always redirects in the same window.</source>
+            </trans-unit>
+            <trans-unit id="flexform.ibeLinkTarget.self">
+                <source>Same window</source>
+            </trans-unit>
+            <trans-unit id="flexform.ibeLinkTarget.blank">
+                <source>New tab</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.window.label">
+                <source>Calendar window (days)</source>
+            </trans-unit>
+            <trans-unit id="flexform.window.description">
+                <source>How many days of availability to render. 7–180. Defaults to 90.</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarInitialMonths.label">
+                <source>Initially visible months</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarInitialMonths.description">
+                <source>How many months to show when the calendar first loads. More months are preloaded and can be revealed with the month navigator.</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarInitialMonths.one">
+                <source>Current month only</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarInitialMonths.two">
+                <source>Current and next month</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarOfferMode.label">
+                <source>Offers after date selection</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarOfferMode.description">
+                <source>Which bookable offers to show in the sidebar once arrival and departure are selected.</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarOfferMode.none">
+                <source>None (dates only)</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarOfferMode.ratesOnly">
+                <source>Standard rates only</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarOfferMode.packagesOnly">
+                <source>Packages only</source>
+            </trans-unit>
+            <trans-unit id="flexform.calendarOfferMode.packagesAndRates">
+                <source>Packages and standard rates</source>
+            </trans-unit>
+            <trans-unit id="flexform.showEnquiryButton.label">
+                <source>Show enquiry button</source>
+            </trans-unit>
+            <trans-unit id="flexform.showEnquiryButton.description">
+                <source>Display an enquiry button next to the book button. Requires an enquiry URL.</source>
+            </trans-unit>
+            <trans-unit id="flexform.enquiryUrl.label">
+                <source>Enquiry URL</source>
+            </trans-unit>
+            <trans-unit id="flexform.enquiryUrl.description">
+                <source>Target URL for the enquiry button (e.g. a contact or request form page).</source>
+            </trans-unit>
+            <trans-unit id="flexform.enquiryLinkTarget.label">
+                <source>Enquiry link opens in</source>
+            </trans-unit>
+            <trans-unit id="flexform.enquiryLinkTarget.description">
+                <source>Choose whether the enquiry link opens in the same window or a new tab.</source>
+            </trans-unit>
+            <trans-unit id="flexform.windowPrice.description">
+                <source>How many days ahead to look for the cheapest from-price. 7–180. Defaults to 90.</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.stayNightsRoomTypes.description">
+                <source>Default stay length in nights for IBE book links (arrival + stay nights).</source>
+            </trans-unit>
+
+            <trans-unit id="flexform.sheet.display">
+                <source>Display</source>
+            </trans-unit>
+            <trans-unit id="flexform.displayMode.label">
+                <source>Display mode</source>
+            </trans-unit>
+            <trans-unit id="flexform.displayMode.description">
+                <source>Overview lists room cards. Detail shows a single room filtered by the room slug in the URL.</source>
+            </trans-unit>
+            <trans-unit id="flexform.displayMode.overview">
+                <source>Overview (room list)</source>
+            </trans-unit>
+            <trans-unit id="flexform.displayMode.detail">
+                <source>Detail (single room from URL slug)</source>
+            </trans-unit>
+            <trans-unit id="flexform.showName.label">
+                <source>Show room name</source>
+            </trans-unit>
+            <trans-unit id="flexform.showDescription.label">
+                <source>Show room description</source>
+            </trans-unit>
+            <trans-unit id="flexform.showPrice.label">
+                <source>Show from-price</source>
+            </trans-unit>
+            <trans-unit id="flexform.showImage.label">
+                <source>Show image</source>
+            </trans-unit>
+            <trans-unit id="flexform.cardLinkType.label">
+                <source>Card link type</source>
+            </trans-unit>
+            <trans-unit id="flexform.cardLinkType.description">
+                <source>Overview only. Book opens the IBE directly. Details links to the room detail page with the room slug.</source>
+            </trans-unit>
+            <trans-unit id="flexform.cardLinkType.book">
+                <source>Book (booking engine)</source>
+            </trans-unit>
+            <trans-unit id="flexform.cardLinkType.details">
+                <source>Details (TYPO3 room page)</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailPageUid.label">
+                <source>Room detail page</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailPageUid.description">
+                <source>Target page for Details links. That page must contain this plugin in Detail display mode.</source>
+            </trans-unit>
+            <trans-unit id="flexform.displayModePackages.description">
+                <source>Overview lists package cards. Detail shows a single package filtered by the package slug in the URL.</source>
+            </trans-unit>
+            <trans-unit id="flexform.cardLinkTypePackages.description">
+                <source>Overview only. Book opens the IBE with rateIds preselection. Details links to the package detail page with the package slug.</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailPageUidPackages.description">
+                <source>Target page for Details links. That page must contain the Packages plugin in Detail display mode.</source>
+            </trans-unit>
+            <trans-unit id="flexform.showDetailCalendar.label">
+                <source>Show availability calendar</source>
+            </trans-unit>
+            <trans-unit id="flexform.showDetailCalendar.description">
+                <source>Embed the booking calendar on detail pages. Applies when display mode is Detail.</source>
+            </trans-unit>
+            <trans-unit id="flexform.showDetailCalendarPackages.description">
+                <source>Embed the booking calendar on package detail pages. Applies when display mode is Detail.</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarPosition.label">
+                <source>Calendar position</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarPosition.description">
+                <source>Place the calendar above or below the detail content.</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarPosition.above">
+                <source>Above detail content</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarPosition.below">
+                <source>Below detail content</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarInitialMonths.label">
+                <source>Initially visible months</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarInitialMonths.description">
+                <source>How many months to show when the detail calendar first loads.</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarOfferMode.label">
+                <source>Offers after date selection</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarOfferMode.description">
+                <source>Room detail only. Show standard rates for this room after dates are selected, or dates only.</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarOfferMode.none">
+                <source>None (dates only)</source>
+            </trans-unit>
+            <trans-unit id="flexform.detailCalendarOfferMode.ratesOnly">
+                <source>Standard rates for this room</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

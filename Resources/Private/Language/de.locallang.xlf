@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en"
+          target-language="de"
+          datatype="plaintext"
+          original="messages"
+          date="2026-01-01T00:00:00Z"
+          product-name="casablanca_booking">
+        <header/>
+        <body>
+
+            <trans-unit id="widget.heading.default">
+                <source>Check availability and book</source>
+                <target>Verfügbarkeit prüfen &amp; buchen</target>
+            </trans-unit>
+            <trans-unit id="widget.heading.room">
+                <source>Availability for %s</source>
+                <target>Verfügbarkeit für %s</target>
+            </trans-unit>
+
+            <trans-unit id="widget.error.notConfigured">
+                <source>The CASABLANCA booking widget is not configured for this site.</source>
+                <target>Das CASABLANCA-Buchungswidget ist für diese Site nicht konfiguriert.</target>
+            </trans-unit>
+
+            <trans-unit id="widget.arrival"><source>Arrival</source><target>Anreise</target></trans-unit>
+            <trans-unit id="widget.departure"><source>Departure</source><target>Abreise</target></trans-unit>
+            <trans-unit id="widget.adults"><source>Adults</source><target>Erwachsene</target></trans-unit>
+            <trans-unit id="widget.children"><source>Children</source><target>Kinder</target></trans-unit>
+            <trans-unit id="widget.rooms.count"><source>Rooms</source><target>Zimmer</target></trans-unit>
+            <trans-unit id="widget.rooms.roomN"><source>Room %s</source><target>Zimmer %s</target></trans-unit>
+            <trans-unit id="widget.children.ages">
+                <source>Children ages</source>
+                <target>Alter der Kinder</target>
+            </trans-unit>
+            <trans-unit id="widget.children.ageN">
+                <source>Child %s</source>
+                <target>Kind %s</target>
+            </trans-unit>
+            <trans-unit id="widget.children.ages.placeholder">
+                <source>e.g. 4, 8</source>
+                <target>z. B. 4, 8</target>
+            </trans-unit>
+            <trans-unit id="widget.room"><source>Room category</source><target>Zimmerkategorie</target></trans-unit>
+            <trans-unit id="widget.room.any"><source>Any room</source><target>Beliebig</target></trans-unit>
+            <trans-unit id="widget.submit"><source>Check availability</source><target>Verfügbarkeit prüfen</target></trans-unit>
+            <trans-unit id="widget.restrictions"><source>Restrictions apply</source><target>Restriktionen</target></trans-unit>
+
+            <trans-unit id="widget.calendar.label">
+                <source>Availability calendar</source>
+                <target>Verfügbarkeitskalender</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.from">
+                <source>From</source>
+                <target>Von</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.to">
+                <source>To</source>
+                <target>Bis</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.bookNow">
+                <source>Book now</source>
+                <target>Jetzt buchen</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.enquiry">
+                <source>Enquiry</source>
+                <target>Anfragen</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.occupancy">
+                <source>Room occupancy</source>
+                <target>Zimmerbelegung</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.maxOccupancyHint">
+                <source>Up to %s guests per room</source>
+                <target>Bis zu %s Gäste pro Zimmer</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.addRoom">
+                <source>Add another room</source>
+                <target>Weiteres Zimmer hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.removeRoom">
+                <source>Remove room</source>
+                <target>Zimmer entfernen</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.adultsHint">
+                <source>aged 15 and over</source>
+                <target>ab 15 Jahre</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.childrenHint">
+                <source>aged 0 to 14</source>
+                <target>von 0 bis 14 Jahre</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.fromPrice">
+                <source>from</source>
+                <target>ab</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.footnote">
+                <source>* Lowest prices per person at standard occupancy</source>
+                <target>* Niedrigste Preise pro Person bei Standardbelegung</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.prevMonth">
+                <source>Previous month</source>
+                <target>Vorheriger Monat</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.nextMonth">
+                <source>Next month</source>
+                <target>Nächster Monat</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.nights">
+                <source>%s nights</source>
+                <target>%s Nächte</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.clearSelection">
+                <source>Clear date selection</source>
+                <target>Datumsauswahl löschen</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.offersLoading">
+                <source>Loading offers…</source>
+                <target>Angebote werden geladen…</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.offersError">
+                <source>Could not load offers.</source>
+                <target>Angebote konnten nicht geladen werden.</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.packagesHeading">
+                <source>Packages</source>
+                <target>Pauschalen</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.ratesHeading">
+                <source>Rates</source>
+                <target>Tarife</target>
+            </trans-unit>
+            <trans-unit id="widget.calendar.details">
+                <source>Details</source>
+                <target>Details</target>
+            </trans-unit>
+
+            <trans-unit id="widget.legend.label"><source>Calendar legend</source><target>Legende</target></trans-unit>
+            <trans-unit id="widget.legend.available"><source>Available</source><target>Verfügbar</target></trans-unit>
+            <trans-unit id="widget.legend.restricted"><source>Restrictions apply</source><target>Restriktionen</target></trans-unit>
+            <trans-unit id="widget.legend.noArrival"><source>No arrival</source><target>Keine Anreise</target></trans-unit>
+            <trans-unit id="widget.legend.unavailable"><source>Not available</source><target>Nicht verfügbar</target></trans-unit>
+
+            <trans-unit id="searchbar.heading"><source>Search availability</source><target>Verfügbarkeit suchen</target></trans-unit>
+            <trans-unit id="searchbar.submit"><source>Search &amp; book</source><target>Suchen &amp; buchen</target></trans-unit>
+            <trans-unit id="searchbar.occupancyToggle">
+                <source>Guests and rooms</source>
+                <target>Gäste und Zimmer</target>
+            </trans-unit>
+
+            <trans-unit id="roomtypes.heading"><source>Our rooms</source><target>Unsere Zimmer</target></trans-unit>
+            <trans-unit id="roomtypes.fromPrice"><source>from</source><target>ab</target></trans-unit>
+            <trans-unit id="roomtypes.book"><source>Book now</source><target>Jetzt buchen</target></trans-unit>
+            <trans-unit id="roomtypes.empty"><source>No room types available yet. Run a sync first.</source><target>Noch keine Zimmertypen verfügbar. Zuerst einen Sync ausführen.</target></trans-unit>
+            <trans-unit id="roomtypes.details"><source>Details</source><target>Details</target></trans-unit>
+            <trans-unit id="roomtypes.notFound"><source>Room not found.</source><target>Zimmer nicht gefunden.</target></trans-unit>
+
+            <trans-unit id="packages.heading"><source>Packages &amp; offers</source><target>Pauschalen &amp; Angebote</target></trans-unit>
+            <trans-unit id="packages.catering"><source>Catering</source><target>Verpflegung</target></trans-unit>
+            <trans-unit id="packages.nights"><source>%s nights</source><target>%s Nächte</target></trans-unit>
+            <trans-unit id="packages.book"><source>Book package</source><target>Pauschale buchen</target></trans-unit>
+            <trans-unit id="packages.bookNow"><source>Book now</source><target>Jetzt buchen</target></trans-unit>
+            <trans-unit id="packages.details"><source>Details</source><target>Details</target></trans-unit>
+            <trans-unit id="packages.fromPrice"><source>from</source><target>ab</target></trans-unit>
+            <trans-unit id="packages.empty"><source>No packages match the selected stay length.</source><target>Keine Pauschalen für die gewählte Aufenthaltsdauer.</target></trans-unit>
+            <trans-unit id="packages.notFound"><source>Package not found.</source><target>Pauschale nicht gefunden.</target></trans-unit>
+
+            <trans-unit id="priceteaser.from"><source>from</source><target>ab</target></trans-unit>
+            <trans-unit id="priceteaser.window"><source>in the next %s days</source><target>in den nächsten %s Tagen</target></trans-unit>
+            <trans-unit id="priceteaser.empty"><source>No prices available in the selected window.</source><target>Keine Preise im gewählten Zeitraum verfügbar.</target></trans-unit>
+
+        </body>
+    </file>
+</xliff>

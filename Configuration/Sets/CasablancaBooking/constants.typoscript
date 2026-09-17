@@ -1,0 +1,29 @@
+# CASABLANCA booking — constants surface (TYPO3 v12 TypoScript template module).
+#
+# On TYPO3 v13+, prefer Site Settings from the casablanca/booking site set.
+
+plugin.tx_casablancabooking {
+    view {
+        # cat=plugin.tx_casablancabooking/file; type=string; label=Path to template root
+        templateRootPath =
+        # cat=plugin.tx_casablancabooking/file; type=string; label=Path to partial root
+        partialRootPath =
+        # cat=plugin.tx_casablancabooking/file; type=string; label=Path to layout root
+        layoutRootPath =
+    }
+
+    # cat=plugin.tx_casablancabooking/theming; type=boolean; label=Include default widget CSS
+    includeCss = 1
+
+    # cat=plugin.tx_casablancabooking/theming; type=options[default,inherit,compact]; label=Default appearance
+    appearance = default
+
+    theme {
+        # cat=plugin.tx_casablancabooking/theming; type=string; label=Accent color (CSS)
+        accent =
+        # cat=plugin.tx_casablancabooking/theming; type=string; label=Accent contrast color (CSS)
+        accentContrast =
+        # cat=plugin.tx_casablancabooking/theming; type=string; label=Border radius (CSS)
+        radius =
+    }
+}

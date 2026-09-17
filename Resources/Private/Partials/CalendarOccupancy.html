@@ -1,0 +1,65 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<!--
+    Sidebar occupancy for the availability calendar.
+    Uses stepper controls for adults/children on the first room;
+    falls back to the full multi-room UI when defaultRooms > 1.
+-->
+
+<div class="cb-calendar-occupancy" data-cb-calendar-occupancy>
+    <h3 class="cb-calendar-occupancy__title">
+        <f:translate key="widget.calendar.occupancy" default="Room occupancy" />
+    </h3>
+
+    <f:if condition="{roomMaxOccupancy} > 0">
+        <f:then>
+            <p class="cb-calendar-occupancy__hint">
+                <f:translate key="widget.calendar.maxOccupancyHint"
+                             default="Maximum %s guests per room"
+                             arguments="{0: roomMaxOccupancy}" />
+            </p>
+
+            <input type="hidden"
+                   name="numberOfRooms"
+                   value="{rooms -> f:count()}"
+                   data-cb-field="rooms-count" />
+
+            <div class="cb-calendar-occupancy__rooms" data-cb-rooms-list>
+                <f:for each="{rooms}" as="room" iteration="roomIt">
+                    <f:render partial="Calendar/CompactRoomBlock"
+                              arguments="{room: room, index: roomIt.index, roomNumber: roomIt.cycle}" />
+                </f:for>
+            </div>
+
+            <button type="button"
+                    class="cb-button cb-button--secondary cb-calendar-occupancy__add-room"
+                    data-cb-add-room>
+                <f:translate key="widget.calendar.addRoom" default="Add another room" />
+            </button>
+        </f:then>
+        <f:else>
+            <f:if condition="{defaultRooms} > 1">
+                <f:then>
+                    <f:render partial="OccupancyRooms"
+                              arguments="{defaultRooms: defaultRooms, rooms: rooms}" />
+                </f:then>
+                <f:else>
+                    <input type="hidden"
+                           name="numberOfRooms"
+                           value="1"
+                           data-cb-field="rooms-count" />
+
+                    <f:for each="{rooms}" as="room" iteration="roomIt">
+                        <f:if condition="{roomIt.isFirst}">
+                            <f:render partial="Calendar/CompactRoomBlock"
+                                      arguments="{room: room, index: 0, roomNumber: 1}" />
+                        </f:if>
+                    </f:for>
+                </f:else>
+            </f:if>
+        </f:else>
+    </f:if>
+</div>
+
+</html>

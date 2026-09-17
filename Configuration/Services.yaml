@@ -1,0 +1,70 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Casablanca\CasablancaBooking\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Domain/Dto/*'
+      - '../Classes/Domain/Model/*'
+
+  Casablanca\CasablancaBooking\Command\SyncAvailabilityCommand:
+    public: true
+    tags:
+      - name: console.command
+        command: 'casablanca-booking:sync'
+        description: 'Synchronise CASABLANCA catalog and from-prices into the local cache.'
+
+  Casablanca\CasablancaBooking\Controller\BookingWidgetController:
+    public: true
+  Casablanca\CasablancaBooking\Controller\SearchBarController:
+    public: true
+  Casablanca\CasablancaBooking\Controller\RoomTypesController:
+    public: true
+  Casablanca\CasablancaBooking\Controller\PackagesController:
+    public: true
+  Casablanca\CasablancaBooking\Controller\PriceTeaserController:
+    public: true
+  Casablanca\CasablancaBooking\Controller\Backend\ConfigurationController:
+    public: true
+
+  Casablanca\CasablancaBooking\Backend\SiteIdentifierResolver:
+    public: true
+  Casablanca\CasablancaBooking\Backend\ItemsProcFunc\RoomTypeItemsProcFunc:
+    public: true
+  Casablanca\CasablancaBooking\Backend\ItemsProcFunc\RateItemsProcFunc:
+    public: true
+
+  Casablanca\CasablancaBooking\Service\Api\ApiClientFactory:
+    public: true
+
+  Casablanca\CasablancaBooking\Domain\Repository\AvailabilityRepository:
+    public: true
+  Casablanca\CasablancaBooking\Domain\Repository\RoomTypeRepository:
+    public: true
+
+  Casablanca\CasablancaBooking\Domain\Repository\SyncLogRepository:
+    public: true
+  Casablanca\CasablancaBooking\Domain\Repository\ConfigurationRepository:
+    public: true
+  Casablanca\CasablancaBooking\Domain\Repository\RateRepository:
+    public: true
+
+  Casablanca\CasablancaBooking\Service\Sync\SyncService:
+    public: true
+  Casablanca\CasablancaBooking\Service\Configuration\ConfigurationService:
+    public: true
+
+  Casablanca\CasablancaBooking\Service\Sync\SyncTriggerService:
+    public: true
+
+  Casablanca\CasablancaBooking\Hook\CacheFlushSyncHook:
+    public: true
+
+  Casablanca\CasablancaBooking\EventListener\CacheFlushSyncListener:
+    tags:
+      - name: event.listener
+        identifier: 'casablanca-booking/cache-flush-sync'
+        event: TYPO3\CMS\Core\Cache\Event\CacheFlushEvent

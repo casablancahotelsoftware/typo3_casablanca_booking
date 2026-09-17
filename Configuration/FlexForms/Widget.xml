@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<T3DataStructure>
+    <meta>
+        <langChildren>1</langChildren>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <sheetTitle>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.sheet.general</sheetTitle>
+                <type>array</type>
+                <el>
+
+                    <settings.preselectRoomCategory>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.preselect.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.preselect.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.preselect.none</numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                            <itemsProcFunc>Casablanca\CasablancaBooking\Backend\ItemsProcFunc\RoomTypeItemsProcFunc->getRoomTypes</itemsProcFunc>
+                            <default></default>
+                        </config>
+                    </settings.preselectRoomCategory>
+
+                    <settings.defaultRooms>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.defaultRooms.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.defaultRooms.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>5</size>
+                            <default>1</default>
+                            <eval>int</eval>
+                            <range type="array">
+                                <lower>1</lower>
+                                <upper>5</upper>
+                            </range>
+                        </config>
+                    </settings.defaultRooms>
+
+                    <settings.defaultAdults>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.adults.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.adults.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>5</size>
+                            <default>2</default>
+                            <eval>int</eval>
+                            <range type="array">
+                                <lower>1</lower>
+                                <upper>10</upper>
+                            </range>
+                        </config>
+                    </settings.defaultAdults>
+
+                    <settings.defaultChildren>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.childrenCount.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.childrenCount.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>5</size>
+                            <default>0</default>
+                            <eval>int</eval>
+                            <range type="array">
+                                <lower>0</lower>
+                                <upper>10</upper>
+                            </range>
+                        </config>
+                    </settings.defaultChildren>
+
+                    <settings.defaultChildrenAges>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.childrenAges.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.childrenAges.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>30</size>
+                            <default></default>
+                            <eval>trim</eval>
+                        </config>
+                    </settings.defaultChildrenAges>
+
+                    <settings.language>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.language.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.language.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.language.auto</numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">Deutsch</numIndex>
+                                    <numIndex index="1">de</numIndex>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <numIndex index="0">English</numIndex>
+                                    <numIndex index="1">en</numIndex>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <numIndex index="0">Italiano</numIndex>
+                                    <numIndex index="1">it</numIndex>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <numIndex index="0">Français</numIndex>
+                                    <numIndex index="1">fr</numIndex>
+                                </numIndex>
+                            </items>
+                            <default></default>
+                        </config>
+                    </settings.language>
+
+                    <settings.ibeLinkTarget>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.ibeLinkTarget.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.ibeLinkTarget.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.ibeLinkTarget.self</numIndex>
+                                    <numIndex index="1">_self</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.ibeLinkTarget.blank</numIndex>
+                                    <numIndex index="1">_blank</numIndex>
+                                </numIndex>
+                            </items>
+                            <default>_self</default>
+                        </config>
+                    </settings.ibeLinkTarget>
+
+                    <settings.windowDays>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.window.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.window.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>5</size>
+                            <default>90</default>
+                            <eval>int</eval>
+                            <range type="array">
+                                <lower>7</lower>
+                                <upper>180</upper>
+                            </range>
+                        </config>
+                    </settings.windowDays>
+
+                    <settings.calendarInitialMonths>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarInitialMonths.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarInitialMonths.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarInitialMonths.one</numIndex>
+                                    <numIndex index="1">1</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarInitialMonths.two</numIndex>
+                                    <numIndex index="1">2</numIndex>
+                                </numIndex>
+                            </items>
+                            <default>1</default>
+                        </config>
+                    </settings.calendarInitialMonths>
+
+                    <settings.calendarOfferMode>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarOfferMode.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarOfferMode.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarOfferMode.none</numIndex>
+                                    <numIndex index="1">none</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarOfferMode.ratesOnly</numIndex>
+                                    <numIndex index="1">rates_only</numIndex>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarOfferMode.packagesOnly</numIndex>
+                                    <numIndex index="1">packages_only</numIndex>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.calendarOfferMode.packagesAndRates</numIndex>
+                                    <numIndex index="1">packages_and_rates</numIndex>
+                                </numIndex>
+                            </items>
+                            <default>none</default>
+                        </config>
+                    </settings.calendarOfferMode>
+
+                    <settings.showEnquiryButton>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.showEnquiryButton.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.showEnquiryButton.description</description>
+                        <config>
+                            <type>check</type>
+                            <default>0</default>
+                        </config>
+                    </settings.showEnquiryButton>
+
+                    <settings.enquiryUrl>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.enquiryUrl.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.enquiryUrl.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>50</size>
+                            <default></default>
+                            <eval>trim</eval>
+                        </config>
+                    </settings.enquiryUrl>
+
+                    <settings.enquiryLinkTarget>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.enquiryLinkTarget.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.enquiryLinkTarget.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.ibeLinkTarget.self</numIndex>
+                                    <numIndex index="1">_self</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.ibeLinkTarget.blank</numIndex>
+                                    <numIndex index="1">_blank</numIndex>
+                                </numIndex>
+                            </items>
+                            <default>_self</default>
+                        </config>
+                    </settings.enquiryLinkTarget>
+
+                </el>
+            </ROOT>
+        </sDEF>
+        <sAppearance>
+            <ROOT>
+                <sheetTitle>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.sheet.appearance</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.appearance>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.appearance.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.appearance.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.appearance.default</numIndex>
+                                    <numIndex index="1">default</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.appearance.inherit</numIndex>
+                                    <numIndex index="1">inherit</numIndex>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.appearance.compact</numIndex>
+                                    <numIndex index="1">compact</numIndex>
+                                </numIndex>
+                            </items>
+                            <default>default</default>
+                        </config>
+                    </settings.appearance>
+                </el>
+            </ROOT>
+        </sAppearance>
+        <sTexts>
+            <ROOT>
+                <sheetTitle>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.sheet.texts</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.labels.heading>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.labels.heading.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.labels.heading.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>50</size>
+                        </config>
+                    </settings.labels.heading>
+                    <settings.labels.bookNow>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.labels.bookNow.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.labels.bookNow.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>50</size>
+                        </config>
+                    </settings.labels.bookNow>
+                    <settings.labels.enquiry>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.labels.enquiry.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.labels.enquiry.description</description>
+                        <config>
+                            <type>input</type>
+                            <size>50</size>
+                        </config>
+                    </settings.labels.enquiry>
+                </el>
+            </ROOT>
+        </sTexts>
+    </sheets>
+</T3DataStructure>

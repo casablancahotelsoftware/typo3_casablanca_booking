@@ -1,0 +1,68 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:casablanca="http://typo3.org/ns/Casablanca/CasablancaBooking/ViewHelper"
+      data-namespace-typo3-fluid="true">
+
+<article class="cb-room-card">
+    <f:if condition="{showImage} && {card.roomType.imageUrl}">
+        <div class="cb-room-card__image">
+            <img src="{card.roomType.imageUrl}"
+                 alt="{card.roomType.name}"
+                 loading="lazy" />
+        </div>
+    </f:if>
+
+    <div class="cb-room-card__body">
+        <f:if condition="{showName}">
+            <h3 class="cb-room-card__title">{card.roomType.name}</h3>
+        </f:if>
+
+        <f:if condition="{showDescription} && {card.roomType.description}">
+            <div class="cb-room-card__description">
+                <f:format.html>{card.roomType.description}</f:format.html>
+            </div>
+        </f:if>
+
+        <f:if condition="{showPrice} && {card.fromPrice}">
+            <p class="cb-room-card__price">
+                <span class="cb-room-card__price-label">
+                    <f:translate key="roomtypes.fromPrice" default="from" />
+                </span>
+                <span class="cb-room-card__price-value">
+                    <f:format.currency currencySign="{card.currency}">{card.fromPrice}</f:format.currency>
+                </span>
+            </p>
+        </f:if>
+
+        <f:if condition="{cardLinkType} == 'book'">
+            <a href="{card.ibeUrl}"
+               class="cb-room-card__book cb-button"
+               target="{ibeLinkTarget}"
+               rel="{f:if(condition: '{ibeLinkTarget} == \'_blank\'', then: 'noopener noreferrer')}"
+               data-cb-ibe-base="{config.ibeBaseUrl}"
+               data-cb-tenant="{config.tenantId}"
+               data-cb-ibe-context="{config.urlFriendlyIbeContextId}"
+               data-cb-link-style="{config.ibeLinkStyle}"
+               data-cb-link-target="{ibeLinkTarget}"
+               data-cb-culture="{culture}"
+               data-cb-room-type="{card.roomType.roomTypeId}"
+               data-cb-adults="{defaultAdults}"
+               data-cb-children="{defaultChildrenCount}"
+               data-cb-arrival="{from -> f:format.date(format: 'Y-m-d')}"
+               data-cb-stay-nights="{stayNights}">
+                <casablanca:label key="roomtypes.book"
+                                  override="{labels.book}"
+                                  default="Book now" />
+            </a>
+        </f:if>
+
+        <f:if condition="{cardLinkType} == 'details' && {card.detailUrl}">
+            <a href="{card.detailUrl}" class="cb-room-card__details cb-button cb-button--secondary">
+                <casablanca:label key="roomtypes.details"
+                                  override="{labels.details}"
+                                  default="Details" />
+            </a>
+        </f:if>
+    </div>
+</article>
+
+</html>

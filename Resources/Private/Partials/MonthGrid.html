@@ -1,0 +1,58 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<!--
+    Renders one month of the availability calendar. The parent template
+    loops over the {availabilityByMonth} map and passes each month's rows
+    into this partial.
+
+    Each day cell carries enough data attributes for the JS URL-builder to
+    compose an IBE redirect on click, without any AJAX.
+
+    Arguments:
+      - monthKey: string "YYYY-MM"
+      - days: Availability[]
+      - preselectedRoomTypeId: string (may be empty)
+-->
+
+<section class="cb-calendar__month">
+    <h3 class="cb-calendar__month-title">
+        <f:format.date format="F Y">{monthKey}-01</f:format.date>
+    </h3>
+    <ol class="cb-calendar__grid" role="list">
+        <f:for each="{days}" as="day">
+            <f:variable name="dateStr" value="{day.effectiveDate -> f:format.date(format: 'Y-m-d')}" />
+            <f:variable name="isAvailable" value="{f:if(condition: '{day.available}', then: '1', else: '0')}" />
+
+            <li class="cb-calendar__cell {day.calendarStateClass}"
+                data-cb-date="{dateStr}"
+                data-cb-available="{isAvailable}"
+                data-cb-room="{day.roomTypeId}"
+                data-cb-min-stay="{day.minLengthOfStay}"
+                data-cb-price="{day.fromPrice}"
+                tabindex="0"
+                role="listitem"
+                aria-label="{f:format.date(date: day.effectiveDate, format: 'l, F j')}, {f:if(condition: '{day.available}', then: 'available', else: 'not available')}{f:if(condition: '{day.fromPrice}', then: ', from {day.fromPrice} {day.currency}')}">
+
+                <span class="cb-calendar__date">
+                    <f:format.date format="j">{day.effectiveDate}</f:format.date>
+                </span>
+
+                <f:if condition="{day.available} && {day.fromPrice}">
+                    <span class="cb-calendar__price">
+                        <f:format.currency currencySign="{day.currency}"
+                                           decimalSeparator="," thousandsSeparator="."
+                                           prependCurrency="0">{day.fromPrice}</f:format.currency>
+                    </span>
+                </f:if>
+
+                <f:if condition="{day.hasRestrictions}">
+                    <span class="cb-calendar__flag"
+                          title="{f:translate(key: 'widget.restrictions', default: 'Restrictions apply')}">*</span>
+                </f:if>
+            </li>
+        </f:for>
+    </ol>
+</section>
+
+</html>

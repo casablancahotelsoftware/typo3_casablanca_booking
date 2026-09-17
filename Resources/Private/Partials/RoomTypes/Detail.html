@@ -1,0 +1,83 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:casablanca="http://typo3.org/ns/Casablanca/CasablancaBooking/ViewHelper"
+      data-namespace-typo3-fluid="true">
+
+<f:for each="{cards}" as="card">
+    <article class="cb-room-detail">
+        <f:if condition="{showImage}">
+            <f:if condition="{card.roomType.images}">
+                <f:then>
+                    <div class="cb-room-detail__gallery">
+                        <f:for each="{card.roomType.images}" as="image">
+                            <f:if condition="{image.url}">
+                                <figure class="cb-room-detail__figure">
+                                    <img src="{image.url}"
+                                         alt="{card.roomType.name}"
+                                         loading="lazy" />
+                                </figure>
+                            </f:if>
+                        </f:for>
+                    </div>
+                </f:then>
+                <f:else>
+                    <f:if condition="{card.roomType.imageUrl}">
+                        <div class="cb-room-detail__image">
+                            <img src="{card.roomType.imageUrl}"
+                                 alt="{card.roomType.name}"
+                                 loading="lazy" />
+                        </div>
+                    </f:if>
+                </f:else>
+            </f:if>
+        </f:if>
+
+        <div class="cb-room-detail__body">
+            <f:if condition="{showName}">
+                <h2 class="cb-room-detail__title">{card.roomType.name}</h2>
+            </f:if>
+
+            <f:if condition="{showDescription} && {card.roomType.description}">
+                <div class="cb-room-detail__description">
+                    <f:format.html>{card.roomType.description}</f:format.html>
+                </div>
+            </f:if>
+
+            <f:if condition="{showPrice} && {card.fromPrice}">
+                <p class="cb-room-detail__price">
+                    <span class="cb-room-detail__price-label">
+                        <f:translate key="roomtypes.fromPrice" default="from" />
+                    </span>
+                    <span class="cb-room-detail__price-value">
+                        <f:format.currency currencySign="{card.currency}">{card.fromPrice}</f:format.currency>
+                    </span>
+                </p>
+            </f:if>
+
+            <f:if condition="{showDetailCalendar}">
+                <f:else>
+                    <a href="{card.ibeUrl}"
+                       class="cb-room-detail__book cb-button"
+                       target="{ibeLinkTarget}"
+                       rel="{f:if(condition: '{ibeLinkTarget} == \'_blank\'', then: 'noopener noreferrer')}"
+                       data-cb-ibe-base="{config.ibeBaseUrl}"
+                       data-cb-tenant="{config.tenantId}"
+                       data-cb-ibe-context="{config.urlFriendlyIbeContextId}"
+                       data-cb-link-style="{config.ibeLinkStyle}"
+                       data-cb-link-target="{ibeLinkTarget}"
+                       data-cb-culture="{culture}"
+                       data-cb-room-type="{card.roomType.roomTypeId}"
+                       data-cb-adults="{defaultAdults}"
+                       data-cb-children="{defaultChildrenCount}"
+                       data-cb-arrival="{from -> f:format.date(format: 'Y-m-d')}"
+                       data-cb-stay-nights="{stayNights}">
+                        <casablanca:label key="roomtypes.book"
+                                          override="{labels.book}"
+                                          default="Book now" />
+                    </a>
+                </f:else>
+            </f:if>
+        </div>
+    </article>
+</f:for>
+
+</html>

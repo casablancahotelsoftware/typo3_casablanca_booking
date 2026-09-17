@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="cb-labels-json" hidden="hidden"><f:format.raw value="{cbLabelsJson}" /></div>
+<script>
+    (function () {
+        document.querySelectorAll('.cb-labels-json').forEach(function (el) {
+            if (!el.textContent) {
+                return;
+            }
+            try {
+                window.CB_LABELS = Object.assign(window.CB_LABELS || {}, JSON.parse(el.textContent));
+            } catch (e) {
+                /* ignore malformed seed */
+            }
+        });
+    })();
+</script>
+
+</html>

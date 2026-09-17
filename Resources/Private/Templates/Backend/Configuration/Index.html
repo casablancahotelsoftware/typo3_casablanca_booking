@@ -1,0 +1,101 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+<div class="cb-backend">
+    <h1>
+        <f:translate key="module.index.title"
+                     extensionName="casablanca_booking"
+                     default="CASABLANCA site configurations" />
+    </h1>
+
+    <p class="cb-backend__intro">
+        <f:translate key="module.index.intro"
+                     extensionName="casablanca_booking"
+                     default="Manage API credentials and sync settings per TYPO3 site." />
+    </p>
+
+    <p>
+        <f:link.action action="edit" class="btn btn-default">
+            <f:translate key="module.index.add"
+                         extensionName="casablanca_booking"
+                         default="Add configuration" />
+        </f:link.action>
+    </p>
+
+    <f:if condition="{configurations}">
+        <f:then>
+            <table class="table table-striped cb-backend__table">
+                <thead>
+                    <tr>
+                        <th>
+                            <f:translate key="module.field.siteIdentifier"
+                                         extensionName="casablanca_booking"
+                                         default="Site identifier" />
+                        </th>
+                        <th>
+                            <f:translate key="module.field.tenantId"
+                                         extensionName="casablanca_booking"
+                                         default="Tenant ID" />
+                        </th>
+                        <th>
+                            <f:translate key="module.field.defaultCulture"
+                                         extensionName="casablanca_booking"
+                                         default="Default culture" />
+                        </th>
+                        <th>
+                            <f:translate key="module.index.actions"
+                                         extensionName="casablanca_booking"
+                                         default="Actions" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{configurations}" as="configuration">
+                        <tr>
+                            <td>{configuration.siteIdentifier}</td>
+                            <td><code>{configuration.tenantId}</code></td>
+                            <td>{configuration.defaultCulture}</td>
+                            <td class="cb-backend__actions">
+                                <f:link.action action="edit"
+                                               arguments="{uid: configuration.uid}"
+                                               class="btn btn-default btn-sm">
+                                    <f:translate key="module.action.edit"
+                                                 extensionName="casablanca_booking"
+                                                 default="Edit" />
+                                </f:link.action>
+                                <f:link.action action="testConnection"
+                                               arguments="{siteIdentifier: configuration.siteIdentifier}"
+                                               class="btn btn-default btn-sm">
+                                    <f:translate key="module.action.test"
+                                                 extensionName="casablanca_booking"
+                                                 default="Test connection" />
+                                </f:link.action>
+                                <f:link.action action="syncNow"
+                                               arguments="{siteIdentifier: configuration.siteIdentifier}"
+                                               class="btn btn-primary btn-sm">
+                                    <f:translate key="module.action.sync"
+                                                 extensionName="casablanca_booking"
+                                                 default="Sync now" />
+                                </f:link.action>
+                            </td>
+                        </tr>
+                    </f:for>
+                </tbody>
+            </table>
+        </f:then>
+        <f:else>
+            <p>
+                <f:translate key="module.index.empty"
+                             extensionName="casablanca_booking"
+                             default="No site configurations yet." />
+            </p>
+        </f:else>
+    </f:if>
+</div>
+</f:section>
+
+</html>

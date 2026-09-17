@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en"
+          datatype="plaintext"
+          original="messages"
+          date="2026-01-01T00:00:00Z"
+          product-name="casablanca_booking">
+        <header/>
+        <body>
+
+            <trans-unit id="widget.heading.default">
+                <source>Check availability and book</source>
+            </trans-unit>
+            <trans-unit id="widget.heading.room">
+                <source>Availability for %s</source>
+            </trans-unit>
+
+            <trans-unit id="widget.error.notConfigured">
+                <source>The CASABLANCA booking widget is not configured for this site.</source>
+            </trans-unit>
+
+            <trans-unit id="widget.arrival">
+                <source>Arrival</source>
+            </trans-unit>
+            <trans-unit id="widget.departure">
+                <source>Departure</source>
+            </trans-unit>
+            <trans-unit id="widget.adults">
+                <source>Adults</source>
+            </trans-unit>
+            <trans-unit id="widget.children">
+                <source>Children</source>
+            </trans-unit>
+            <trans-unit id="widget.rooms.count">
+                <source>Rooms</source>
+            </trans-unit>
+            <trans-unit id="widget.rooms.roomN">
+                <source>Room %s</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.loading">
+                <source>Loading availability…</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.error">
+                <source>Could not load availability.</source>
+            </trans-unit>
+            <trans-unit id="widget.children.ages">
+                <source>Children ages</source>
+            </trans-unit>
+            <trans-unit id="widget.children.ageN">
+                <source>Child %s</source>
+            </trans-unit>
+            <trans-unit id="widget.children.ages.placeholder">
+                <source>e.g. 4, 8</source>
+            </trans-unit>
+            <trans-unit id="widget.room">
+                <source>Room category</source>
+            </trans-unit>
+            <trans-unit id="widget.room.any">
+                <source>Any room</source>
+            </trans-unit>
+            <trans-unit id="widget.submit">
+                <source>Check availability</source>
+            </trans-unit>
+            <trans-unit id="widget.restrictions">
+                <source>Restrictions apply</source>
+            </trans-unit>
+
+            <trans-unit id="widget.calendar.label">
+                <source>Availability calendar</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.from">
+                <source>From</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.to">
+                <source>To</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.bookNow">
+                <source>Book now</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.enquiry">
+                <source>Enquiry</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.occupancy">
+                <source>Room occupancy</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.maxOccupancyHint">
+                <source>Up to %s guests per room</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.addRoom">
+                <source>Add another room</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.removeRoom">
+                <source>Remove room</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.adultsHint">
+                <source>aged 15 and over</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.childrenHint">
+                <source>aged 0 to 14</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.fromPrice">
+                <source>from</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.footnote">
+                <source>* Lowest prices per person at standard occupancy</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.prevMonth">
+                <source>Previous month</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.nextMonth">
+                <source>Next month</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.nights">
+                <source>%s nights</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.clearSelection">
+                <source>Clear date selection</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.offersLoading">
+                <source>Loading offers…</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.offersError">
+                <source>Could not load offers.</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.packagesHeading">
+                <source>Packages</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.ratesHeading">
+                <source>Rates</source>
+            </trans-unit>
+            <trans-unit id="widget.calendar.details">
+                <source>Details</source>
+            </trans-unit>
+
+            <trans-unit id="widget.legend.label">
+                <source>Calendar legend</source>
+            </trans-unit>
+            <trans-unit id="widget.legend.available">
+                <source>Available</source>
+            </trans-unit>
+            <trans-unit id="widget.legend.restricted">
+                <source>Restrictions apply</source>
+            </trans-unit>
+            <trans-unit id="widget.legend.noArrival">
+                <source>No arrival</source>
+            </trans-unit>
+            <trans-unit id="widget.legend.unavailable">
+                <source>Not available</source>
+            </trans-unit>
+
+            <trans-unit id="searchbar.heading">
+                <source>Search availability</source>
+            </trans-unit>
+            <trans-unit id="searchbar.submit">
+                <source>Search &amp; book</source>
+            </trans-unit>
+            <trans-unit id="searchbar.occupancyToggle">
+                <source>Guests and rooms</source>
+            </trans-unit>
+
+            <trans-unit id="roomtypes.heading">
+                <source>Our rooms</source>
+            </trans-unit>
+            <trans-unit id="roomtypes.fromPrice">
+                <source>from</source>
+            </trans-unit>
+            <trans-unit id="roomtypes.book">
+                <source>Book now</source>
+            </trans-unit>
+            <trans-unit id="roomtypes.empty">
+                <source>No room types available yet. Run a sync first.</source>
+            </trans-unit>
+            <trans-unit id="roomtypes.details">
+                <source>Details</source>
+            </trans-unit>
+            <trans-unit id="roomtypes.notFound">
+                <source>Room not found.</source>
+            </trans-unit>
+
+            <trans-unit id="packages.heading">
+                <source>Packages &amp; offers</source>
+            </trans-unit>
+            <trans-unit id="packages.catering">
+                <source>Catering</source>
+            </trans-unit>
+            <trans-unit id="packages.nights">
+                <source>%s nights</source>
+            </trans-unit>
+            <trans-unit id="packages.book">
+                <source>Book package</source>
+            </trans-unit>
+            <trans-unit id="packages.bookNow">
+                <source>Book now</source>
+            </trans-unit>
+            <trans-unit id="packages.details">
+                <source>Details</source>
+            </trans-unit>
+            <trans-unit id="packages.fromPrice">
+                <source>from</source>
+            </trans-unit>
+            <trans-unit id="packages.empty">
+                <source>No packages match the selected stay length.</source>
+            </trans-unit>
+            <trans-unit id="packages.notFound">
+                <source>Package not found.</source>
+            </trans-unit>
+
+            <trans-unit id="priceteaser.from">
+                <source>from</source>
+            </trans-unit>
+            <trans-unit id="priceteaser.window">
+                <source>in the next %s days</source>
+            </trans-unit>
+            <trans-unit id="priceteaser.empty">
+                <source>No prices available in the selected window.</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,324 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+<div class="cb-backend">
+    <h1>
+        <f:if condition="{configuration}">
+            <f:then>
+                <f:translate key="module.edit.title"
+                             extensionName="casablanca_booking"
+                             default="Edit configuration" />
+            </f:then>
+            <f:else>
+                <f:translate key="module.edit.titleNew"
+                             extensionName="casablanca_booking"
+                             default="New configuration" />
+            </f:else>
+        </f:if>
+    </h1>
+
+    <f:if condition="{configuration}">
+        <div class="cb-backend__connection cb-backend__connection--{configuration.connectionStatus}">
+            <span class="cb-backend__connection-badge" aria-hidden="true"></span>
+            <div class="cb-backend__connection-text">
+                <strong>
+                    <f:switch expression="{configuration.connectionStatus}">
+                        <f:case value="ok">
+                            <f:translate key="module.connection.ok"
+                                         extensionName="casablanca_booking"
+                                         default="Connection OK" />
+                        </f:case>
+                        <f:case value="error">
+                            <f:translate key="module.connection.error"
+                                         extensionName="casablanca_booking"
+                                         default="Connection failed" />
+                        </f:case>
+                        <f:defaultCase>
+                            <f:translate key="module.connection.unknown"
+                                         extensionName="casablanca_booking"
+                                         default="Connection not tested yet" />
+                        </f:defaultCase>
+                    </f:switch>
+                </strong>
+                <f:if condition="{configuration.connectionMessage}">
+                    <span class="cb-backend__connection-message">{configuration.connectionMessage}</span>
+                </f:if>
+                <f:if condition="{configuration.connectionCheckedAt} > 0">
+                    <span class="cb-backend__connection-time">
+                        <f:translate key="module.connection.checkedAt"
+                                     extensionName="casablanca_booking"
+                                     default="Last checked:" />
+                        <f:format.date format="Y-m-d H:i">@{configuration.connectionCheckedAt}</f:format.date>
+                    </span>
+                </f:if>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs cb-backend__tabs">
+            <li class="nav-item">
+                <f:link.action action="edit"
+                               arguments="{uid: configuration.uid, tab: 'config'}"
+                               class="nav-link{f:if(condition: isConfigTab, then: ' active')}">
+                    <f:translate key="module.tab.configuration"
+                                 extensionName="casablanca_booking"
+                                 default="Configuration" />
+                </f:link.action>
+            </li>
+            <f:if condition="{configuration.connectionOk}">
+                <li class="nav-item">
+                    <f:link.action action="edit"
+                                   arguments="{uid: configuration.uid, tab: 'mapping'}"
+                                   class="nav-link{f:if(condition: isMappingTab, then: ' active')}">
+                        <f:translate key="module.tab.mappingCodes"
+                                     extensionName="casablanca_booking"
+                                     default="Mapping codes" />
+                    </f:link.action>
+                </li>
+            </f:if>
+        </ul>
+    </f:if>
+
+    <f:if condition="{configuration} && {isMappingTab}">
+        <f:then>
+            <f:render partial="Configuration/MappingCodes" arguments="{configuration: configuration, roomTypes: roomTypes, rates: rates, packages: packages, companyId: companyId}" />
+        </f:then>
+        <f:else>
+            <f:form action="save" name="configuration" class="cb-backend__form">
+                <f:if condition="{configuration}">
+                    <f:form.hidden name="uid" value="{configuration.uid}" />
+                </f:if>
+
+                <fieldset class="form-section">
+                    <legend>
+                        <f:translate key="module.section.credentials"
+                                     extensionName="casablanca_booking"
+                                     default="Credentials" />
+                    </legend>
+
+                    <div class="form-group">
+                        <label for="cb-site-identifier">
+                            <f:translate key="module.field.siteIdentifier"
+                                         extensionName="casablanca_booking"
+                                         default="Site identifier" />
+                        </label>
+                        <f:if condition="{isNew}">
+                            <f:then>
+                                <f:form.select name="siteIdentifier"
+                                               id="cb-site-identifier"
+                                               options="{siteIdentifiers}"
+                                               class="form-control"
+                                               prependOptionLabel="{f:translate(key: 'module.field.siteIdentifier.select', extensionName: 'casablanca_booking', default: '— select site —')}"
+                                               prependOptionValue="" />
+                            </f:then>
+                            <f:else>
+                                <f:form.textfield name="siteIdentifier"
+                                                  id="cb-site-identifier"
+                                                  class="form-control"
+                                                  readonly="readonly"
+                                                  value="{configuration.siteIdentifier}" />
+                            </f:else>
+                        </f:if>
+                        <f:if condition="{isNew} && !{siteIdentifiers}">
+                            <small class="form-text text-warning">
+                                <f:translate key="module.field.siteIdentifier.empty"
+                                             extensionName="casablanca_booking"
+                                             default="No TYPO3 sites found. Create a site in Site Management first." />
+                            </small>
+                        </f:if>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cb-tenant-id">
+                            <f:translate key="module.field.tenantId"
+                                         extensionName="casablanca_booking"
+                                         default="Tenant ID" />
+                        </label>
+                        <f:form.textfield name="tenantId"
+                                          id="cb-tenant-id"
+                                          class="form-control"
+                                          required="required"
+                                          value="{configuration.tenantId}"
+                                          additionalAttributes="{autocomplete: 'off'}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cb-api-key">
+                            <f:translate key="module.field.apiKey"
+                                         extensionName="casablanca_booking"
+                                         default="API key" />
+                        </label>
+                        <f:form.password name="apiKey"
+                                         id="cb-api-key"
+                                         class="form-control"
+                                         required="{isNew}"
+                                         additionalAttributes="{autocomplete: 'new-password'}" />
+                        <small class="form-text text-muted">
+                            <f:if condition="{isNew}">
+                                <f:then>
+                                    <f:translate key="module.field.apiKey.hintNew"
+                                                 extensionName="casablanca_booking"
+                                                 default="Required for new configurations." />
+                                </f:then>
+                                <f:else>
+                                    <f:translate key="module.field.apiKey.hint"
+                                                 extensionName="casablanca_booking"
+                                                 default="Leave blank to keep the existing key." />
+                                </f:else>
+                            </f:if>
+                        </small>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <legend>
+                        <f:translate key="module.section.ibe"
+                                     extensionName="casablanca_booking"
+                                     default="Booking Engine and Space settings" />
+                    </legend>
+
+                    <div class="form-check">
+                        <f:if condition="{configuration} && {configuration.useCustomIbeDomain}">
+                            <f:then>
+                                <f:form.checkbox name="useCustomIbeDomain"
+                                                 id="cb-use-custom-ibe"
+                                                 class="form-check-input"
+                                                 value="1"
+                                                 checked="checked" />
+                            </f:then>
+                            <f:else>
+                                <f:form.checkbox name="useCustomIbeDomain"
+                                                 id="cb-use-custom-ibe"
+                                                 class="form-check-input"
+                                                 value="1" />
+                            </f:else>
+                        </f:if>
+                        <label class="form-check-label" for="cb-use-custom-ibe">
+                            <f:translate key="module.field.useCustomIbeDomain"
+                                         extensionName="casablanca_booking"
+                                         default="Use custom IBE domain" />
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cb-ibe-base-url">
+                            <f:translate key="module.field.ibeBaseUrl"
+                                         extensionName="casablanca_booking"
+                                         default="IBE base URL" />
+                        </label>
+                        <f:form.textfield name="ibeBaseUrl"
+                                          id="cb-ibe-base-url"
+                                          class="form-control"
+                                          value="{f:if(condition: configuration.ibeBaseUrl, then: configuration.ibeBaseUrl, else: 'https://bookingengine.casablanca.at')}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cb-ibe-context">
+                            <f:translate key="module.field.spaceName"
+                                         extensionName="casablanca_booking"
+                                         default="Space name" />
+                        </label>
+                        <f:form.textfield name="urlFriendlyIbeContextId"
+                                          id="cb-ibe-context"
+                                          class="form-control"
+                                          value="{f:if(condition: configuration.urlFriendlyIbeContextId, then: configuration.urlFriendlyIbeContextId, else: 'bookingengine')}" />
+                        <small class="form-text text-muted">
+                            <f:translate key="module.field.spaceName.hint"
+                                         extensionName="casablanca_booking"
+                                         default="The IBE context slug, e.g. bookingengine or wellness-days." />
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cb-ibe-link-style">
+                            <f:translate key="module.field.ibeLinkStyle"
+                                         extensionName="casablanca_booking"
+                                         default="Link style" />
+                        </label>
+                        <f:form.select name="ibeLinkStyle"
+                                       id="cb-ibe-link-style"
+                                       class="form-control"
+                                       options="{ibeLinkStyleOptions}"
+                                       value="{f:if(condition: configuration.ibeLinkStyle, then: configuration.ibeLinkStyle, else: 'full_path')}" />
+                        <small class="form-text text-muted">
+                            <f:translate key="module.field.ibeLinkStyle.hint"
+                                         extensionName="casablanca_booking"
+                                         default="Controls the IBE handover URL path. full_path is the default for CASABLANCA-hosted domains." />
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <f:translate key="module.field.ibeUrlPreview"
+                                         extensionName="casablanca_booking"
+                                         default="Booking Engine URL" />
+                        </label>
+                        <pre id="cb-ibe-url-preview"
+                             class="cb-backend__url-preview{f:if(condition: bookingEngineUrlPreview, else: ' cb-backend__url-preview--empty')}"
+                             aria-live="polite"
+                             data-placeholder="{f:translate(key: 'module.field.ibeUrlPreview.empty', extensionName: 'casablanca_booking', default: 'Enter an IBE base URL to preview the Booking Engine URL.')}">{bookingEngineUrlPreview}</pre>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cb-default-culture">
+                            <f:translate key="module.field.defaultCulture"
+                                         extensionName="casablanca_booking"
+                                         default="Default culture" />
+                        </label>
+                        <f:form.textfield name="defaultCulture"
+                                          id="cb-default-culture"
+                                          class="form-control"
+                                          value="{f:if(condition: configuration.defaultCulture, then: configuration.defaultCulture, else: 'de')}" />
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <legend>
+                        <f:translate key="module.section.sync"
+                                     extensionName="casablanca_booking"
+                                     default="Sync" />
+                    </legend>
+
+                    <p class="form-text text-muted cb-backend__sync-info">
+                        <f:translate key="module.sync.info"
+                                     extensionName="casablanca_booking"
+                                     default="Availability syncs automatically once per day and after cache clears. Use Sync now for an immediate import." />
+                    </p>
+                </fieldset>
+
+                <div class="cb-backend__form-actions">
+                    <f:form.submit value="{f:translate(key: 'module.action.save', extensionName: 'casablanca_booking', default: 'Save')}"
+                                   class="btn btn-primary" />
+
+                    <f:link.action action="index" class="btn btn-default">
+                        <f:translate key="module.action.cancel"
+                                     extensionName="casablanca_booking"
+                                     default="Cancel" />
+                    </f:link.action>
+
+                    <f:if condition="{configuration}">
+                        <f:link.action action="testConnection"
+                                       arguments="{siteIdentifier: configuration.siteIdentifier}"
+                                       class="btn btn-default">
+                            <f:translate key="module.action.test"
+                                         extensionName="casablanca_booking"
+                                         default="Test connection" />
+                        </f:link.action>
+                        <f:link.action action="syncNow"
+                                       arguments="{siteIdentifier: configuration.siteIdentifier}"
+                                       class="btn btn-default">
+                            <f:translate key="module.action.sync"
+                                         extensionName="casablanca_booking"
+                                         default="Sync now" />
+                        </f:link.action>
+                    </f:if>
+                </div>
+            </f:form>
+        </f:else>
+    </f:if>
+</div>
+</f:section>
+
+</html>

@@ -1,0 +1,62 @@
+# Minimal PAGE shell so site-set installs render content out of the box.
+page = PAGE
+page.typeNum = 0
+page.meta.viewport = width=device-width, initial-scale=1
+page.10 = CONTENT
+page.10 {
+    table = tt_content
+    select {
+        orderBy = sorting
+    }
+}
+
+plugin.tx_casablancabooking {
+    view {
+        templateRootPaths {
+            0 = EXT:casablanca_booking/Resources/Private/Templates/
+            10 = {$plugin.tx_casablancabooking.view.templateRootPath}
+        }
+        partialRootPaths {
+            0 = EXT:casablanca_booking/Resources/Private/Partials/
+            10 = {$plugin.tx_casablancabooking.view.partialRootPath}
+        }
+        layoutRootPaths {
+            0 = EXT:casablanca_booking/Resources/Private/Layouts/
+            10 = {$plugin.tx_casablancabooking.view.layoutRootPath}
+        }
+    }
+
+    settings {
+        # Defaults — overridden per-element by the FlexForm.
+        windowDays = 90
+        defaultAdults = 2
+        defaultChildrenAges =
+        language =
+        includeCss = {$plugin.tx_casablancabooking.includeCss}
+        appearance = {$plugin.tx_casablancabooking.appearance}
+        theme {
+            accent = {$plugin.tx_casablancabooking.theme.accent}
+            accentContrast = {$plugin.tx_casablancabooking.theme.accentContrast}
+            radius = {$plugin.tx_casablancabooking.theme.radius}
+        }
+    }
+}
+
+# Site Settings (TYPO3 v13+ site set) — override constants when set in the Site editor.
+plugin.tx_casablancabooking.settings {
+    includeCss = {$casablancaBooking.includeCss}
+    theme {
+        accent = {$casablancaBooking.theme.accent}
+        accentContrast = {$casablancaBooking.theme.accentContrast}
+        radius = {$casablancaBooking.theme.radius}
+    }
+}
+
+page.includeCSS {
+    casablancaBookingWidget = EXT:casablanca_booking/Resources/Public/Css/widget.css
+}
+
+page.includeJSFooter {
+    casablancaBookingWidget = EXT:casablanca_booking/Resources/Public/JavaScript/widget.js
+    casablancaBookingWidget.defer = 1
+}

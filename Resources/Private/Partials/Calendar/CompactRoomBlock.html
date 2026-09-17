@@ -1,0 +1,103 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<fieldset class="cb-room-block cb-room-block--compact"
+          data-cb-room-block
+          data-cb-room-index="{index}">
+    <f:if condition="{index} > 0">
+        <div class="cb-room-block__header">
+            <legend class="cb-room-block__title">
+                <f:translate key="widget.rooms.roomN"
+                             default="Room {0}"
+                             arguments="{0: roomNumber}" />
+            </legend>
+            <button type="button"
+                    class="cb-room-block__remove"
+                    data-cb-remove-room
+                    aria-label="{f:translate(key: 'widget.calendar.removeRoom', default: 'Remove room')}">
+                <f:translate key="widget.calendar.removeRoom" default="Remove room" />
+            </button>
+        </div>
+    </f:if>
+
+    <input type="hidden"
+           name="rooms[{index}][adults]"
+           value="{room.adults}"
+           data-cb-field="adults" />
+    <input type="hidden"
+           name="rooms[{index}][children]"
+           value="{room.children}"
+           data-cb-field="children-count" />
+    <input type="hidden"
+           name="rooms[{index}][childrenAges]"
+           value="{room.childrenAgesString}"
+           data-cb-children-ages-hidden />
+
+    <div class="cb-stepper" data-cb-stepper="adults">
+        <span class="cb-stepper__label">
+            <f:translate key="widget.adults" default="Adults" />
+            <span class="cb-stepper__hint">
+                <f:translate key="widget.calendar.adultsHint" default="aged 15 and over" />
+            </span>
+        </span>
+        <span class="cb-stepper__control">
+            <button type="button"
+                    class="cb-stepper__btn"
+                    data-cb-step="-1"
+                    aria-label="-">−</button>
+            <span class="cb-stepper__value" data-cb-stepper-value>{room.adults}</span>
+            <button type="button"
+                    class="cb-stepper__btn"
+                    data-cb-step="1"
+                    aria-label="+">+</button>
+        </span>
+    </div>
+
+    <div class="cb-stepper" data-cb-stepper="children-count">
+        <span class="cb-stepper__label">
+            <f:translate key="widget.children" default="Children" />
+            <span class="cb-stepper__hint">
+                <f:translate key="widget.calendar.childrenHint" default="aged 0 to 14" />
+            </span>
+        </span>
+        <span class="cb-stepper__control">
+            <button type="button"
+                    class="cb-stepper__btn"
+                    data-cb-step="-1"
+                    aria-label="-">−</button>
+            <span class="cb-stepper__value" data-cb-stepper-value>{room.children}</span>
+            <button type="button"
+                    class="cb-stepper__btn"
+                    data-cb-step="1"
+                    aria-label="+">+</button>
+        </span>
+    </div>
+
+    <div class="cb-field cb-field--ages"
+         data-cb-ages-container
+         hidden="{f:if(condition: '{room.children} > 0', then: '', else: 'hidden')}">
+        <span class="cb-field__label cb-field__label--group">
+            <f:translate key="widget.children.ages" default="Children ages" />
+        </span>
+        <div class="cb-ages" data-cb-ages-list>
+            <f:for each="{room.childrenAges}" as="age" iteration="ageIt">
+                <label class="cb-ages__item">
+                    <span class="cb-ages__label">
+                        <f:translate key="widget.children.ageN"
+                                     default="Child {0}"
+                                     arguments="{0: ageIt.cycle}" />
+                    </span>
+                    <input type="number"
+                           name="rooms[{index}][childAge][]"
+                           min="0"
+                           max="17"
+                           value="{age}"
+                           required="required"
+                           data-cb-child-age />
+                </label>
+            </f:for>
+        </div>
+    </div>
+</fieldset>
+
+</html>

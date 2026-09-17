@@ -1,0 +1,180 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:casablanca="http://typo3.org/ns/Casablanca/CasablancaBooking/ViewHelper"
+      data-namespace-typo3-fluid="true">
+
+<div class="{cbWidgetClasses}" style="{cbThemeStyle}">
+    <f:if condition="{showCalendarHeading}">
+        <h2 id="cb-widget-heading" class="cb-widget__heading">
+            <f:if condition="{labels.heading}">
+                <f:then>{labels.heading}</f:then>
+                <f:else>
+                    <f:if condition="{preselectedRoomType}">
+                        <f:then>
+                            <casablanca:label key="widget.heading.room"
+                                              default="Availability for {0}"
+                                              arguments="{0: preselectedRoomType.name}" />
+                        </f:then>
+                        <f:else>
+                            <casablanca:label key="widget.heading.default"
+                                              default="Check availability and book" />
+                        </f:else>
+                    </f:if>
+                </f:else>
+            </f:if>
+        </h2>
+    </f:if>
+
+    <div class="cb-calendar-layout{f:if(condition: calendarLayoutClass, then: ' {calendarLayoutClass}')}">
+        <div class="cb-calendar-layout__main">
+            <div class="cb-calendar__nav"
+                 data-cb-calendar-nav
+                 hidden="hidden">
+                <button type="button"
+                        class="cb-calendar__nav-btn"
+                        data-cb-month-prev
+                        aria-label="{f:translate(key: 'widget.calendar.prevMonth', default: 'Previous month')}">
+                    ‹
+                </button>
+                <h3 class="cb-calendar__nav-title" data-cb-month-title></h3>
+                <button type="button"
+                        class="cb-calendar__nav-btn"
+                        data-cb-month-next
+                        aria-label="{f:translate(key: 'widget.calendar.nextMonth', default: 'Next month')}">
+                    ›
+                </button>
+            </div>
+
+            <div class="cb-calendar cb-calendar--empty"
+                 data-cb-calendar-host
+                 aria-live="polite"
+                 aria-label="{f:translate(key: 'widget.calendar.label', default: 'Availability calendar')}">
+            </div>
+
+            <p class="cb-calendar__footnote">
+                <f:translate key="widget.calendar.footnote"
+                             default="* Lowest prices per person at standard occupancy" />
+            </p>
+        </div>
+
+        <aside class="cb-calendar-layout__aside">
+            <form class="cb-widget__form cb-widget__form--calendar"
+                  method="get"
+                  action="{calendarFetchUrl}"
+                  data-cb-mode="calendar"
+                  data-cb-fetch-url="{calendarFetchUrl}"
+                  data-cb-redirect-url="{calendarRedirectUrl}"
+                  data-cb-ibe-base="{ibeBaseUrl}"
+                  data-cb-tenant="{tenantId}"
+                  data-cb-ibe-context="{ibeContextId}"
+                  data-cb-link-style="{config.ibeLinkStyle}"
+                  data-cb-culture="{culture}"
+                  data-cb-link-target="{ibeLinkTarget}"
+                  data-cb-window-days="{windowDays}"
+                  data-cb-initial-months="{calendarInitialMonths}"
+                  data-cb-offer-mode="{calendarOfferMode}"
+                  data-cb-preselected-room="{preselectedRoomTypeId}"
+                  data-cb-offers-url="{offersFetchUrl}"
+                  data-cb-filter-rate-ids="{filterRateIds}"
+                  data-cb-rate-ids="{preselectedRateId}"
+                  data-cb-max-occupancy="{roomMaxOccupancy}"
+                  data-cb-min-occupancy="{roomMinOccupancy}"
+                  data-cb-default-adults="{calendarDefaultAdults}"
+                  data-cb-default-children="{calendarDefaultChildren}">
+
+                <input type="hidden"
+                       name="arrival"
+                       value=""
+                       data-cb-field="arrival" />
+                <input type="hidden"
+                       name="departure"
+                       value=""
+                       data-cb-field="departure" />
+
+                <f:if condition="{preselectedRoomTypeId}">
+                    <input type="hidden"
+                           name="room"
+                           value="{preselectedRoomTypeId}" />
+                </f:if>
+
+                <f:if condition="{filterRateIds}">
+                    <input type="hidden"
+                           name="rateIds"
+                           value="{filterRateIds}" />
+                </f:if>
+
+                <f:render partial="CalendarOccupancy"
+                          arguments="{defaultRooms: defaultRooms, rooms: rooms, roomMaxOccupancy: roomMaxOccupancy, roomMinOccupancy: roomMinOccupancy}" />
+
+                <p class="cb-calendar__selection-range"
+                   data-cb-selection-summary
+                   hidden="hidden">
+                    <span class="cb-calendar__selection-label">
+                        <f:translate key="widget.calendar.from" default="From" />:
+                    </span>
+                    <strong data-cb-selection-from>—</strong>
+                    <span class="cb-calendar__selection-label">
+                        <f:translate key="widget.calendar.to" default="To" />:
+                    </span>
+                    <strong data-cb-selection-to>—</strong>
+                </p>
+
+                <f:if condition="{calendarOffersEnabled}">
+                    <div class="cb-calendar__offers"
+                         data-cb-offers
+                         hidden="hidden">
+                        <p class="cb-calendar__offers-loading"
+                           data-cb-offers-loading
+                           hidden="hidden">
+                            <f:translate key="widget.calendar.offersLoading"
+                                         default="Loading offers…" />
+                        </p>
+                        <p class="cb-calendar__offers-error"
+                           data-cb-offers-error
+                           hidden="hidden"
+                           role="alert"></p>
+                        <div class="cb-calendar__offers-list"
+                             data-cb-offers-list
+                             role="radiogroup"></div>
+                    </div>
+                </f:if>
+
+                <p class="cb-calendar__price" data-cb-price-summary>
+                    <span class="cb-calendar__price-prefix">
+                        <f:translate key="widget.calendar.fromPrice" default="from" />
+                    </span>
+                    <span class="cb-calendar__price-value" data-cb-price-value>—</span>
+                </p>
+
+                <div class="cb-calendar__actions">
+                    <f:if condition="{showEnquiryButton}">
+                        <a class="cb-button cb-calendar__enquiry"
+                           data-cb-enquiry
+                           href="{enquiryUrl}"
+                           target="{enquiryLinkTarget}"
+                           rel="{f:if(condition: '{enquiryLinkTarget} == \'_blank\'', then: 'noopener noreferrer')}">
+                            <casablanca:label key="widget.calendar.enquiry"
+                                              override="{labels.enquiry}"
+                                              default="Enquiry" />
+                        </a>
+                    </f:if>
+                    <button type="button"
+                            class="cb-widget__submit cb-calendar__book"
+                            data-cb-book-now
+                            disabled="disabled">
+                        <casablanca:label key="widget.calendar.bookNow"
+                                          override="{labels.bookNow}"
+                                          default="Book now" />
+                    </button>
+                </div>
+            </form>
+        </aside>
+    </div>
+
+    <f:if condition="{showCalendarLegend}">
+        <f:render partial="Legend" />
+    </f:if>
+
+    <f:render partial="Calendar/LabelsScript" />
+</div>
+
+</html>

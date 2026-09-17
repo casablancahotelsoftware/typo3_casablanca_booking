@@ -1,0 +1,5 @@
+name: casablanca/booking
+label: 'CASABLANCA Booking Engine'
+dependencies:
+  - typo3/fluid-styled-content
+  - typo3/fluid-styled-content-css

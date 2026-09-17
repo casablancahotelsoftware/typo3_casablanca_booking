@@ -1,0 +1,22 @@
+# Example site configuration snippet for pretty package detail URLs.
+# Copy into your site config.yaml under routeEnhancers and replace limitToPages.
+#
+# Requires a detail page with the CASABLANCA Packages plugin set to
+# Display mode: Detail (single package from URL slug).
+
+routeEnhancers:
+  CasablancaPackageDetail:
+    type: Extbase
+    extension: CasablancaBooking
+    plugin: Packages
+    limitToPages:
+      - 456
+    routes:
+      - routePath: '/{packageSlug}'
+        _controller: 'Packages::show'
+        _arguments:
+          packageSlug: packageSlug
+    defaultController: 'Packages::show'
+    aspects:
+      packageSlug:
+        type: CasablancaPackageSlug

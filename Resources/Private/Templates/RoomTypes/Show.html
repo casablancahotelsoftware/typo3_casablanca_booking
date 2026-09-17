@@ -1,0 +1,68 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:casablanca="http://typo3.org/ns/Casablanca/CasablancaBooking/ViewHelper"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <f:if condition="{error} == 'not_configured'">
+        <f:then>
+            <div class="cb-widget__error" role="alert">
+                <f:translate key="widget.error.notConfigured"
+                             default="The CASABLANCA booking widget is not configured for this site." />
+            </div>
+        </f:then>
+        <f:else>
+            <f:if condition="{error} == 'room_not_found'">
+                <f:then>
+                    <div class="cb-widget__error" role="alert">
+                        <f:translate key="roomtypes.notFound" default="Room not found." />
+                    </div>
+                </f:then>
+                <f:else>
+                    <f:if condition="{displayMode} == 'detail'">
+                        <f:then>
+                            <f:if condition="{showDetailCalendar} && {detailCalendarPosition} == 'above'">
+                                <f:render partial="Calendar/DetailEmbed" arguments="{_all}" />
+                            </f:if>
+
+                            <f:render partial="RoomTypes/Detail"
+                                      arguments="{cards: cards, config: config, culture: culture, defaultAdults: defaultAdults, defaultChildrenCount: defaultChildrenCount, from: from, stayNights: stayNights, showName: showName, showDescription: showDescription, showPrice: showPrice, showImage: showImage, showDetailCalendar: showDetailCalendar, ibeLinkTarget: ibeLinkTarget, labels: labels}" />
+
+                            <f:if condition="{showDetailCalendar} && {detailCalendarPosition} == 'below'">
+                                <f:render partial="Calendar/DetailEmbed" arguments="{_all}" />
+                            </f:if>
+                        </f:then>
+                        <f:else>
+                            <div class="cb-room-types">
+                                <h2 id="cb-widget-heading" class="cb-room-types__heading">
+                                    <casablanca:label key="roomtypes.heading"
+                                                      override="{labels.heading}"
+                                                      default="Our rooms" />
+                                </h2>
+
+                                <f:if condition="{cards}">
+                                    <f:then>
+                                        <div class="cb-room-types__grid">
+                                            <f:for each="{cards}" as="card">
+                                                <f:render partial="RoomTypes/Card" arguments="{card: card, config: config, culture: culture, defaultAdults: defaultAdults, defaultChildrenCount: defaultChildrenCount, from: from, stayNights: stayNights, showName: showName, showDescription: showDescription, showPrice: showPrice, showImage: showImage, cardLinkType: cardLinkType, labels: labels}" />
+                                            </f:for>
+                                        </div>
+                                    </f:then>
+                                    <f:else>
+                                        <p class="cb-room-types__empty">
+                                            <f:translate key="roomtypes.empty"
+                                                         default="No room types available yet. Run a sync first." />
+                                        </p>
+                                    </f:else>
+                                </f:if>
+                            </div>
+                        </f:else>
+                    </f:if>
+                </f:else>
+            </f:if>
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>

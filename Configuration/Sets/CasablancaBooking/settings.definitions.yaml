@@ -1,0 +1,32 @@
+categories:
+  CasablancaBooking:
+    label: 'CASABLANCA Booking'
+
+settings:
+  casablancaBooking.includeCss:
+    label: 'Include default widget CSS'
+    description: 'Disable when the site package provides its own stylesheet for booking widgets. JavaScript is always loaded.'
+    type: bool
+    default: true
+    category: CasablancaBooking
+
+  casablancaBooking.theme.accent:
+    label: 'Accent color'
+    description: 'CSS color for buttons, prices, and highlights (e.g. #0a6e5e). Leave empty for the extension default.'
+    type: string
+    default: ''
+    category: CasablancaBooking
+
+  casablancaBooking.theme.accentContrast:
+    label: 'Accent contrast color'
+    description: 'Text/icon color on accent buttons (e.g. #ffffff). Leave empty for the extension default.'
+    type: string
+    default: ''
+    category: CasablancaBooking
+
+  casablancaBooking.theme.radius:
+    label: 'Border radius'
+    description: 'Corner radius for buttons, inputs, and cards (e.g. 4px or 0.25rem). Leave empty for the extension default.'
+    type: string
+    default: ''
+    category: CasablancaBooking

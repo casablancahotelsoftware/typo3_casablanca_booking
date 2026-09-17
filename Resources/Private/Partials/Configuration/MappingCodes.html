@@ -1,0 +1,215 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="cb-backend cb-backend__mapping">
+    <div class="cb-backend__space-header">
+        <h2>
+            <f:translate key="module.mapping.spaceTitle"
+                         extensionName="casablanca_booking"
+                         default="Space" />:
+            {configuration.urlFriendlyIbeContextId}
+        </h2>
+        <dl class="cb-backend__space-meta">
+            <dt>
+                <f:translate key="module.field.tenantId"
+                             extensionName="casablanca_booking"
+                             default="Tenant ID" />
+            </dt>
+            <dd>{configuration.tenantId}</dd>
+            <dt>
+                <f:translate key="module.mapping.spaceId"
+                             extensionName="casablanca_booking"
+                             default="Space ID" />
+            </dt>
+            <dd>{configuration.urlFriendlyIbeContextId}</dd>
+            <f:if condition="{companyId}">
+                <dt>
+                    <f:translate key="module.mapping.companyId"
+                                 extensionName="casablanca_booking"
+                                 default="Company ID" />
+                </dt>
+                <dd>{companyId}</dd>
+            </f:if>
+        </dl>
+    </div>
+
+    <f:if condition="{roomTypes}">
+        <f:then>
+            <h3>
+                <f:translate key="module.mapping.roomTypes"
+                             extensionName="casablanca_booking"
+                             default="Room types" />
+            </h3>
+            <table class="table table-striped cb-backend__table cb-backend__mapping-table cb-backend__mapping-table--grouped">
+                <thead>
+                    <tr>
+                        <th>
+                            <f:translate key="module.mapping.col.id"
+                                         extensionName="casablanca_booking"
+                                         default="Id" />
+                        </th>
+                        <th>
+                            <f:translate key="module.mapping.col.name"
+                                         extensionName="casablanca_booking"
+                                         default="Name" />
+                        </th>
+                        <th>
+                            <f:translate key="module.mapping.col.minOcc"
+                                         extensionName="casablanca_booking"
+                                         default="Min. occupancy" />
+                        </th>
+                        <th>
+                            <f:translate key="module.mapping.col.stdOcc"
+                                         extensionName="casablanca_booking"
+                                         default="Std. occupancy" />
+                        </th>
+                        <th>
+                            <f:translate key="module.mapping.col.maxOcc"
+                                         extensionName="casablanca_booking"
+                                         default="Max. occupancy" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{roomTypes}" as="roomType">
+                        <tr class="cb-backend__mapping-room">
+                            <td><code>{roomType.roomTypeId}</code></td>
+                            <td>{roomType.name}</td>
+                            <td>{roomType.minOccupancy}</td>
+                            <td>{roomType.standardOccupancy}</td>
+                            <td>{roomType.maxOccupancy}</td>
+                        </tr>
+                        <f:if condition="{rates}">
+                            <tr class="cb-backend__mapping-rates-row">
+                                <td colspan="5">
+                                    <div class="cb-backend__mapping-nested">
+                                        <strong>
+                                            <f:translate key="module.mapping.rates"
+                                                         extensionName="casablanca_booking"
+                                                         default="Rates" />
+                                        </strong>
+                                        <table class="table table-sm cb-backend__mapping-table cb-backend__mapping-table--nested">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <f:translate key="module.mapping.col.type"
+                                                                     extensionName="casablanca_booking"
+                                                                     default="Type" />
+                                                    </th>
+                                                    <th>
+                                                        <f:translate key="module.mapping.col.name"
+                                                                     extensionName="casablanca_booking"
+                                                                     default="Name" />
+                                                    </th>
+                                                    <th>
+                                                        <f:translate key="module.mapping.col.code"
+                                                                     extensionName="casablanca_booking"
+                                                                     default="Code" />
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <f:for each="{rates}" as="rate">
+                                                    <tr>
+                                                        <td>{rate.displayType}</td>
+                                                        <td>{rate.name}</td>
+                                                        <td><code>{rate.rateId}</code></td>
+                                                    </tr>
+                                                </f:for>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </f:if>
+                    </f:for>
+                </tbody>
+            </table>
+
+            <f:if condition="{rates}">
+                <h3>
+                    <f:translate key="module.mapping.ratesAll"
+                                 extensionName="casablanca_booking"
+                                 default="Rates (all)" />
+                </h3>
+                <table class="table table-striped cb-backend__table cb-backend__mapping-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <f:translate key="module.mapping.col.type"
+                                             extensionName="casablanca_booking"
+                                             default="Type" />
+                            </th>
+                            <th>
+                                <f:translate key="module.mapping.col.name"
+                                             extensionName="casablanca_booking"
+                                             default="Name" />
+                            </th>
+                            <th>
+                                <f:translate key="module.mapping.col.code"
+                                             extensionName="casablanca_booking"
+                                             default="Code" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <f:for each="{rates}" as="rate">
+                            <tr>
+                                <td>{rate.displayType}</td>
+                                <td>{rate.name}</td>
+                                <td><code>{rate.rateId}</code></td>
+                            </tr>
+                        </f:for>
+                    </tbody>
+                </table>
+            </f:if>
+
+            <f:if condition="{packages}">
+                <h3>
+                    <f:translate key="module.mapping.packages"
+                                 extensionName="casablanca_booking"
+                                 default="Packages" />
+                </h3>
+                <table class="table table-striped cb-backend__table cb-backend__mapping-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <f:translate key="module.mapping.col.type"
+                                             extensionName="casablanca_booking"
+                                             default="Type" />
+                            </th>
+                            <th>
+                                <f:translate key="module.mapping.col.name"
+                                             extensionName="casablanca_booking"
+                                             default="Name" />
+                            </th>
+                            <th>
+                                <f:translate key="module.mapping.col.code"
+                                             extensionName="casablanca_booking"
+                                             default="Code" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <f:for each="{packages}" as="package">
+                            <tr>
+                                <td>{package.displayType}</td>
+                                <td>{package.name}</td>
+                                <td><code>{package.rateId}</code></td>
+                            </tr>
+                        </f:for>
+                    </tbody>
+                </table>
+            </f:if>
+        </f:then>
+        <f:else>
+            <div class="alert alert-info">
+                <f:translate key="module.mapping.empty"
+                             extensionName="casablanca_booking"
+                             default="No mapping codes synced yet. Save a valid configuration and run Sync now." />
+            </div>
+        </f:else>
+    </f:if>
+</div>
+
+</html>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en"
+          target-language="de"
+          datatype="plaintext"
+          original="messages"
+          date="2026-01-01T00:00:00Z"
+          product-name="casablanca_booking">
+        <header/>
+        <body>
+
+            <trans-unit id="mlang_tabs_tab">
+                <source>CASABLANCA Booking</source>
+                <target>CASABLANCA Booking</target>
+            </trans-unit>
+            <trans-unit id="mlang_labels_tablabel">
+                <source>CASABLANCA Booking</source>
+                <target>CASABLANCA Booking</target>
+            </trans-unit>
+            <trans-unit id="mlang_labels_tabdescr">
+                <source>Configure CASABLANCA API credentials and sync settings per TYPO3 site.</source>
+                <target>CASABLANCA-API-Zugangsdaten und Sync-Einstellungen pro TYPO3-Site verwalten.</target>
+            </trans-unit>
+
+            <trans-unit id="scheduler.task.title">
+                <source>CASABLANCA availability sync</source>
+                <target>CASABLANCA Verfügbarkeits-Sync</target>
+            </trans-unit>
+            <trans-unit id="scheduler.task.description">
+                <source>Synchronises room types, rates and availability from the CASABLANCA API into the local cache tables.</source>
+                <target>Synchronisiert Zimmertypen, Raten und Verfügbarkeit von der CASABLANCA-API in lokale Cache-Tabellen.</target>
+            </trans-unit>
+
+            <trans-unit id="module.index.title">
+                <source>CASABLANCA site configurations</source>
+                <target>CASABLANCA Site-Konfigurationen</target>
+            </trans-unit>
+            <trans-unit id="module.index.intro">
+                <source>Manage API credentials and sync settings per TYPO3 site.</source>
+                <target>API-Zugangsdaten und Sync-Einstellungen pro TYPO3-Site verwalten.</target>
+            </trans-unit>
+            <trans-unit id="module.index.add">
+                <source>Add configuration</source>
+                <target>Konfiguration hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="module.index.actions">
+                <source>Actions</source>
+                <target>Aktionen</target>
+            </trans-unit>
+            <trans-unit id="module.index.empty">
+                <source>No site configurations yet.</source>
+                <target>Noch keine Site-Konfigurationen vorhanden.</target>
+            </trans-unit>
+
+            <trans-unit id="module.edit.title">
+                <source>Edit configuration</source>
+                <target>Konfiguration bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="module.edit.titleNew">
+                <source>New configuration</source>
+                <target>Neue Konfiguration</target>
+            </trans-unit>
+
+            <trans-unit id="module.section.credentials">
+                <source>Credentials</source>
+                <target>Zugangsdaten</target>
+            </trans-unit>
+            <trans-unit id="module.section.ibe">
+                <source>Booking Engine and Space settings</source>
+                <target>Booking Engine- und Space-Einstellungen</target>
+            </trans-unit>
+            <trans-unit id="module.section.sync">
+                <source>Sync</source>
+                <target>Sync</target>
+            </trans-unit>
+
+            <trans-unit id="module.field.siteIdentifier">
+                <source>Site identifier</source>
+                <target>Site-Identifier</target>
+            </trans-unit>
+            <trans-unit id="module.field.siteIdentifier.select">
+                <source>— select site —</source>
+                <target>— Site auswählen —</target>
+            </trans-unit>
+            <trans-unit id="module.field.tenantId">
+                <source>Tenant ID</source>
+                <target>Tenant-ID</target>
+            </trans-unit>
+            <trans-unit id="module.field.apiKey">
+                <source>API key</source>
+                <target>API-Schlüssel</target>
+            </trans-unit>
+            <trans-unit id="module.field.apiKey.hint">
+                <source>Leave blank to keep the existing key.</source>
+                <target>Leer lassen, um den bestehenden Schlüssel beizubehalten.</target>
+            </trans-unit>
+            <trans-unit id="module.field.useCustomIbeDomain">
+                <source>Use custom IBE domain</source>
+                <target>Eigene IBE-Domain verwenden</target>
+            </trans-unit>
+            <trans-unit id="module.field.ibeBaseUrl">
+                <source>IBE base URL</source>
+                <target>IBE-Basis-URL</target>
+            </trans-unit>
+            <trans-unit id="module.field.urlFriendlyIbeContextId">
+                <source>URL-friendly IBE context ID</source>
+                <target>URL-freundliche IBE-Kontext-ID</target>
+            </trans-unit>
+            <trans-unit id="module.field.spaceName">
+                <source>Space name</source>
+                <target>Space-Name</target>
+            </trans-unit>
+            <trans-unit id="module.field.spaceName.hint">
+                <source>The IBE context slug, e.g. bookingengine or wellness-days.</source>
+                <target>Der IBE-Kontext-Slug, z. B. bookingengine oder wellness-days.</target>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle">
+                <source>Link style</source>
+                <target>Link-Stil</target>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle.hint">
+                <source>Controls the IBE handover URL path. full_path is the default for CASABLANCA-hosted domains.</source>
+                <target>Steuert den IBE-Übergabe-URL-Pfad. full_path ist der Standard für CASABLANCA-gehostete Domains.</target>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle.full_path">
+                <source>Full path (culture/tenant/space)</source>
+                <target>Voller Pfad (Kultur/Tenant/Space)</target>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle.tenant_only">
+                <source>Tenant only (culture/tenant)</source>
+                <target>Nur Tenant (Kultur/Tenant)</target>
+            </trans-unit>
+            <trans-unit id="module.field.ibeLinkStyle.culture_only">
+                <source>Culture only (culture)</source>
+                <target>Nur Kultur (Kultur)</target>
+            </trans-unit>
+            <trans-unit id="module.field.ibeUrlPreview">
+                <source>Booking Engine URL</source>
+                <target>Booking Engine-URL</target>
+            </trans-unit>
+            <trans-unit id="module.field.ibeUrlPreview.empty">
+                <source>Enter an IBE base URL to preview the Booking Engine URL.</source>
+                <target>IBE-Basis-URL eingeben, um die Booking Engine-URL anzuzeigen.</target>
+            </trans-unit>
+            <trans-unit id="module.tab.configuration">
+                <source>Configuration</source>
+                <target>Konfiguration</target>
+            </trans-unit>
+            <trans-unit id="module.tab.mappingCodes">
+                <source>Mapping codes</source>
+                <target>Mapping-Codes</target>
+            </trans-unit>
+            <trans-unit id="module.connection.title">
+                <source>Connection check</source>
+                <target>Verbindungsprüfung</target>
+            </trans-unit>
+            <trans-unit id="module.connection.ok">
+                <source>Connection OK</source>
+                <target>Verbindung OK</target>
+            </trans-unit>
+            <trans-unit id="module.connection.error">
+                <source>Connection failed</source>
+                <target>Verbindung fehlgeschlagen</target>
+            </trans-unit>
+            <trans-unit id="module.connection.unknown">
+                <source>Connection not tested yet</source>
+                <target>Verbindung noch nicht geprüft</target>
+            </trans-unit>
+            <trans-unit id="module.connection.checkedAt">
+                <source>Last checked:</source>
+                <target>Zuletzt geprüft:</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.spaceTitle">
+                <source>Space</source>
+                <target>Space</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.spaceId">
+                <source>Space ID</source>
+                <target>Space-ID</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.companyId">
+                <source>Company ID</source>
+                <target>Company-ID</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.roomTypes">
+                <source>Room types</source>
+                <target>Zimmertypen</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.rates">
+                <source>Rates</source>
+                <target>Raten</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.ratesAll">
+                <source>Rates (all)</source>
+                <target>Raten (alle)</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.packages">
+                <source>Packages</source>
+                <target>Pauschalen</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.empty">
+                <source>No mapping codes synced yet. Save a valid configuration and run Sync now.</source>
+                <target>Noch keine Mapping-Codes synchronisiert. Gültige Konfiguration speichern und „Jetzt synchronisieren“ ausführen.</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.id">
+                <source>Id</source>
+                <target>Id</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.name">
+                <source>Name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.type">
+                <source>Type</source>
+                <target>Typ</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.code">
+                <source>Code</source>
+                <target>Code</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.minOcc">
+                <source>Min. occupancy</source>
+                <target>Min. Belegung</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.stdOcc">
+                <source>Std. occupancy</source>
+                <target>Std. Belegung</target>
+            </trans-unit>
+            <trans-unit id="module.mapping.col.maxOcc">
+                <source>Max. occupancy</source>
+                <target>Max. Belegung</target>
+            </trans-unit>
+            <trans-unit id="module.warning.linkStyleDefaultDomain">
+                <source>Tenant-only and culture-only link styles are intended for custom IBE domains.</source>
+                <target>Link-Stile „nur Tenant“ und „nur Kultur“ sind für eigene IBE-Domains gedacht.</target>
+            </trans-unit>
+            <trans-unit id="module.field.defaultCulture">
+                <source>Default culture</source>
+                <target>Standard-Kultur</target>
+            </trans-unit>
+            <trans-unit id="module.sync.info">
+                <source>Availability syncs automatically once per day and after cache clears. Use Sync now for an immediate import.</source>
+                <target>Verfügbarkeiten werden automatisch einmal täglich und nach Cache-Leerungen synchronisiert. Für einen sofortigen Import „Jetzt synchronisieren“ verwenden.</target>
+            </trans-unit>
+
+            <trans-unit id="module.action.edit">
+                <source>Edit</source>
+                <target>Bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="module.action.test">
+                <source>Test connection</source>
+                <target>Verbindung testen</target>
+            </trans-unit>
+            <trans-unit id="module.action.sync">
+                <source>Sync now</source>
+                <target>Jetzt synchronisieren</target>
+            </trans-unit>
+            <trans-unit id="module.action.save">
+                <source>Save</source>
+                <target>Speichern</target>
+            </trans-unit>
+            <trans-unit id="module.action.cancel">
+                <source>Cancel</source>
+                <target>Abbrechen</target>
+            </trans-unit>
+
+            <trans-unit id="module.success.saved">
+                <source>Configuration saved.</source>
+                <target>Konfiguration gespeichert.</target>
+            </trans-unit>
+            <trans-unit id="module.success.sync">
+                <source>Sync completed successfully.</source>
+                <target>Synchronisation erfolgreich abgeschlossen.</target>
+            </trans-unit>
+            <trans-unit id="module.error.not_found">
+                <source>Configuration not found.</source>
+                <target>Konfiguration nicht gefunden.</target>
+            </trans-unit>
+            <trans-unit id="module.error.sync">
+                <source>Sync failed or partially failed.</source>
+                <target>Synchronisation fehlgeschlagen oder teilweise fehlgeschlagen.</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
