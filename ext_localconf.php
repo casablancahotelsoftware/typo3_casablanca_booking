@@ -10,8 +10,6 @@ use Casablanca\CasablancaBooking\Controller\RoomTypesController;
 use Casablanca\CasablancaBooking\Controller\SearchBarController;
 use Casablanca\CasablancaBooking\Hook\CacheFlushSyncHook;
 use Casablanca\CasablancaBooking\Task\SyncAvailabilityTask;
-use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
-use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -48,14 +46,6 @@ call_user_func(static function (): void {
         'CasablancaBooking',
         'PriceTeaser',
         [PriceTeaserController::class => 'show']
-    );
-
-    /** @var IconRegistry $iconRegistry */
-    $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
-    $iconRegistry->registerIcon(
-        'casablanca-booking-widget',
-        SvgIconProvider::class,
-        ['source' => 'EXT:casablanca_booking/Resources/Public/Icons/plugin-widget.svg']
     );
 
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['casablanca'][] =
