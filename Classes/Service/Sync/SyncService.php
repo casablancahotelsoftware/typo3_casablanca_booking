@@ -9,6 +9,7 @@ use Casablanca\CasablancaBooking\Domain\Model\SyncLog;
 use Casablanca\CasablancaBooking\Domain\Repository\ConfigurationRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\SyncLogRepository;
 use Casablanca\CasablancaBooking\Install\AvailabilitySchemaMigrator;
+use Casablanca\CasablancaBooking\Install\CatalogSchemaMigrator;
 use Casablanca\CasablancaBooking\Service\Api\ApiClientFactory;
 use DateTimeImmutable;
 use Psr\Log\LoggerInterface;
@@ -30,6 +31,9 @@ final class SyncService
 
     /** @var AvailabilitySchemaMigrator */
     private $schemaMigrator;
+
+    /** @var CatalogSchemaMigrator */
+    private $catalogSchemaMigrator;
 
     /** @var RoomTypeWriter */
     private $roomTypeWriter;
@@ -54,6 +58,7 @@ final class SyncService
         PriceNormaliser $priceNormaliser,
         AvailabilityWriter $availabilityWriter,
         AvailabilitySchemaMigrator $schemaMigrator,
+        CatalogSchemaMigrator $catalogSchemaMigrator,
         RoomTypeWriter $roomTypeWriter,
         RateWriter $rateWriter,
         CacheTagFlusher $cacheTagFlusher,
@@ -65,6 +70,7 @@ final class SyncService
         $this->priceNormaliser = $priceNormaliser;
         $this->availabilityWriter = $availabilityWriter;
         $this->schemaMigrator = $schemaMigrator;
+        $this->catalogSchemaMigrator = $catalogSchemaMigrator;
         $this->roomTypeWriter = $roomTypeWriter;
         $this->rateWriter = $rateWriter;
         $this->cacheTagFlusher = $cacheTagFlusher;
@@ -99,6 +105,7 @@ final class SyncService
 
         try {
             $this->schemaMigrator->migrateIfNeeded();
+            $this->catalogSchemaMigrator->migrateIfNeeded();
 
             $rangeDays = $overrideDays !== null ? $overrideDays : $config->syncRangeDays;
             $from = new DateTimeImmutable('today');

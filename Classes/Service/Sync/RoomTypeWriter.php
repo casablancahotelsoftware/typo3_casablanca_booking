@@ -60,6 +60,7 @@ final class RoomTypeWriter
                 'name' => $dto->name,
                 'slug' => $slug,
                 'description' => $dto->description,
+                'short_description' => $dto->shortDescription,
                 'image_url' => $dto->imageUrl,
                 'images' => $imagesJson,
                 'standard_occupancy' => $dto->standardOccupancy,

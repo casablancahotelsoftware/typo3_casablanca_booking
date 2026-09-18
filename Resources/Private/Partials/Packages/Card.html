@@ -16,11 +16,8 @@
             <h3 class="cb-package-card__title">{card.package.name}</h3>
         </f:if>
 
-        <f:if condition="{showDescription} && {card.package.description}">
-            <div class="cb-package-card__description">
-                <f:format.html>{card.package.description}</f:format.html>
-            </div>
-        </f:if>
+        <f:render partial="Shared/OverviewDescription"
+                  arguments="{showDescription: showDescription, descriptionOverview: card.descriptionOverview}" />
 
         <f:if condition="{card.package.formattedCateringType}">
             <p class="cb-package-card__meta">

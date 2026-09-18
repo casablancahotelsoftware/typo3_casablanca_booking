@@ -1175,3 +1175,123 @@
     padding: var(--cb-space);
 }
 
+/* ---- Overview description + layout ----------------------------------- */
+
+.cb-overview-description {
+    font-size: 0.875rem;
+    color: var(--cb-muted);
+    line-height: 1.5;
+}
+
+.cb-overview-description__preview,
+.cb-overview-description__text,
+.cb-overview-description__full {
+    margin: 0 0 0.5rem;
+}
+
+.cb-overview-description__toggle {
+    margin: 0 0 0.75rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8125rem;
+}
+
+.cb-room-types__grid--list,
+.cb-packages__grid--list {
+    grid-template-columns: 1fr;
+}
+
+.cb-room-types__grid--list .cb-room-card,
+.cb-packages__grid--list .cb-package-card {
+    display: grid;
+    grid-template-columns: minmax(140px, 220px) 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+@media (max-width: 640px) {
+    .cb-room-types__grid--list .cb-room-card,
+    .cb-packages__grid--list .cb-package-card {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cb-room-types__grid--list .cb-room-card__image,
+.cb-packages__grid--list .cb-package-card__image {
+    margin: 0;
+}
+
+/* ---- Image carousel -------------------------------------------------- */
+
+.cb-image-carousel,
+.cb-image-carousel__single {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--cb-card-radius);
+}
+
+.cb-image-carousel__viewport {
+    position: relative;
+}
+
+.cb-image-carousel__slide,
+.cb-image-carousel__single {
+    margin: 0;
+}
+
+.cb-image-carousel__slide img,
+.cb-image-carousel__single img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.cb-image-carousel__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.cb-image-carousel__nav {
+    appearance: none;
+    border: 1px solid var(--cb-border);
+    background: var(--cb-bg);
+    color: var(--cb-fg);
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.cb-image-carousel__nav:hover,
+.cb-image-carousel__nav:focus {
+    border-color: var(--cb-accent);
+    color: var(--cb-accent);
+}
+
+.cb-image-carousel__dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    justify-content: center;
+    flex: 1;
+}
+
+.cb-image-carousel__dot {
+    appearance: none;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 999px;
+    border: 0;
+    background: var(--cb-border);
+    cursor: pointer;
+    padding: 0;
+}
+
+.cb-image-carousel__dot--active {
+    background: var(--cb-accent);
+}
+

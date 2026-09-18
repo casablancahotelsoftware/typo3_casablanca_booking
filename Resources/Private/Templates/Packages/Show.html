@@ -43,7 +43,7 @@
 
                                 <f:if condition="{cards}">
                                     <f:then>
-                                        <div class="cb-packages__grid">
+                                        <div class="cb-packages__grid{f:if(condition: '{overviewLayout} == \'list\'', then: ' cb-packages__grid--list')}">
                                             <f:for each="{cards}" as="card">
                                                 <f:render partial="Packages/Card" arguments="{card: card, config: config, culture: culture, defaultAdults: defaultAdults, defaultChildrenCount: defaultChildrenCount, from: from, stayNights: stayNights, showName: showName, showDescription: showDescription, showPrice: showPrice, showImage: showImage, cardLinkType: cardLinkType, labels: labels}" />
                                             </f:for>

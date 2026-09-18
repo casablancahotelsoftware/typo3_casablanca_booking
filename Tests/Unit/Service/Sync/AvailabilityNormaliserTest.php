@@ -62,8 +62,8 @@ final class AvailabilityNormaliserTest extends TestCase
             new InventoryCacheDto(new DateTimeImmutable('2026-06-01'), 'ROOM-B', 0),
         ];
         $rooms = [
-            new RoomTypeDto('ROOM-A', 'Single', '', '', [], 'CO-1', 1, 1, 1, 2),
-            new RoomTypeDto('ROOM-B', 'Suite', '', '', [], 'CO-1', 2, 2, 1, 3),
+            new RoomTypeDto('ROOM-A', 'Single', '', '', '', [], 'CO-1', 1, 1, 1, 2),
+            new RoomTypeDto('ROOM-B', 'Suite', '', '', '', [], 'CO-1', 2, 2, 1, 3),
         ];
 
         $rows = $this->subject->normalise($this->config, $calendar, $inventory, $rooms);
@@ -93,7 +93,7 @@ final class AvailabilityNormaliserTest extends TestCase
             ),
         ];
         $inventory = [new InventoryCacheDto(new DateTimeImmutable('2026-06-01'), 'ROOM-A', 5)];
-        $rooms = [new RoomTypeDto('ROOM-A', 'Single', '', '', [], 'CO-1', 1, 1, 1, 2)];
+        $rooms = [new RoomTypeDto('ROOM-A', 'Single', '', '', '', [], 'CO-1', 1, 1, 1, 2)];
 
         $rows = $this->subject->normalise($this->config, $calendar, $inventory, $rooms);
 

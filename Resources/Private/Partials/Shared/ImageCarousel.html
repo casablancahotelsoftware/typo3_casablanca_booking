@@ -1,0 +1,56 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{carouselImages}">
+    <f:if condition="{carouselImages -> f:count()} > 1">
+        <f:then>
+            <div class="cb-image-carousel" data-cb-carousel tabindex="0" aria-label="{carouselLabel}">
+                <div class="cb-image-carousel__viewport">
+                    <f:for each="{carouselImages}" as="image" iteration="iterator">
+                        <figure class="cb-image-carousel__slide{f:if(condition: iterator.isFirst, then: ' cb-image-carousel__slide--active')}"
+                                data-cb-carousel-slide
+                                {f:if(condition: '!{iterator.isFirst}', then: ' hidden="hidden"')}>
+                            <img src="{image.url}"
+                                 alt="{carouselAlt}"
+                                 loading="{f:if(condition: iterator.isFirst, then: 'eager', else: 'lazy')}" />
+                        </figure>
+                    </f:for>
+                </div>
+                <div class="cb-image-carousel__controls">
+                    <button type="button"
+                            class="cb-image-carousel__nav cb-image-carousel__nav--prev"
+                            data-cb-carousel-prev
+                            aria-label="{f:translate(key: 'common.previousImage', default: 'Previous image')}">
+                        ‹
+                    </button>
+                    <div class="cb-image-carousel__dots" role="tablist" aria-label="{f:translate(key: 'common.imageNavigation', default: 'Image navigation')}">
+                        <f:for each="{carouselImages}" as="image" iteration="iterator">
+                            <button type="button"
+                                    class="cb-image-carousel__dot{f:if(condition: iterator.isFirst, then: ' cb-image-carousel__dot--active')}"
+                                    data-cb-carousel-dot="{iterator.index}"
+                                    role="tab"
+                                    aria-selected="{f:if(condition: iterator.isFirst, then: 'true', else: 'false')}"
+                                    aria-label="{f:translate(key: 'common.imageNumber', default: 'Image {0}', arguments: {0: iterator.cycle})}">
+                            </button>
+                        </f:for>
+                    </div>
+                    <button type="button"
+                            class="cb-image-carousel__nav cb-image-carousel__nav--next"
+                            data-cb-carousel-next
+                            aria-label="{f:translate(key: 'common.nextImage', default: 'Next image')}">
+                        ›
+                    </button>
+                </div>
+            </div>
+        </f:then>
+        <f:else>
+            <figure class="cb-image-carousel__single">
+                <img src="{carouselImages.0.url}"
+                     alt="{carouselAlt}"
+                     loading="eager" />
+            </figure>
+        </f:else>
+    </f:if>
+</f:if>
+
+</html>

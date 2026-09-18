@@ -122,6 +122,21 @@ final class AvailabilityRepository
         ?string $roomTypeId = null,
         ?string $rateId = null
     ): ?array {
+        $result = $this->queryCheapestPrice($siteIdentifier, $from, $until, $roomTypeId, $rateId);
+        if ($result !== null) {
+            return $result;
+        }
+
+        return $this->queryCheapestPrice($siteIdentifier, $from, null, $roomTypeId, $rateId);
+    }
+
+    private function queryCheapestPrice(
+        string $siteIdentifier,
+        DateTimeInterface $from,
+        ?DateTimeInterface $until,
+        ?string $roomTypeId,
+        ?string $rateId
+    ): ?array {
         $qb = $this->connectionPool->getQueryBuilderForTable(self::TABLE);
 
         $qb->select('from_price', 'currency')
@@ -135,12 +150,18 @@ final class AvailabilityRepository
                     'effective_date',
                     $qb->createNamedParameter($from->format('Y-m-d'))
                 ),
+                $qb->expr()->eq('is_available', 1),
+                $qb->expr()->gt('from_price', 0)
+            );
+
+        if ($until !== null) {
+            $qb->andWhere(
                 $qb->expr()->lte(
                     'effective_date',
                     $qb->createNamedParameter($until->format('Y-m-d'))
-                ),
-                $qb->expr()->isNotNull('from_price')
+                )
             );
+        }
 
         if ($rateId !== null && $rateId !== '') {
             $qb->andWhere(

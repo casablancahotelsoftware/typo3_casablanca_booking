@@ -1,8 +1,10 @@
 /**
- * Backend module: live Booking Engine URL preview.
+ * Backend module: live Booking Engine URL preview and custom-domain field state.
  */
 (function () {
     'use strict';
+
+    var DEFAULT_IBE_BASE = 'https://bookingengine.casablanca.at';
 
     var previewIds = [
         'cb-tenant-id',
@@ -12,13 +14,41 @@
         'cb-ibe-link-style'
     ];
 
+    function getCustomDomainCheckbox() {
+        return document.getElementById('cb-use-custom-ibe');
+    }
+
+    function getBaseUrlField() {
+        return document.getElementById('cb-ibe-base-url');
+    }
+
+    function syncCustomDomainFieldState() {
+        var checkbox = getCustomDomainCheckbox();
+        var baseEl = getBaseUrlField();
+        if (!baseEl) {
+            return;
+        }
+
+        var defaultBase = baseEl.getAttribute('data-default-base') || DEFAULT_IBE_BASE;
+        var useCustom = checkbox ? checkbox.checked : false;
+
+        if (useCustom) {
+            baseEl.removeAttribute('readonly');
+            baseEl.classList.remove('cb-backend__field--readonly');
+        } else {
+            baseEl.value = defaultBase;
+            baseEl.setAttribute('readonly', 'readonly');
+            baseEl.classList.add('cb-backend__field--readonly');
+        }
+    }
+
     function updateBookingEngineUrlPreview() {
         var preview = document.getElementById('cb-ibe-url-preview');
         if (!preview) {
             return;
         }
 
-        var baseEl = document.getElementById('cb-ibe-base-url');
+        var baseEl = getBaseUrlField();
         var tenantEl = document.getElementById('cb-tenant-id');
         var spaceEl = document.getElementById('cb-ibe-context');
         var cultureEl = document.getElementById('cb-default-culture');
@@ -61,5 +91,14 @@
         el.addEventListener('change', updateBookingEngineUrlPreview);
     });
 
+    var customCheckbox = getCustomDomainCheckbox();
+    if (customCheckbox) {
+        customCheckbox.addEventListener('change', function () {
+            syncCustomDomainFieldState();
+            updateBookingEngineUrlPreview();
+        });
+    }
+
+    syncCustomDomainFieldState();
     updateBookingEngineUrlPreview();
 })();

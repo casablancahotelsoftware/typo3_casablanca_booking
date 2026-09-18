@@ -76,6 +76,9 @@
             <trans-unit id="module.field.useCustomIbeDomain">
                 <source>Use custom IBE domain</source>
             </trans-unit>
+            <trans-unit id="module.field.useCustomIbeDomain.hint">
+                <source>Enable for Cloudflare or other reverse-proxy domains. Use culture_only so the proxy injects tenant and space on the origin path.</source>
+            </trans-unit>
             <trans-unit id="module.field.ibeBaseUrl">
                 <source>IBE base URL</source>
             </trans-unit>
@@ -92,7 +95,7 @@
                 <source>Link style</source>
             </trans-unit>
             <trans-unit id="module.field.ibeLinkStyle.hint">
-                <source>Controls the IBE handover URL path. full_path is the default for CASABLANCA-hosted domains.</source>
+                <source>CASABLANCA domain: full_path (culture/tenant/space). Cloudflare custom domain: culture_only (culture only).</source>
             </trans-unit>
             <trans-unit id="module.field.ibeLinkStyle.full_path">
                 <source>Full path (culture/tenant/space)</source>
@@ -182,7 +185,7 @@
                 <source>Default culture</source>
             </trans-unit>
             <trans-unit id="module.sync.info">
-                <source>Availability syncs automatically once per day and after cache clears. Use Sync now for an immediate import.</source>
+                <source>Availability syncs automatically once per day and after cache clears. Use Sync now for an immediate import. Overview from-prices use the backend default occupancy — match it to your plugin FlexForm adults/children so cached prices align with the live calendar.</source>
             </trans-unit>
 
             <trans-unit id="module.action.edit">

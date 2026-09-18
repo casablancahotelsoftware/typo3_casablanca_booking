@@ -33,7 +33,13 @@ final class Rate extends AbstractEntity
     protected $description = '';
 
     /** @var string */
+    protected $shortDescription = '';
+
+    /** @var string */
     protected $imageUrl = '';
+
+    /** @var array<int, array<string, mixed>> */
+    protected $images = [];
 
     /** @var bool */
     protected $isPackage = false;
@@ -79,9 +85,22 @@ final class Rate extends AbstractEntity
         return $this->description;
     }
 
+    public function getShortDescription(): string
+    {
+        return $this->shortDescription;
+    }
+
     public function getImageUrl(): string
     {
         return $this->imageUrl;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function getImages(): array
+    {
+        return $this->images;
     }
 
     public function isPackage(): bool

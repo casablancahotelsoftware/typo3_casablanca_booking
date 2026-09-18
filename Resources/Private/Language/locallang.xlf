@@ -148,6 +148,25 @@
                 <source>Not available</source>
             </trans-unit>
 
+            <trans-unit id="common.more">
+                <source>More</source>
+            </trans-unit>
+            <trans-unit id="common.less">
+                <source>Less</source>
+            </trans-unit>
+            <trans-unit id="common.previousImage">
+                <source>Previous image</source>
+            </trans-unit>
+            <trans-unit id="common.nextImage">
+                <source>Next image</source>
+            </trans-unit>
+            <trans-unit id="common.imageNavigation">
+                <source>Image navigation</source>
+            </trans-unit>
+            <trans-unit id="common.imageNumber">
+                <source>Image {0}</source>
+            </trans-unit>
+
             <trans-unit id="searchbar.heading">
                 <source>Search availability</source>
             </trans-unit>

@@ -27,6 +27,7 @@ final class RoomType extends AbstractEntity
     protected string $name = '';
     protected string $slug = '';
     protected string $description = '';
+    protected string $shortDescription = '';
     protected string $imageUrl = '';
 
     /** @var array<int, array<string, mixed>> */
@@ -75,6 +76,11 @@ final class RoomType extends AbstractEntity
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getShortDescription(): string
+    {
+        return $this->shortDescription;
     }
 
     public function getImageUrl(): string

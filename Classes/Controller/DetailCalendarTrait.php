@@ -39,7 +39,7 @@ trait DetailCalendarTrait
             'calendarInitialMonths' => $detailCalendar['detailCalendarInitialMonths'],
             'calendarOfferMode' => $detailCalendar['detailCalendarOfferMode'],
             'calendarLayoutClass' => 'cb-calendar-layout--detail',
-            'showCalendarLegend' => false,
+            'showCalendarLegend' => true,
             'showCalendarHeading' => false,
         ];
 

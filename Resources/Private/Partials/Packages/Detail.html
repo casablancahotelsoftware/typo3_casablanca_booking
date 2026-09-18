@@ -4,12 +4,13 @@
 
 <f:for each="{cards}" as="card">
     <article class="cb-package-detail">
-        <f:if condition="{showImage} && {card.package.imageUrl}">
-            <div class="cb-package-detail__image">
-                <img src="{card.package.imageUrl}"
-                     alt="{card.package.name}"
-                     loading="lazy" />
-            </div>
+        <f:if condition="{showImage}">
+            <f:render partial="Shared/ImageCarousel"
+                      arguments="{
+                          carouselImages: card.carouselImages,
+                          carouselAlt: card.package.name,
+                          carouselLabel: card.package.name
+                      }" />
         </f:if>
 
         <div class="cb-package-detail__body">
@@ -64,9 +65,9 @@
                        data-cb-children="{defaultChildrenCount}"
                        data-cb-arrival="{from -> f:format.date(format: 'Y-m-d')}"
                        data-cb-stay-nights="{stayNights}">
-                        <casablanca:label key="packages.bookNow"
+                        <casablanca:label key="packages.book"
                                           override="{labels.book}"
-                                          default="Book now" />
+                                          default="Book package" />
                     </a>
                 </f:else>
             </f:if>

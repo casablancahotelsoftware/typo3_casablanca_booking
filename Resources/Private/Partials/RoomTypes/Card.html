@@ -16,11 +16,8 @@
             <h3 class="cb-room-card__title">{card.roomType.name}</h3>
         </f:if>
 
-        <f:if condition="{showDescription} && {card.roomType.description}">
-            <div class="cb-room-card__description">
-                <f:format.html>{card.roomType.description}</f:format.html>
-            </div>
-        </f:if>
+        <f:render partial="Shared/OverviewDescription"
+                  arguments="{showDescription: showDescription, descriptionOverview: card.descriptionOverview}" />
 
         <f:if condition="{showPrice} && {card.fromPrice}">
             <p class="cb-room-card__price">

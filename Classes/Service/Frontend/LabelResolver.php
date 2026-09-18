@@ -78,6 +78,8 @@ final class LabelResolver
             'calendarAddRoom' => $this->resolve('widget.calendar.addRoom', 'Add another room'),
             'calendarRemoveRoom' => $this->resolve('widget.calendar.removeRoom', 'Remove room'),
             'restrictions' => $this->resolve('widget.restrictions', 'Restrictions apply'),
+            'more' => $this->resolve('common.more', 'More'),
+            'less' => $this->resolve('common.less', 'Less'),
         ];
     }
 }

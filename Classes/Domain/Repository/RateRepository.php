@@ -192,7 +192,15 @@ final class RateRepository
         /** @var Rate $entity */
         $entity = GeneralUtility::makeInstance(Rate::class);
 
-        $bind = function (array $r): void {
+        $images = [];
+        if (!empty($row['images'])) {
+            $decoded = json_decode((string)$row['images'], true);
+            if (is_array($decoded)) {
+                $images = $decoded;
+            }
+        }
+
+        $bind = function (array $r) use ($images): void {
             /** @var Rate $this */
             $this->_setProperty('uid', (int)($r['uid'] ?? 0));
             $this->_setProperty('pid', (int)($r['pid'] ?? 0));
@@ -203,7 +211,9 @@ final class RateRepository
             $this->name = (string)($r['name'] ?? '');
             $this->slug = (string)($r['slug'] ?? '');
             $this->description = (string)($r['description'] ?? '');
+            $this->shortDescription = (string)($r['short_description'] ?? '');
             $this->imageUrl = (string)($r['image_url'] ?? '');
+            $this->images = $images;
             $this->isPackage = (bool)($r['is_package'] ?? false);
             $this->cateringType = (string)($r['catering_type'] ?? '');
             $this->sortOrder = (int)($r['sort_order'] ?? 0);

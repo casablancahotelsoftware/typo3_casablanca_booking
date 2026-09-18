@@ -462,4 +462,34 @@ abstract class AbstractWidgetController extends ActionController
 
         return null;
     }
+
+    /**
+     * @param array<string, mixed> $settings
+     *
+     * @return array{
+     *     overviewDescriptionMode: string,
+     *     overviewDescriptionLimit: int,
+     *     overviewLayout: string
+     * }
+     */
+    protected function parseOverviewDisplayExtras(array $settings): array
+    {
+        $overviewDescriptionMode = (string)($settings['overviewDescriptionMode'] ?? 'teaser');
+        if (!in_array($overviewDescriptionMode, ['teaser', 'full'], true)) {
+            $overviewDescriptionMode = 'teaser';
+        }
+
+        $overviewDescriptionLimit = max(50, min(2000, (int)($settings['overviewDescriptionLimit'] ?? 250)));
+
+        $overviewLayout = (string)($settings['overviewLayout'] ?? 'grid');
+        if (!in_array($overviewLayout, ['grid', 'list'], true)) {
+            $overviewLayout = 'grid';
+        }
+
+        return [
+            'overviewDescriptionMode' => $overviewDescriptionMode,
+            'overviewDescriptionLimit' => $overviewDescriptionLimit,
+            'overviewLayout' => $overviewLayout,
+        ];
+    }
 }

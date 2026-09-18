@@ -187,6 +187,7 @@ final class RoomTypeRepository
             $this->name = (string)($r['name'] ?? '');
             $this->slug = (string)($r['slug'] ?? '');
             $this->description = (string)($r['description'] ?? '');
+            $this->shortDescription = (string)($r['short_description'] ?? '');
             $this->imageUrl = (string)($r['image_url'] ?? '');
             $this->images = $images;
             $this->standardOccupancy = (int)($r['standard_occupancy'] ?? 2);

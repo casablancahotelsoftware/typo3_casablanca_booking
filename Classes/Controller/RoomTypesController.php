@@ -7,6 +7,7 @@ namespace Casablanca\CasablancaBooking\Controller;
 use Casablanca\CasablancaBooking\Compatibility\Typo3Adapter;
 use Casablanca\CasablancaBooking\Domain\Dto\SiteConfigurationDto;
 use Casablanca\CasablancaBooking\Domain\Model\RoomType;
+use Casablanca\CasablancaBooking\Utility\DescriptionPresenter;
 use Casablanca\CasablancaBooking\Domain\Repository\AvailabilityRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\RoomTypeRepository;
 use Casablanca\CasablancaBooking\Service\Api\ApiClientFactory;
@@ -141,6 +142,16 @@ class RoomTypesController extends AbstractWidgetController
                 'currency' => $cheapest !== null ? ($cheapest['currency'] ?? 'EUR') : 'EUR',
                 'ibeUrl' => $ibeUrl,
                 'detailUrl' => $detailUrl,
+                'descriptionOverview' => DescriptionPresenter::buildOverviewPresentation(
+                    $roomType->getShortDescription(),
+                    $roomType->getDescription(),
+                    $displaySettings['overviewDescriptionMode'],
+                    $displaySettings['overviewDescriptionLimit']
+                ),
+                'carouselImages' => DescriptionPresenter::normalizeCarouselImages(
+                    $roomType->getImages(),
+                    $roomType->getImageUrl()
+                ),
             ];
         }
 
@@ -188,14 +199,14 @@ class RoomTypesController extends AbstractWidgetController
             $cardLinkType = self::LINK_TYPE_BOOK;
         }
 
-        return [
+        return array_merge([
             'displayMode' => $displayMode,
             'showName' => $this->isSettingEnabled($settings, 'showName'),
             'showDescription' => $this->isSettingEnabled($settings, 'showDescription'),
             'showPrice' => $this->isSettingEnabled($settings, 'showPrice'),
             'showImage' => $this->isSettingEnabled($settings, 'showImage'),
             'cardLinkType' => $cardLinkType,
-        ];
+        ], $this->parseOverviewDisplayExtras($settings));
     }
 
     /**
@@ -345,6 +356,9 @@ class RoomTypesController extends AbstractWidgetController
             'showPrice' => $displaySettings['showPrice'],
             'showImage' => $displaySettings['showImage'],
             'cardLinkType' => $displaySettings['cardLinkType'],
+            'overviewDescriptionMode' => $displaySettings['overviewDescriptionMode'],
+            'overviewDescriptionLimit' => $displaySettings['overviewDescriptionLimit'],
+            'overviewLayout' => $displaySettings['overviewLayout'],
             'stayNights' => $stayNights,
             'ibeLinkTarget' => $this->parseIbeLinkTarget(),
         ]);

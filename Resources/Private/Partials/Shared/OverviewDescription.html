@@ -1,0 +1,28 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:if condition="{showDescription} && {descriptionOverview.html}">
+    <div class="cb-overview-description">
+        <f:if condition="{descriptionOverview.mode} == 'full' && {descriptionOverview.needsExpand}">
+            <f:then>
+                <p class="cb-overview-description__preview">{descriptionOverview.preview}</p>
+                <div class="cb-overview-description__full" hidden="hidden">
+                    <f:format.html>{descriptionOverview.html}</f:format.html>
+                </div>
+                <button type="button"
+                        class="cb-overview-description__toggle cb-button cb-button--secondary"
+                        data-cb-description-toggle
+                        aria-expanded="false">
+                    <f:translate key="common.more" default="More" />
+                </button>
+            </f:then>
+            <f:else>
+                <div class="cb-overview-description__text">
+                    <f:format.html>{descriptionOverview.html}</f:format.html>
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+</f:if>
+
+</html>

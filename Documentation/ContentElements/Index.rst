@@ -295,6 +295,13 @@ Display sheet
 +----------------------------------+----------+---------+------------------------------------------+
 | ``settings.showDescription``     | checkbox | ``1``   | Show room description.                   |
 +----------------------------------+----------+---------+------------------------------------------+
+| ``settings.overviewDescriptionMode``| select | ``teaser``| Overview only: short teaser or truncated |
+|                                  |          |         | full description with More control.        |
++----------------------------------+----------+---------+------------------------------------------+
+| ``settings.overviewDescriptionLimit``| int  | ``250`` | Character limit for full overview text.  |
++----------------------------------+----------+---------+------------------------------------------+
+| ``settings.overviewLayout``        | select   | ``grid``| Overview card layout: ``grid`` or ``list``.|
++----------------------------------+----------+---------+------------------------------------------+
 | ``settings.showPrice``           | checkbox | ``1``   | Show from-price (cheapest in window).    |
 +----------------------------------+----------+---------+------------------------------------------+
 | ``settings.showImage``           | checkbox | ``1``   | Show room image.                         |
@@ -330,8 +337,8 @@ Display modes
 **Detail mode**
 
 * Single room selected by ``roomSlug`` URL argument.
-* Gallery, description, price, and book button.
-* Optional embedded calendar (see detail calendar options below).
+* Image carousel (when multiple images exist), full description, price, and book button.
+* Optional embedded calendar with the same colour legend as the availability widget.
 
 
 Detail calendar options
@@ -339,6 +346,7 @@ Detail calendar options
 
 When ``showDetailCalendar`` is enabled on a detail page:
 
+* Shows the calendar colour legend (available, restricted, no arrival, unavailable).
 * Calendar is scoped to the current room type.
 * Position controlled by ``detailCalendarPosition`` (above/below content).
 * ``detailCalendarInitialMonths``: 1 or 2 months initially visible.

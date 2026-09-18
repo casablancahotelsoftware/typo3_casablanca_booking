@@ -317,6 +317,36 @@
             <trans-unit id="flexform.showDescription.label">
                 <source>Show room description</source>
             </trans-unit>
+            <trans-unit id="flexform.overviewDescriptionMode.label">
+                <source>Overview description</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewDescriptionMode.description">
+                <source>Overview cards only. Teaser uses the synced short text when available, otherwise the full description. Full truncates the description with a More control.</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewDescriptionMode.teaser">
+                <source>Short teaser</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewDescriptionMode.full">
+                <source>Full description (truncated)</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewDescriptionLimit.label">
+                <source>Overview description length</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewDescriptionLimit.description">
+                <source>Used in overview full-description mode. Number of plain-text characters before More is shown.</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewLayout.label">
+                <source>Overview layout</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewLayout.description">
+                <source>Grid shows cards in columns. List stacks one card per row.</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewLayout.grid">
+                <source>Grid</source>
+            </trans-unit>
+            <trans-unit id="flexform.overviewLayout.list">
+                <source>List</source>
+            </trans-unit>
             <trans-unit id="flexform.showPrice.label">
                 <source>Show from-price</source>
             </trans-unit>

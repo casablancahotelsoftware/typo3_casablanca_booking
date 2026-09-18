@@ -179,6 +179,35 @@
                                      default="Booking Engine and Space settings" />
                     </legend>
 
+                    <div class="form-group">
+                        <label for="cb-ibe-context">
+                            <f:translate key="module.field.spaceName"
+                                         extensionName="casablanca_booking"
+                                         default="Space name" />
+                        </label>
+                        <f:form.textfield name="urlFriendlyIbeContextId"
+                                          id="cb-ibe-context"
+                                          class="form-control"
+                                          value="{f:if(condition: configuration.urlFriendlyIbeContextId, then: configuration.urlFriendlyIbeContextId, else: 'bookingengine')}" />
+                        <small class="form-text text-muted">
+                            <f:translate key="module.field.spaceName.hint"
+                                         extensionName="casablanca_booking"
+                                         default="The IBE context slug, e.g. bookingengine or wellness-days." />
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cb-default-culture">
+                            <f:translate key="module.field.defaultCulture"
+                                         extensionName="casablanca_booking"
+                                         default="Default culture" />
+                        </label>
+                        <f:form.textfield name="defaultCulture"
+                                          id="cb-default-culture"
+                                          class="form-control"
+                                          value="{f:if(condition: configuration.defaultCulture, then: configuration.defaultCulture, else: 'de')}" />
+                    </div>
+
                     <div class="form-check">
                         <f:if condition="{configuration} && {configuration.useCustomIbeDomain}">
                             <f:then>
@@ -200,6 +229,11 @@
                                          extensionName="casablanca_booking"
                                          default="Use custom IBE domain" />
                         </label>
+                        <small class="form-text text-muted">
+                            <f:translate key="module.field.useCustomIbeDomain.hint"
+                                         extensionName="casablanca_booking"
+                                         default="Enable for Cloudflare or other reverse-proxy domains. Use culture_only so the proxy injects tenant and space on the origin path." />
+                        </small>
                     </div>
 
                     <div class="form-group">
@@ -211,24 +245,8 @@
                         <f:form.textfield name="ibeBaseUrl"
                                           id="cb-ibe-base-url"
                                           class="form-control"
-                                          value="{f:if(condition: configuration.ibeBaseUrl, then: configuration.ibeBaseUrl, else: 'https://bookingengine.casablanca.at')}" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cb-ibe-context">
-                            <f:translate key="module.field.spaceName"
-                                         extensionName="casablanca_booking"
-                                         default="Space name" />
-                        </label>
-                        <f:form.textfield name="urlFriendlyIbeContextId"
-                                          id="cb-ibe-context"
-                                          class="form-control"
-                                          value="{f:if(condition: configuration.urlFriendlyIbeContextId, then: configuration.urlFriendlyIbeContextId, else: 'bookingengine')}" />
-                        <small class="form-text text-muted">
-                            <f:translate key="module.field.spaceName.hint"
-                                         extensionName="casablanca_booking"
-                                         default="The IBE context slug, e.g. bookingengine or wellness-days." />
-                        </small>
+                                          value="{f:if(condition: configuration.ibeBaseUrl, then: configuration.ibeBaseUrl, else: 'https://bookingengine.casablanca.at')}"
+                                          additionalAttributes="{data-default-base: 'https://bookingengine.casablanca.at'}" />
                     </div>
 
                     <div class="form-group">
@@ -245,7 +263,7 @@
                         <small class="form-text text-muted">
                             <f:translate key="module.field.ibeLinkStyle.hint"
                                          extensionName="casablanca_booking"
-                                         default="Controls the IBE handover URL path. full_path is the default for CASABLANCA-hosted domains." />
+                                         default="CASABLANCA domain: full_path (culture/tenant/space). Cloudflare custom domain: culture_only (culture only)." />
                         </small>
                     </div>
 
@@ -259,18 +277,6 @@
                              class="cb-backend__url-preview{f:if(condition: bookingEngineUrlPreview, else: ' cb-backend__url-preview--empty')}"
                              aria-live="polite"
                              data-placeholder="{f:translate(key: 'module.field.ibeUrlPreview.empty', extensionName: 'casablanca_booking', default: 'Enter an IBE base URL to preview the Booking Engine URL.')}">{bookingEngineUrlPreview}</pre>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cb-default-culture">
-                            <f:translate key="module.field.defaultCulture"
-                                         extensionName="casablanca_booking"
-                                         default="Default culture" />
-                        </label>
-                        <f:form.textfield name="defaultCulture"
-                                          id="cb-default-culture"
-                                          class="form-control"
-                                          value="{f:if(condition: configuration.defaultCulture, then: configuration.defaultCulture, else: 'de')}" />
                     </div>
                 </fieldset>
 

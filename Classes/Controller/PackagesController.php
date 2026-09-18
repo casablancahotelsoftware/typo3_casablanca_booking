@@ -13,6 +13,7 @@ use Casablanca\CasablancaBooking\Service\Api\ApiClientFactory;
 use Casablanca\CasablancaBooking\Service\BookingOffer\BookingOffersFetchService;
 use Casablanca\CasablancaBooking\Service\Calendar\CalendarFetchService;
 use Casablanca\CasablancaBooking\Service\UrlBuilder\IbeUrlBuilder;
+use Casablanca\CasablancaBooking\Utility\DescriptionPresenter;
 use DateTimeImmutable;
 use TYPO3\CMS\Core\Site\SiteFinder;
 
@@ -161,6 +162,16 @@ class PackagesController extends AbstractWidgetController
                 'currency' => $cheapest !== null ? ($cheapest['currency'] ?? 'EUR') : 'EUR',
                 'ibeUrl' => $ibeUrl,
                 'detailUrl' => $detailUrl,
+                'descriptionOverview' => DescriptionPresenter::buildOverviewPresentation(
+                    $package->getShortDescription(),
+                    $package->getDescription(),
+                    $displaySettings['overviewDescriptionMode'],
+                    $displaySettings['overviewDescriptionLimit']
+                ),
+                'carouselImages' => DescriptionPresenter::normalizeCarouselImages(
+                    $package->getImages(),
+                    $package->getImageUrl()
+                ),
             ];
         }
 
@@ -207,14 +218,14 @@ class PackagesController extends AbstractWidgetController
             $cardLinkType = self::LINK_TYPE_BOOK;
         }
 
-        return [
+        return array_merge([
             'displayMode' => $displayMode,
             'showName' => $this->isSettingEnabled($settings, 'showName'),
             'showDescription' => $this->isSettingEnabled($settings, 'showDescription'),
             'showPrice' => $this->isSettingEnabled($settings, 'showPrice'),
             'showImage' => $this->isSettingEnabled($settings, 'showImage'),
             'cardLinkType' => $cardLinkType,
-        ];
+        ], $this->parseOverviewDisplayExtras($settings));
     }
 
     /**
@@ -382,6 +393,9 @@ class PackagesController extends AbstractWidgetController
             'showPrice' => $displaySettings['showPrice'],
             'showImage' => $displaySettings['showImage'],
             'cardLinkType' => $displaySettings['cardLinkType'],
+            'overviewDescriptionMode' => $displaySettings['overviewDescriptionMode'],
+            'overviewDescriptionLimit' => $displaySettings['overviewDescriptionLimit'],
+            'overviewLayout' => $displaySettings['overviewLayout'],
             'stayNights' => $stayNights,
             'ibeLinkTarget' => $this->parseIbeLinkTarget(),
         ]);

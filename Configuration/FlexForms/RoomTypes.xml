@@ -166,6 +166,59 @@
                         </config>
                     </settings.showDescription>
 
+                    <settings.overviewDescriptionMode>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewDescriptionMode.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewDescriptionMode.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewDescriptionMode.teaser</numIndex>
+                                    <numIndex index="1">teaser</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewDescriptionMode.full</numIndex>
+                                    <numIndex index="1">full</numIndex>
+                                </numIndex>
+                            </items>
+                            <default>teaser</default>
+                        </config>
+                    </settings.overviewDescriptionMode>
+
+                    <settings.overviewDescriptionLimit>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewDescriptionLimit.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewDescriptionLimit.description</description>
+                        <config>
+                            <type>number</type>
+                            <default>250</default>
+                            <range>
+                                <lower>50</lower>
+                                <upper>2000</upper>
+                            </range>
+                        </config>
+                    </settings.overviewDescriptionLimit>
+
+                    <settings.overviewLayout>
+                        <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewLayout.label</label>
+                        <description>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewLayout.description</description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewLayout.grid</numIndex>
+                                    <numIndex index="1">grid</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.overviewLayout.list</numIndex>
+                                    <numIndex index="1">list</numIndex>
+                                </numIndex>
+                            </items>
+                            <default>grid</default>
+                        </config>
+                    </settings.overviewLayout>
+
                     <settings.showPrice>
                         <label>LLL:EXT:casablanca_booking/Resources/Private/Language/locallang_db.xlf:flexform.showPrice.label</label>
                         <config>

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Casablanca\CasablancaBooking\Domain\Dto;
 
+use Casablanca\CasablancaBooking\Utility\DescriptionPresenter;
+
 /**
  * DTO mirroring the CASABLANCA `RoomType` schema.
  */
@@ -17,6 +19,9 @@ final class RoomTypeDto
 
     /** @var string */
     public $description;
+
+    /** @var string */
+    public $shortDescription;
 
     /** @var string */
     public $imageUrl;
@@ -50,6 +55,7 @@ final class RoomTypeDto
         string $id,
         string $name,
         string $description,
+        string $shortDescription,
         string $imageUrl,
         array $images,
         string $companyId,
@@ -61,6 +67,7 @@ final class RoomTypeDto
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+        $this->shortDescription = $shortDescription;
         $this->imageUrl = $imageUrl;
         $this->images = $images;
         $this->companyId = $companyId;
@@ -86,6 +93,7 @@ final class RoomTypeDto
             (string)($data['id'] ?? ''),
             (string)($data['name'] ?? ''),
             (string)($data['description'] ?? ''),
+            DescriptionPresenter::extractShortDescriptionFromApi($data),
             (string)($data['imageUrl'] ?? ''),
             $images,
             (string)($data['companyId'] ?? ''),

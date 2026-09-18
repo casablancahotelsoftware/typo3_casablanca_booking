@@ -49,6 +49,11 @@ final class RateWriter
                 $slug = $this->resolveSlug($config->siteIdentifier, $dto->name, $existing);
             }
 
+            $imagesJson = json_encode($dto->images, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            if ($imagesJson === false) {
+                $imagesJson = '[]';
+            }
+
             $data = [
                 'tstamp' => $now,
                 'site_identifier' => $config->siteIdentifier,
@@ -58,7 +63,9 @@ final class RateWriter
                 'name' => $dto->name,
                 'slug' => $slug,
                 'description' => $dto->description,
+                'short_description' => $dto->shortDescription,
                 'image_url' => $dto->imageUrl,
+                'images' => $imagesJson,
                 'is_package' => $dto->isPackage ? 1 : 0,
                 'catering_type' => $dto->cateringType,
                 'sort_order' => $dto->sort,
