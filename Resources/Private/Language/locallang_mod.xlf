@@ -95,16 +95,16 @@
                 <source>Link style</source>
             </trans-unit>
             <trans-unit id="module.field.ibeLinkStyle.hint">
-                <source>CASABLANCA domain: full_path (culture/tenant/space). Cloudflare custom domain: culture_only (culture only).</source>
+                <source>Full path for the CASABLANCA domain. Tenant included or Tenant and space included for custom domains with a reverse proxy.</source>
             </trans-unit>
             <trans-unit id="module.field.ibeLinkStyle.full_path">
-                <source>Full path (culture/tenant/space)</source>
+                <source>Full path (culture / tenant / space)</source>
             </trans-unit>
-            <trans-unit id="module.field.ibeLinkStyle.tenant_only">
-                <source>Tenant only (culture/tenant)</source>
+            <trans-unit id="module.field.ibeLinkStyle.culture_space">
+                <source>Tenant included (culture / space)</source>
             </trans-unit>
             <trans-unit id="module.field.ibeLinkStyle.culture_only">
-                <source>Culture only (culture)</source>
+                <source>Tenant and space included (culture only)</source>
             </trans-unit>
             <trans-unit id="module.field.ibeUrlPreview">
                 <source>Booking Engine URL</source>
@@ -179,7 +179,7 @@
                 <source>Max. occupancy</source>
             </trans-unit>
             <trans-unit id="module.warning.linkStyleDefaultDomain">
-                <source>Tenant-only and culture-only link styles are intended for custom IBE domains.</source>
+                <source>Culture-space and culture-only link styles are intended for custom IBE domains.</source>
             </trans-unit>
             <trans-unit id="module.field.defaultCulture">
                 <source>Default culture</source>

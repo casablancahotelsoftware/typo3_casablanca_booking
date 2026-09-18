@@ -187,11 +187,12 @@ Link style affects **frontend handover URLs only**. API sync URLs always use
 +---------------+------------------------------------------+----------------------------------------+
 | Value         | Resulting path                           | When to use                            |
 +===============+==========================================+========================================+
-| ``full_path`` | ``{base}/{culture}/{tenant}/{space}``  | Default CASABLANCA / standard custom   |
+| ``full_path`` | ``{base}/{culture}/{tenant}/{space}``  | Default CASABLANCA domain              |
 +---------------+------------------------------------------+----------------------------------------+
-| ``tenant_only`` | ``{base}/{culture}/{tenant}``        | Custom domain maps to one space        |
+| ``culture_space`` | ``{base}/{culture}/{space}``       | Custom domain; proxy injects tenant    |
 +---------------+------------------------------------------+----------------------------------------+
-| ``culture_only`` | ``{base}/{culture}``                  | Domain resolves tenant and space       |
+| ``culture_only`` | ``{base}/{culture}``                  | Custom domain; proxy injects tenant    |
+|               |                                          | and space (e.g. Cloudflare worker)     |
 +---------------+------------------------------------------+----------------------------------------+
 
 Example query string (all styles):
@@ -201,14 +202,17 @@ Example query string (all styles):
    ?arrivalDate=2026-06-01&departureDate=2026-06-08&numberOfRooms=1&rooms_0__adults=2&rooms_0__children=0
 
 The backend module shows a live **Booking Engine URL** preview when editing
-configuration (readable in light and dark backend mode).
+configuration, including a pattern line (e.g. ``Pattern: {culture}/{space}``).
+The preview updates when tenant, space, culture, link style, or IBE base URL
+changes (readable in light and dark backend mode).
 
 Validation
 ----------
 
 * ``full_path`` requires a space name
-* ``tenant_only`` and ``culture_only`` with the default CASABLANCA domain show
+* ``culture_space`` and ``culture_only`` with the default CASABLANCA domain show
   a non-blocking backend warning (intended for custom IBE domains)
+* Legacy ``tenant_only`` values are normalized to ``culture_space`` on load
 
 
 API key storage
@@ -230,4 +234,4 @@ Optional YAML key for link style:
 .. code-block:: yaml
 
    casablanca_booking:
-     ibeLinkStyle: full_path   # or tenant_only, culture_only
+     ibeLinkStyle: full_path   # or culture_space, culture_only

@@ -102,12 +102,13 @@ class IbeUrlBuilder
             return implode('/', $segments);
         }
 
-        $segments[] = rawurlencode($config->tenantId);
+        if ($style === IbeLinkStyle::CULTURE_SPACE) {
+            $segments[] = rawurlencode($config->urlFriendlyIbeContextId);
 
-        if ($style === IbeLinkStyle::TENANT_ONLY) {
             return implode('/', $segments);
         }
 
+        $segments[] = rawurlencode($config->tenantId);
         $segments[] = rawurlencode($config->urlFriendlyIbeContextId);
 
         return implode('/', $segments);

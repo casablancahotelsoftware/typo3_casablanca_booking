@@ -263,7 +263,7 @@
                         <small class="form-text text-muted">
                             <f:translate key="module.field.ibeLinkStyle.hint"
                                          extensionName="casablanca_booking"
-                                         default="CASABLANCA domain: full_path (culture/tenant/space). Cloudflare custom domain: culture_only (culture only)." />
+                                         default="Full path for the CASABLANCA domain. Tenant included or Tenant and space included for custom domains with a reverse proxy." />
                         </small>
                     </div>
 
@@ -277,6 +277,9 @@
                              class="cb-backend__url-preview{f:if(condition: bookingEngineUrlPreview, else: ' cb-backend__url-preview--empty')}"
                              aria-live="polite"
                              data-placeholder="{f:translate(key: 'module.field.ibeUrlPreview.empty', extensionName: 'casablanca_booking', default: 'Enter an IBE base URL to preview the Booking Engine URL.')}">{bookingEngineUrlPreview}</pre>
+                        <p id="cb-ibe-url-pattern"
+                           class="form-text text-muted cb-backend__url-pattern"
+                           aria-live="polite"></p>
                     </div>
                 </fieldset>
 

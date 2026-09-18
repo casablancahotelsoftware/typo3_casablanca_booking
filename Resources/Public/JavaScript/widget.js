@@ -251,10 +251,13 @@
         var context = source.getAttribute('data-cb-ibe-context');
         var culture = source.getAttribute('data-cb-culture') || 'de';
         var linkStyle = source.getAttribute('data-cb-link-style') || 'full_path';
+        if (linkStyle === 'tenant_only') {
+            linkStyle = 'culture_space';
+        }
 
         if (!base) return null;
-        if (linkStyle !== 'culture_only' && !tenant) return null;
-        if (linkStyle === 'full_path' && !context) return null;
+        if (linkStyle === 'full_path' && (!tenant || !context)) return null;
+        if (linkStyle === 'culture_space' && !context) return null;
 
         var form = source.tagName === 'FORM' ? source : source.closest('form');
         var getField = function (name) {
@@ -315,10 +318,10 @@
         }
 
         var segments = [base.replace(/\/+$/, ''), encodeURIComponent(culture)];
-        if (linkStyle !== 'culture_only') {
+        if (linkStyle === 'culture_space') {
+            segments.push(encodeURIComponent(context));
+        } else if (linkStyle === 'full_path') {
             segments.push(encodeURIComponent(tenant));
-        }
-        if (linkStyle === 'full_path') {
             segments.push(encodeURIComponent(context));
         }
 

@@ -119,20 +119,20 @@
                 <target>Link-Stil</target>
             </trans-unit>
             <trans-unit id="module.field.ibeLinkStyle.hint">
-                <source>Controls the IBE handover URL path. full_path is the default for CASABLANCA-hosted domains.</source>
-                <target>Steuert den IBE-Übergabe-URL-Pfad. full_path ist der Standard für CASABLANCA-gehostete Domains.</target>
+                <source>Full path for the CASABLANCA domain. Tenant included or Tenant and space included for custom domains with a reverse proxy.</source>
+                <target>Voller Pfad für die CASABLANCA-Domain. Tenant enthalten oder Tenant und Space enthalten für eigene Domains mit Reverse-Proxy.</target>
             </trans-unit>
             <trans-unit id="module.field.ibeLinkStyle.full_path">
-                <source>Full path (culture/tenant/space)</source>
-                <target>Voller Pfad (Kultur/Tenant/Space)</target>
+                <source>Full path (culture / tenant / space)</source>
+                <target>Voller Pfad (Kultur / Tenant / Space)</target>
             </trans-unit>
-            <trans-unit id="module.field.ibeLinkStyle.tenant_only">
-                <source>Tenant only (culture/tenant)</source>
-                <target>Nur Tenant (Kultur/Tenant)</target>
+            <trans-unit id="module.field.ibeLinkStyle.culture_space">
+                <source>Tenant included (culture / space)</source>
+                <target>Tenant enthalten (Kultur / Space)</target>
             </trans-unit>
             <trans-unit id="module.field.ibeLinkStyle.culture_only">
-                <source>Culture only (culture)</source>
-                <target>Nur Kultur (Kultur)</target>
+                <source>Tenant and space included (culture only)</source>
+                <target>Tenant und Space enthalten (nur Kultur)</target>
             </trans-unit>
             <trans-unit id="module.field.ibeUrlPreview">
                 <source>Booking Engine URL</source>
@@ -231,8 +231,8 @@
                 <target>Max. Belegung</target>
             </trans-unit>
             <trans-unit id="module.warning.linkStyleDefaultDomain">
-                <source>Tenant-only and culture-only link styles are intended for custom IBE domains.</source>
-                <target>Link-Stile „nur Tenant“ und „nur Kultur“ sind für eigene IBE-Domains gedacht.</target>
+                <source>Culture-space and culture-only link styles are intended for custom IBE domains.</source>
+                <target>Link-Stile „Tenant enthalten“ und „Tenant und Space enthalten“ sind für eigene IBE-Domains gedacht.</target>
             </trans-unit>
             <trans-unit id="module.field.defaultCulture">
                 <source>Default culture</source>

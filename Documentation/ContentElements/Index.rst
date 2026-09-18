@@ -624,7 +624,7 @@ Builds an IBE deep-link URL for custom templates (buttons, links, CTAs).
 | ``culture``   | string   | ``''``   | IBE culture segment override.            |
 +---------------+----------+----------+------------------------------------------+
 | ``linkStyle`` | string   | ``''``   | Override link style: ``full_path``,      |
-|               |          |          | ``tenant_only``, ``culture_only``.       |
+|               |          |          | ``culture_space``, ``culture_only``.     |
 +---------------+----------+----------+------------------------------------------+
 
 Returns empty string when site is not configured.

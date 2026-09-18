@@ -200,13 +200,13 @@ class ConfigurationController extends ActionController
             $useCustomIbe = !empty($data['useCustomIbeDomain']);
             if (
                 !$useCustomIbe
-                && in_array($ibeLinkStyle, [IbeLinkStyle::TENANT_ONLY, IbeLinkStyle::CULTURE_ONLY], true)
+                && in_array($ibeLinkStyle, [IbeLinkStyle::CULTURE_SPACE, IbeLinkStyle::CULTURE_ONLY], true)
             ) {
                 $this->enqueueFlashMessage(
                     LocalizationUtility::translate(
                         'module.warning.linkStyleDefaultDomain',
                         'casablanca_booking'
-                    ) ?: 'Tenant-only and culture-only link styles are intended for custom IBE domains.',
+                    ) ?: 'Culture-space and culture-only link styles are intended for custom IBE domains.',
                     '',
                     ContextualFeedbackSeverity::WARNING
                 );
@@ -398,10 +398,10 @@ class ConfigurationController extends ActionController
                 'module.field.ibeLinkStyle.full_path',
                 'casablanca_booking'
             ) ?: 'Full path (culture/tenant/space)',
-            IbeLinkStyle::TENANT_ONLY => LocalizationUtility::translate(
-                'module.field.ibeLinkStyle.tenant_only',
+            IbeLinkStyle::CULTURE_SPACE => LocalizationUtility::translate(
+                'module.field.ibeLinkStyle.culture_space',
                 'casablanca_booking'
-            ) ?: 'Tenant only (culture/tenant)',
+            ) ?: 'Tenant included (culture/space)',
             IbeLinkStyle::CULTURE_ONLY => LocalizationUtility::translate(
                 'module.field.ibeLinkStyle.culture_only',
                 'casablanca_booking'

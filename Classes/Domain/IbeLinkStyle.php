@@ -10,8 +10,11 @@ namespace Casablanca\CasablancaBooking\Domain;
 final class IbeLinkStyle
 {
     public const FULL_PATH = 'full_path';
-    public const TENANT_ONLY = 'tenant_only';
+    public const CULTURE_SPACE = 'culture_space';
     public const CULTURE_ONLY = 'culture_only';
+
+    /** @deprecated Legacy value; normalized to CULTURE_SPACE */
+    public const LEGACY_TENANT_ONLY = 'tenant_only';
 
     /**
      * @return string[]
@@ -20,7 +23,7 @@ final class IbeLinkStyle
     {
         return [
             self::FULL_PATH,
-            self::TENANT_ONLY,
+            self::CULTURE_SPACE,
             self::CULTURE_ONLY,
         ];
     }
@@ -28,6 +31,10 @@ final class IbeLinkStyle
     public static function normalize(string $value): string
     {
         $value = strtolower(trim($value));
+        if ($value === self::LEGACY_TENANT_ONLY) {
+            return self::CULTURE_SPACE;
+        }
+
         if (in_array($value, self::getAll(), true)) {
             return $value;
         }

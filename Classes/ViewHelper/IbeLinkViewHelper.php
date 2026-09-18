@@ -37,7 +37,7 @@ class IbeLinkViewHelper extends AbstractViewHelper
         $this->registerArgument(
             'linkStyle',
             'string',
-            'Override IBE link style (full_path, tenant_only, culture_only)',
+            'Override IBE link style (full_path, culture_space, culture_only)',
             false,
             ''
         );

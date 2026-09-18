@@ -14,6 +14,23 @@
         'cb-ibe-link-style'
     ];
 
+    var patternLabels = {
+        full_path: 'Pattern: {culture}/{tenant}/{space}',
+        culture_space: 'Pattern: {culture}/{space} — tenant injected by proxy',
+        culture_only: 'Pattern: {culture} — tenant and space injected by proxy'
+    };
+
+    function normalizeLinkStyle(style) {
+        style = (style || 'full_path').toLowerCase();
+        if (style === 'tenant_only') {
+            return 'culture_space';
+        }
+        if (style === 'culture_space' || style === 'culture_only') {
+            return style;
+        }
+        return 'full_path';
+    }
+
     function getCustomDomainCheckbox() {
         return document.getElementById('cb-use-custom-ibe');
     }
@@ -42,8 +59,26 @@
         }
     }
 
+    function buildPreviewSegments(base, culture, tenant, space, style) {
+        var segments = [base, encodeURIComponent(culture)];
+
+        if (style === 'culture_only') {
+            return segments;
+        }
+
+        if (style === 'culture_space') {
+            segments.push(encodeURIComponent(space || 'bookingengine'));
+            return segments;
+        }
+
+        segments.push(encodeURIComponent(tenant || 'tenant-id'));
+        segments.push(encodeURIComponent(space || 'bookingengine'));
+        return segments;
+    }
+
     function updateBookingEngineUrlPreview() {
         var preview = document.getElementById('cb-ibe-url-preview');
+        var patternEl = document.getElementById('cb-ibe-url-pattern');
         if (!preview) {
             return;
         }
@@ -58,28 +93,26 @@
         var tenant = tenantEl ? tenantEl.value : '';
         var space = spaceEl ? spaceEl.value : 'bookingengine';
         var culture = cultureEl && cultureEl.value ? cultureEl.value : 'de';
-        var style = styleEl ? styleEl.value : 'full_path';
+        var style = normalizeLinkStyle(styleEl ? styleEl.value : 'full_path');
 
         if (!base) {
             preview.textContent = preview.getAttribute('data-placeholder') || '';
             preview.classList.add('cb-backend__url-preview--empty');
+            if (patternEl) {
+                patternEl.textContent = '';
+            }
             return;
         }
 
         preview.classList.remove('cb-backend__url-preview--empty');
 
-        var segments = [base, encodeURIComponent(culture)];
-
-        if (style !== 'culture_only') {
-            segments.push(encodeURIComponent(tenant || 'tenant-id'));
-        }
-
-        if (style === 'full_path') {
-            segments.push(encodeURIComponent(space || 'bookingengine'));
-        }
-
         var query = 'arrivalDate=2026-06-01&departureDate=2026-06-08&numberOfRooms=1&rooms_0__adults=2&rooms_0__children=0';
+        var segments = buildPreviewSegments(base, culture, tenant, space, style);
         preview.textContent = segments.join('/') + '?' + query;
+
+        if (patternEl) {
+            patternEl.textContent = patternLabels[style] || patternLabels.full_path;
+        }
     }
 
     previewIds.forEach(function (id) {
