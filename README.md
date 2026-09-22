@@ -61,6 +61,7 @@ See [Documentation/Localization/Index.rst](Documentation/Localization/Index.rst)
 | Format | Location |
 |--------|----------|
 | **TER / Sphinx (RST)** | [Documentation/](Documentation/) — published on [docs.typo3.org](https://docs.typo3.org) after release |
+| **Docusaurus (MDX drop-in)** | [docusaurus/typo_ext/](docusaurus/typo_ext/) — copy into your main docs site; regenerate with `python3 Documentation/build_docusaurus_mdx.py` |
 
 Installing the extension does **not** show the manual inside the TYPO3 backend
 (editors use FlexForm labels and the frontend only).
