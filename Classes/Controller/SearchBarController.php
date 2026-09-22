@@ -65,15 +65,12 @@ class SearchBarController extends AbstractWidgetController
         }
 
         $settings = is_array($this->settings) ? $this->settings : [];
-        $culture = trim((string)($settings['language'] ?? $config->defaultCulture));
-        if ($culture === '') {
-            $culture = null;
-        }
+        $culture = $this->resolveEffectiveCulture($config, $settings);
 
         $this->redirectToIbeWithRooms(
             $config,
-            $arrival,
-            $departure,
+            $this->resolveRequestDateParam($arrival, 'arrival'),
+            $this->resolveRequestDateParam($departure, 'departure'),
             $this->parseRoomOccupanciesFromRequest(),
             $room !== '' ? $room : null,
             $culture

@@ -3,6 +3,9 @@
       data-namespace-typo3-fluid="true">
 
 <div class="{cbWidgetClasses}" style="{cbThemeStyle}">
+    <f:if condition="{cbCustomCss}">
+        <style>{cbCustomCss -> f:format.raw()}</style>
+    </f:if>
     <f:if condition="{showCalendarHeading}">
         <h2 id="cb-widget-heading" class="cb-widget__heading">
             <f:if condition="{labels.heading}">

@@ -109,7 +109,8 @@ final class ApiClientFactory
                 array_map('intval', $defaultChildren)
             ),
             trim((string)($settings['servicePath'] ?? 'ibe'), '/'),
-            IbeLinkStyle::normalize((string)($settings['ibeLinkStyle'] ?? IbeLinkStyle::FULL_PATH))
+            IbeLinkStyle::normalize((string)($settings['ibeLinkStyle'] ?? IbeLinkStyle::FULL_PATH)),
+            trim((string)($settings['themeCss'] ?? ''))
         );
     }
 
@@ -234,6 +235,10 @@ final class ApiClientFactory
         }
         if ($dbConfig->getPaginationTop() > 0) {
             $merged['paginationTop'] = $dbConfig->getPaginationTop();
+        }
+        $themeCss = $dbConfig->getThemeCss();
+        if ($themeCss !== '') {
+            $merged['themeCss'] = $themeCss;
         }
         if ($dbConfig->getDefaultAdults() > 0) {
             $merged['defaultAdults'] = $dbConfig->getDefaultAdults();

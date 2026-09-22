@@ -277,6 +277,26 @@ When ``includeCss`` is disabled:
   apply via ``cbThemeStyle``.
 
 
+Backend per-site overrides
+--------------------------
+
+Since extension version 1.0.5, **Tools → CASABLANCA Booking → Configuration**
+includes a **Theming** fieldset:
+
+* A collapsible reference table of all ``--cb-*`` tokens and their
+  bundled defaults.
+* A **Site CSS overrides** textarea stored per site configuration.
+
+Layering order (lowest → highest priority):
+
+1. ``widget.css`` defaults
+2. TypoScript / Site Settings inline theme (``theme.accent``, etc.)
+3. Backend **Site CSS overrides**
+
+Agencies can still override tokens in the sitepackage or disable bundled
+CSS entirely (``includeCss = 0``).
+
+
 Examples
 ========
 

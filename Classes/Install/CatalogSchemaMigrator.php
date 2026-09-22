@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Casablanca\CasablancaBooking\Install;
 
+use Casablanca\CasablancaBooking\Domain\Repository\ConfigurationRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\RateRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\RoomTypeRepository;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -29,6 +30,11 @@ final class CatalogSchemaMigrator
         $this->ensureColumn(
             RateRepository::TABLE,
             'images',
+            'TEXT'
+        );
+        $this->ensureColumn(
+            ConfigurationRepository::TABLE,
+            'theme_css',
             'TEXT'
         );
     }

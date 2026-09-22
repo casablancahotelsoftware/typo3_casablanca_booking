@@ -11,6 +11,8 @@ use Casablanca\CasablancaBooking\Domain\Model\Configuration;
 use Casablanca\CasablancaBooking\Domain\Repository\ConfigurationRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\RateRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\RoomTypeRepository;
+use Casablanca\CasablancaBooking\Domain\Repository\SyncLogRepository;
+use Casablanca\CasablancaBooking\Service\Frontend\ThemeTokenRegistry;
 use Casablanca\CasablancaBooking\Service\Configuration\ConfigurationService;
 use Casablanca\CasablancaBooking\Service\Sync\SyncService;
 use Casablanca\CasablancaBooking\Service\UrlBuilder\IbeUrlBuilder;
@@ -135,17 +137,25 @@ class ConfigurationController extends ActionController
         $this->view->assign('activeTab', $tab);
         $this->view->assign('isConfigTab', $tab === 'config');
         $this->view->assign('isMappingTab', $tab === 'mapping');
+        $this->view->assign('isLogsTab', $tab === 'logs');
         $this->view->assign(
             'siteIdentifiers',
             $this->configurationRepository->getAvailableSiteIdentifiers($configuration === null)
         );
         $this->view->assign('ibeLinkStyleOptions', $this->buildIbeLinkStyleOptions());
+        $this->view->assign('themeTokens', ThemeTokenRegistry::getDefaultTokens());
         $this->view->assign(
             'bookingEngineUrlPreview',
             $configuration !== null ? $this->buildBookingEngineUrlPreview($configuration) : ''
         );
         if ($configuration !== null && $tab === 'mapping') {
             $this->assignMappingCodes($configuration);
+        }
+        if ($configuration !== null && $tab === 'logs') {
+            $this->view->assign(
+                'syncLogs',
+                $this->getSyncLogRepository()->findRecent($configuration->getSiteIdentifier(), 50)
+            );
         }
 
         return $this->renderModuleResponse('Backend/Configuration/Edit');
@@ -327,7 +337,7 @@ class ConfigurationController extends ActionController
             if ($configuration !== null) {
                 return $this->redirect('edit', null, null, [
                     'uid' => $configuration->getUid(),
-                    'tab' => 'mapping',
+                    'tab' => 'logs',
                 ]);
             }
         }
@@ -363,6 +373,11 @@ class ConfigurationController extends ActionController
         if (is_array($variables) && $variables !== []) {
             $this->moduleTemplate->assignMultiple($variables);
         }
+    }
+
+    private function getSyncLogRepository(): SyncLogRepository
+    {
+        return GeneralUtility::makeInstance(SyncLogRepository::class);
     }
 
     private function assignMappingCodes(Configuration $configuration): void
@@ -428,6 +443,7 @@ class ConfigurationController extends ActionController
             'servicePath',
             'defaultAdults',
             'defaultChildrenAges',
+            'themeCss',
         ];
     }
 

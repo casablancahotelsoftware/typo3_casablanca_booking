@@ -55,19 +55,55 @@ class IbeUrlBuilder
             $rooms = [new RoomOccupancyDto(1)];
         }
 
+        $params = $this->buildQueryParams(
+            $arrival,
+            $departure,
+            $rooms,
+            $preselectedRoomTypeId,
+            $rateIds
+        );
+
+        $path = $this->buildPath($config, $culture);
+
+        return $path . '?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
+    }
+
+    /**
+     * @param RoomOccupancyDto[] $rooms
+     *
+     * @return array<string, int|string>
+     */
+    public function buildQueryParams(
+        DateTimeInterface $arrival,
+        DateTimeInterface $departure,
+        array $rooms,
+        ?string $preselectedRoomTypeId = null,
+        ?string $rateIds = null
+    ): array {
+        if ($rooms === []) {
+            $rooms = [new RoomOccupancyDto(1)];
+        }
+
         $params = [
             'arrivalDate' => $arrival->format('Y-m-d'),
             'departureDate' => $departure->format('Y-m-d'),
-            'numberOfRooms' => count($rooms),
         ];
+
+        if (count($rooms) > 1) {
+            $params['numberOfRooms'] = count($rooms);
+        }
 
         foreach ($rooms as $index => $room) {
             $params['rooms_' . $index . '__adults'] = $room->numberOfAdults;
-            $params['rooms_' . $index . '__children'] = $room->getNumberOfChildren();
 
-            foreach ($room->ageOfChildren as $childIndex => $age) {
-                $clamped = max(0, min(17, (int)$age));
-                $params['rooms_' . $index . '__children_' . $childIndex . '__age'] = $clamped;
+            $children = $room->getNumberOfChildren();
+            if ($children > 0) {
+                $params['rooms_' . $index . '__children'] = $children;
+
+                foreach ($room->ageOfChildren as $childIndex => $age) {
+                    $clamped = max(0, min(17, (int)$age));
+                    $params['rooms_' . $index . '__children_' . $childIndex . '__age'] = $clamped;
+                }
             }
         }
 
@@ -79,9 +115,7 @@ class IbeUrlBuilder
             $params['roomTypeIds'] = $preselectedRoomTypeId;
         }
 
-        $path = $this->buildPath($config, $culture);
-
-        return $path . '?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
+        return $params;
     }
 
     /**

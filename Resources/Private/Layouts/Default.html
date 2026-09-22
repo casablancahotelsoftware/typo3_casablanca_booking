@@ -4,5 +4,8 @@
     partial replacement without touching Show.html.
 -->
 <section class="{cbWidgetClasses}" style="{cbThemeStyle}" aria-labelledby="cb-widget-heading">
+    <f:if condition="{cbCustomCss}">
+        <style>{cbCustomCss -> f:format.raw()}</style>
+    </f:if>
     <f:render section="Main" />
 </section>

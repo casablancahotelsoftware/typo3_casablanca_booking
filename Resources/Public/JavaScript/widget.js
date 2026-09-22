@@ -249,7 +249,10 @@
         var base = source.getAttribute('data-cb-ibe-base');
         var tenant = source.getAttribute('data-cb-tenant');
         var context = source.getAttribute('data-cb-ibe-context');
-        var culture = source.getAttribute('data-cb-culture') || 'de';
+        var culture = source.getAttribute('data-cb-culture') || '';
+        if (!culture) {
+            return null;
+        }
         var linkStyle = source.getAttribute('data-cb-link-style') || 'full_path';
         if (linkStyle === 'tenant_only') {
             linkStyle = 'culture_space';
@@ -283,21 +286,28 @@
             children: clamp(source.getAttribute('data-cb-children') || '0', 0, 10),
             ages: []
         }];
+        if (rooms.length === 0) {
+            rooms = [{ adults: 2, children: 0, ages: [] }];
+        }
 
         var params = new URLSearchParams();
         params.set('arrivalDate', arrival);
         params.set('departureDate', departure);
-        params.set('numberOfRooms', String(rooms.length));
+        if (rooms.length > 1) {
+            params.set('numberOfRooms', String(rooms.length));
+        }
 
         rooms.forEach(function (room, index) {
             params.set('rooms_' + index + '__adults', String(room.adults));
-            params.set('rooms_' + index + '__children', String(room.children));
-            room.ages.forEach(function (age, childIndex) {
-                params.set(
-                    'rooms_' + index + '__children_' + childIndex + '__age',
-                    String(age)
-                );
-            });
+            if (room.children > 0) {
+                params.set('rooms_' + index + '__children', String(room.children));
+                room.ages.forEach(function (age, childIndex) {
+                    params.set(
+                        'rooms_' + index + '__children_' + childIndex + '__age',
+                        String(age)
+                    );
+                });
+            }
         });
 
         var roomTypeId = source.getAttribute('data-cb-room-type')

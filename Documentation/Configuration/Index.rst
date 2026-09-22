@@ -18,8 +18,8 @@ Module overview
 The module has two views:
 
 * **Index** — lists all saved site configurations with connection status.
-* **Edit** — create or edit a configuration; includes **Configuration**
-  and **Mapping codes** tabs.
+* **Edit** — create or edit a configuration; includes **Configuration**,
+  **Mapping codes**, and **Sync logs** tabs.
 
 Actions available on saved configurations:
 
@@ -82,11 +82,27 @@ Booking Engine and Space settings
 |                            |          |               | Auto and for API sync requests.            |
 +----------------------------+----------+---------------+------------------------------------------+
 
+Theming
+~~~~~~~
+
++----------------------------+----------+---------------+------------------------------------------+
+| Field                      | Required | Default       | Effect                                   |
++============================+==========+===============+==========================================+
+| **CSS design tokens**      | —        | *(reference)* | Collapsible list of all ``--cb-*``       |
+|                            |          |               | defaults from ``widget.css``.            |
++----------------------------+----------+---------------+------------------------------------------+
+| **Site CSS overrides**     | No       | empty         | Per-site CSS stored in the database.   |
+|                            |          |               | Applied after bundled CSS and          |
+|                            |          |               | TypoScript theme settings. Scope rules   |
+|                            |          |               | to ``.cb-widget``.                       |
++----------------------------+----------+---------------+------------------------------------------+
+
 Sync
 ~~~~
 
 The Sync section displays informational text only (no editable fields in
-the UI). Sync behaviour is controlled by internal defaults on the
+the UI). Use the **Sync logs** tab to inspect recent import runs. Sync
+behaviour is controlled by internal defaults on the
 configuration record:
 
 +----------------------------+----------+---------------+------------------------------------------+
@@ -199,7 +215,7 @@ Example query string (all styles):
 
 .. code-block:: text
 
-   ?arrivalDate=2026-06-01&departureDate=2026-06-08&numberOfRooms=1&rooms_0__adults=2&rooms_0__children=0
+   ?arrivalDate=2026-06-01&departureDate=2026-06-08&rooms_0__adults=2
 
 The backend module shows a live **Booking Engine URL** preview when editing
 configuration, including a pattern line (e.g. ``Pattern: {culture}/{space}``).

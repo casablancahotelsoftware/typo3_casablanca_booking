@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Casablanca\CasablancaBooking\Tests\Unit\Controller;
 
 use Casablanca\CasablancaBooking\Controller\SearchBarController;
+use Casablanca\CasablancaBooking\Domain\Dto\RoomOccupancyDto;
+use Casablanca\CasablancaBooking\Domain\Dto\SiteConfigurationDto;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -62,6 +64,54 @@ final class OccupancyParsingTest extends TestCase
         self::assertSame('_self', $this->invokeParseIbeLinkTarget($controller));
     }
 
+    public function testResolveEffectiveCultureUsesSiteDefaultWhenFlexFormAuto(): void
+    {
+        $controller = $this->createControllerWithSettings(['language' => '']);
+        $config = new SiteConfigurationDto(
+            'hotel-example',
+            'tenant-uuid',
+            'wellness-days',
+            'key',
+            'https://api.casablanca.at',
+            'https://booking.example.com',
+            'en',
+            365,
+            31,
+            100,
+            new RoomOccupancyDto(2)
+        );
+
+        self::assertSame('en', $this->invokeResolveEffectiveCulture($controller, $config));
+    }
+
+    public function testResolveRequestDateParamReadsPlainQueryParameter(): void
+    {
+        $controller = $this->getMockBuilder(SearchBarController::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $request = $this->createMock(Request::class);
+        $request->method('getQueryParams')->willReturn([
+            'arrival' => '2026-10-05',
+            'departure' => '2026-10-09',
+        ]);
+        $request->method('getParsedBody')->willReturn([]);
+
+        $this->setProtectedProperty($controller, 'request', $request);
+
+        $method = new ReflectionMethod(SearchBarController::class, 'resolveRequestDateParam');
+        $method->setAccessible(true);
+
+        self::assertSame(
+            '2026-10-05',
+            $method->invoke($controller, '', 'arrival')
+        );
+        self::assertSame(
+            '2026-10-09',
+            $method->invoke($controller, '', 'departure')
+        );
+    }
+
     /**
      * @param array<string, mixed> $settings
      */
@@ -84,6 +134,16 @@ final class OccupancyParsingTest extends TestCase
         $method->setAccessible(true);
 
         return $method->invoke($controller, $overrideSettings);
+    }
+
+    private function invokeResolveEffectiveCulture(
+        SearchBarController $controller,
+        SiteConfigurationDto $config
+    ): string {
+        $method = new ReflectionMethod(SearchBarController::class, 'resolveEffectiveCulture');
+        $method->setAccessible(true);
+
+        return $method->invoke($controller, $config, ['language' => '']);
     }
 
     private function setProtectedProperty(object $object, string $property, mixed $value): void

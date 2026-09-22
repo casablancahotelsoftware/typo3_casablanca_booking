@@ -88,7 +88,7 @@ abstract class AbstractWidgetController extends ActionController
             $childrenAges = array_slice($childrenAges, 0, $defaultChildrenCount);
         }
 
-        $culture = trim((string)($settings['language'] ?? $config->defaultCulture));
+        $culture = $this->resolveEffectiveCulture($config, $settings);
         $windowDays = max(7, min(180, (int)($settings['windowDays'] ?? 90)));
         $defaultRooms = max(1, min(self::MAX_ROOMS, (int)($settings['defaultRooms'] ?? 1)));
 
@@ -323,12 +323,13 @@ abstract class AbstractWidgetController extends ActionController
     protected function includeFrontendAssets(): void
     {
         $settings = is_array($this->settings) ? $this->settings : [];
-        $this->assignThemePresentationVariables();
+        $config = $this->resolveConfig();
+        $this->assignThemePresentationVariables($config);
         $this->assignLabelPresentationVariables();
         Typo3Adapter::includeFrontendAssets($settings);
     }
 
-    protected function assignThemePresentationVariables(): void
+    protected function assignThemePresentationVariables(?SiteConfigurationDto $config = null): void
     {
         $settings = is_array($this->settings) ? $this->settings : [];
         $appearance = $this->normalizeAppearance((string)($settings['appearance'] ?? 'default'));
@@ -337,7 +338,50 @@ abstract class AbstractWidgetController extends ActionController
             'cbAppearance' => $appearance,
             'cbWidgetClasses' => 'cb-widget cb-widget--' . $appearance,
             'cbThemeStyle' => $this->buildThemeInlineStyle($settings),
+            'cbCustomCss' => $config !== null ? $this->sanitizeThemeCss($config->themeCss) : '',
         ]);
+    }
+
+    /**
+     * @param array<string, mixed> $settings
+     */
+    protected function resolveEffectiveCulture(SiteConfigurationDto $config, array $settings = []): string
+    {
+        $settings = $settings !== [] ? $settings : (is_array($this->settings) ? $this->settings : []);
+        $culture = trim((string)($settings['language'] ?? ''));
+
+        if ($culture === '') {
+            $culture = trim($config->defaultCulture);
+        }
+
+        return $culture !== '' ? $culture : 'de';
+    }
+
+    protected function resolveRequestDateParam(string $extbaseValue, string $plainName): string
+    {
+        $value = trim($extbaseValue);
+        if ($value !== '') {
+            return $value;
+        }
+
+        $params = array_merge(
+            $this->request->getQueryParams(),
+            (array)$this->request->getParsedBody()
+        );
+
+        return trim((string)($params[$plainName] ?? ''));
+    }
+
+    protected function sanitizeThemeCss(string $css): string
+    {
+        $css = trim($css);
+        if ($css === '') {
+            return '';
+        }
+
+        $css = str_replace(['</style', '<script'], '', $css);
+
+        return $css;
     }
 
     protected function assignLabelPresentationVariables(): void

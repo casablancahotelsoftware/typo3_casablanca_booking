@@ -73,6 +73,10 @@
                 <source>Sync</source>
                 <target>Sync</target>
             </trans-unit>
+            <trans-unit id="module.section.theming">
+                <source>Theming</source>
+                <target>Theming</target>
+            </trans-unit>
 
             <trans-unit id="module.field.siteIdentifier">
                 <source>Site identifier</source>
@@ -149,6 +153,82 @@
             <trans-unit id="module.tab.mappingCodes">
                 <source>Mapping codes</source>
                 <target>Mapping-Codes</target>
+            </trans-unit>
+            <trans-unit id="module.tab.syncLogs">
+                <source>Sync logs</source>
+                <target>Sync-Protokolle</target>
+            </trans-unit>
+            <trans-unit id="module.field.themeCss">
+                <source>Site CSS overrides</source>
+                <target>Site-CSS-Overrides</target>
+            </trans-unit>
+            <trans-unit id="module.field.themeCss.hint">
+                <source>Applied after bundled CSS and TypoScript theme settings. Scope rules to .cb-widget.</source>
+                <target>Wird nach gebündeltem CSS und TypoScript-Theme-Einstellungen angewendet. Regeln auf .cb-widget beschränken.</target>
+            </trans-unit>
+            <trans-unit id="module.field.themeTokens.summary">
+                <source>CSS design tokens (--cb-*)</source>
+                <target>CSS-Design-Tokens (--cb-*)</target>
+            </trans-unit>
+            <trans-unit id="module.field.themeTokens.hint">
+                <source>Default values from widget.css. Override in the textarea below, in your sitepackage, or via TypoScript theme settings.</source>
+                <target>Standardwerte aus widget.css. Im Textfeld, im Sitepackage oder per TypoScript-Theme überschreiben.</target>
+            </trans-unit>
+            <trans-unit id="module.field.themeTokens.col.token">
+                <source>Token</source>
+                <target>Token</target>
+            </trans-unit>
+            <trans-unit id="module.field.themeTokens.col.default">
+                <source>Default</source>
+                <target>Standard</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.empty">
+                <source>No sync runs recorded yet for this site.</source>
+                <target>Für diese Site sind noch keine Sync-Läufe protokolliert.</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.col.started">
+                <source>Started</source>
+                <target>Gestartet</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.col.duration">
+                <source>Duration</source>
+                <target>Dauer</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.col.status">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.col.rowsWritten">
+                <source>Rows written</source>
+                <target>Zeilen geschrieben</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.col.rowsChanged">
+                <source>Rows changed</source>
+                <target>Zeilen geändert</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.col.cacheTags">
+                <source>Cache tags</source>
+                <target>Cache-Tags</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.col.message">
+                <source>Message</source>
+                <target>Meldung</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.status.running">
+                <source>Running</source>
+                <target>Läuft</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.status.success">
+                <source>Success</source>
+                <target>Erfolg</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.status.partial">
+                <source>Partial</source>
+                <target>Teilweise</target>
+            </trans-unit>
+            <trans-unit id="module.syncLogs.status.failure">
+                <source>Failure</source>
+                <target>Fehler</target>
             </trans-unit>
             <trans-unit id="module.connection.title">
                 <source>Connection check</source>

@@ -167,6 +167,7 @@ final class ConfigurationRepository
             'pagination_top' => self::DEFAULT_PAGINATION_TOP,
             'default_adults' => max(1, (int)($data['defaultAdults'] ?? 2)),
             'default_children_ages' => trim((string)($data['defaultChildrenAges'] ?? '')),
+            'theme_css' => trim((string)($data['themeCss'] ?? '')),
         ];
 
         $connection = $this->getConnection();
@@ -305,6 +306,7 @@ final class ConfigurationRepository
             $this->connectionStatus = (string)($r['connection_status'] ?? 'unknown');
             $this->connectionCheckedAt = (int)($r['connection_checked_at'] ?? 0);
             $this->connectionMessage = (string)($r['connection_message'] ?? '');
+            $this->themeCss = (string)($r['theme_css'] ?? '');
         };
 
         $bind->call($entity, $row);

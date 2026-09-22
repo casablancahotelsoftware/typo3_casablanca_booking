@@ -25,6 +25,7 @@ CREATE TABLE tx_casablancabooking_configuration (
     connection_status VARCHAR(20) DEFAULT 'unknown' NOT NULL,
     connection_checked_at INT(11) UNSIGNED DEFAULT 0 NOT NULL,
     connection_message TEXT,
+    theme_css TEXT,
 
     PRIMARY KEY (uid),
     UNIQUE KEY site_identity (site_identifier)

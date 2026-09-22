@@ -106,7 +106,7 @@
 
         preview.classList.remove('cb-backend__url-preview--empty');
 
-        var query = 'arrivalDate=2026-06-01&departureDate=2026-06-08&numberOfRooms=1&rooms_0__adults=2&rooms_0__children=0';
+        var query = 'arrivalDate=2026-06-01&departureDate=2026-06-08&rooms_0__adults=2';
         var segments = buildPreviewSegments(base, culture, tenant, space, style);
         preview.textContent = segments.join('/') + '?' + query;
 

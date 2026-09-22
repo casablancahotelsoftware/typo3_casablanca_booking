@@ -1,0 +1,105 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="cb-backend__sync-logs">
+    <div class="cb-backend__form-actions cb-backend__form-actions--top">
+        <f:link.action action="syncNow"
+                       arguments="{siteIdentifier: configuration.siteIdentifier}"
+                       class="btn btn-default">
+            <f:translate key="module.action.sync"
+                         extensionName="casablanca_booking"
+                         default="Sync now" />
+        </f:link.action>
+        <f:link.action action="edit"
+                       arguments="{uid: configuration.uid, tab: 'config'}"
+                       class="btn btn-default">
+            <f:translate key="module.tab.configuration"
+                         extensionName="casablanca_booking"
+                         default="Configuration" />
+        </f:link.action>
+    </div>
+
+    <f:if condition="{syncLogs}">
+        <f:then>
+            <div class="table-responsive">
+                <table class="table table-striped cb-backend__logs-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <f:translate key="module.syncLogs.col.started"
+                                             extensionName="casablanca_booking"
+                                             default="Started" />
+                            </th>
+                            <th>
+                                <f:translate key="module.syncLogs.col.duration"
+                                             extensionName="casablanca_booking"
+                                             default="Duration" />
+                            </th>
+                            <th>
+                                <f:translate key="module.syncLogs.col.status"
+                                             extensionName="casablanca_booking"
+                                             default="Status" />
+                            </th>
+                            <th>
+                                <f:translate key="module.syncLogs.col.rowsWritten"
+                                             extensionName="casablanca_booking"
+                                             default="Rows written" />
+                            </th>
+                            <th>
+                                <f:translate key="module.syncLogs.col.rowsChanged"
+                                             extensionName="casablanca_booking"
+                                             default="Rows changed" />
+                            </th>
+                            <th>
+                                <f:translate key="module.syncLogs.col.cacheTags"
+                                             extensionName="casablanca_booking"
+                                             default="Cache tags" />
+                            </th>
+                            <th>
+                                <f:translate key="module.syncLogs.col.message"
+                                             extensionName="casablanca_booking"
+                                             default="Message" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <f:for each="{syncLogs}" as="log">
+                            <tr>
+                                <td>
+                                    <f:if condition="{log.startedAt} > 0">
+                                        <f:format.date format="Y-m-d H:i:s">@{log.startedAt}</f:format.date>
+                                    </f:if>
+                                </td>
+                                <td>
+                                    <f:if condition="{log.durationSeconds} > 0">
+                                        {log.durationSeconds}s
+                                    </f:if>
+                                </td>
+                                <td>
+                                    <span class="cb-backend__log-status cb-backend__log-status--{log.status}">
+                                        <f:translate key="module.syncLogs.status.{log.status}"
+                                                     extensionName="casablanca_booking"
+                                                     default="{log.status}" />
+                                    </span>
+                                </td>
+                                <td>{log.rowsWritten}</td>
+                                <td>{log.rowsChanged}</td>
+                                <td>{log.cacheTagsFlushed}</td>
+                                <td>{log.message}</td>
+                            </tr>
+                        </f:for>
+                    </tbody>
+                </table>
+            </div>
+        </f:then>
+        <f:else>
+            <p class="form-text text-muted">
+                <f:translate key="module.syncLogs.empty"
+                             extensionName="casablanca_booking"
+                             default="No sync runs recorded yet for this site." />
+            </p>
+        </f:else>
+    </f:if>
+</div>
+
+</html>

@@ -175,3 +175,53 @@ body[data-color-scheme="dark"] .cb-backend__connection,
     background-color: #2b3035;
     border-color: #495057;
 }
+
+.cb-backend__form-actions--top {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.cb-backend__log-status {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.cb-backend__log-status--success {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.cb-backend__log-status--running {
+    background: #cff4fc;
+    color: #055160;
+}
+
+.cb-backend__log-status--partial {
+    background: #fff3cd;
+    color: #664d03;
+}
+
+.cb-backend__log-status--failure {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.cb-backend__token-reference {
+    margin-bottom: 1rem;
+}
+
+.cb-backend__token-reference summary {
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.cb-backend__token-table code,
+.cb-backend__theme-css {
+    font-family: var(--typo3-font-family-monospace, ui-monospace, monospace);
+    font-size: 0.875rem;
+}

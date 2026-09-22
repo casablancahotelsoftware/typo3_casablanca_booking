@@ -65,6 +65,9 @@ final class Configuration extends AbstractEntity
     /** @var string */
     protected $connectionMessage = '';
 
+    /** @var string */
+    protected $themeCss = '';
+
     public function getSiteIdentifier(): string
     {
         return $this->siteIdentifier;
@@ -164,5 +167,10 @@ final class Configuration extends AbstractEntity
     public function getConnectionMessage(): string
     {
         return $this->connectionMessage;
+    }
+
+    public function getThemeCss(): string
+    {
+        return $this->themeCss;
     }
 }

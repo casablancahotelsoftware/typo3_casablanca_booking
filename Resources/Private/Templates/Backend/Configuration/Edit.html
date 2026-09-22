@@ -78,6 +78,15 @@
                     </f:link.action>
                 </li>
             </f:if>
+            <li class="nav-item">
+                <f:link.action action="edit"
+                               arguments="{uid: configuration.uid, tab: 'logs'}"
+                               class="nav-link{f:if(condition: isLogsTab, then: ' active')}">
+                    <f:translate key="module.tab.syncLogs"
+                                 extensionName="casablanca_booking"
+                                 default="Sync logs" />
+                </f:link.action>
+            </li>
         </ul>
     </f:if>
 
@@ -86,6 +95,11 @@
             <f:render partial="Configuration/MappingCodes" arguments="{configuration: configuration, roomTypes: roomTypes, rates: rates, packages: packages, companyId: companyId}" />
         </f:then>
         <f:else>
+            <f:if condition="{configuration} && {isLogsTab}">
+                <f:then>
+                    <f:render partial="Configuration/SyncLogs" arguments="{configuration: configuration, syncLogs: syncLogs}" />
+                </f:then>
+                <f:else>
             <f:form action="save" name="configuration" class="cb-backend__form">
                 <f:if condition="{configuration}">
                     <f:form.hidden name="uid" value="{configuration.uid}" />
@@ -285,6 +299,72 @@
 
                 <fieldset class="form-section">
                     <legend>
+                        <f:translate key="module.section.theming"
+                                     extensionName="casablanca_booking"
+                                     default="Theming" />
+                    </legend>
+
+                    <details class="cb-backend__token-reference">
+                        <summary>
+                            <f:translate key="module.field.themeTokens.summary"
+                                         extensionName="casablanca_booking"
+                                         default="CSS design tokens (--cb-*)" />
+                        </summary>
+                        <p class="form-text text-muted">
+                            <f:translate key="module.field.themeTokens.hint"
+                                         extensionName="casablanca_booking"
+                                         default="Default values from widget.css. Override in the textarea below, in your sitepackage, or via TypoScript theme settings." />
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-sm cb-backend__token-table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <f:translate key="module.field.themeTokens.col.token"
+                                                         extensionName="casablanca_booking"
+                                                         default="Token" />
+                                        </th>
+                                        <th>
+                                            <f:translate key="module.field.themeTokens.col.default"
+                                                         extensionName="casablanca_booking"
+                                                         default="Default" />
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <f:for each="{themeTokens}" as="defaultValue" key="tokenName">
+                                        <tr>
+                                            <td><code>{tokenName}</code></td>
+                                            <td><code>{defaultValue}</code></td>
+                                        </tr>
+                                    </f:for>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+
+                    <div class="form-group">
+                        <label for="cb-theme-css">
+                            <f:translate key="module.field.themeCss"
+                                         extensionName="casablanca_booking"
+                                         default="Site CSS overrides" />
+                        </label>
+                        <f:form.textarea name="themeCss"
+                                         id="cb-theme-css"
+                                         class="form-control cb-backend__theme-css"
+                                         rows="8"
+                                         value="{configuration.themeCss}"
+                                         placeholder=".cb-widget { --cb-accent: #006633; --cb-radius: 4px; }" />
+                        <small class="form-text text-muted">
+                            <f:translate key="module.field.themeCss.hint"
+                                         extensionName="casablanca_booking"
+                                         default="Applied after bundled CSS and TypoScript theme settings. Scope rules to .cb-widget." />
+                        </small>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <legend>
                         <f:translate key="module.section.sync"
                                      extensionName="casablanca_booking"
                                      default="Sync" />
@@ -325,6 +405,8 @@
                     </f:if>
                 </div>
             </f:form>
+                </f:else>
+            </f:if>
         </f:else>
     </f:if>
 </div>

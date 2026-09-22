@@ -57,6 +57,9 @@ final class SiteConfigurationDto
     /** @var string One of IbeLinkStyle::* constants */
     public $ibeLinkStyle;
 
+    /** @var string Per-site CSS overrides from backend configuration */
+    public $themeCss;
+
     public function __construct(
         string $siteIdentifier,
         string $tenantId,
@@ -70,7 +73,8 @@ final class SiteConfigurationDto
         int $paginationTop,
         RoomOccupancyDto $defaultOccupancy,
         string $servicePath = 'ibe',
-        string $ibeLinkStyle = 'full_path'
+        string $ibeLinkStyle = 'full_path',
+        string $themeCss = ''
     ) {
         $this->siteIdentifier = $siteIdentifier;
         $this->tenantId = $tenantId;
@@ -85,6 +89,7 @@ final class SiteConfigurationDto
         $this->defaultOccupancy = $defaultOccupancy;
         $this->servicePath = $servicePath;
         $this->ibeLinkStyle = $ibeLinkStyle;
+        $this->themeCss = $themeCss;
     }
 
     public function isComplete(): bool
