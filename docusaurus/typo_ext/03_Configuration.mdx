@@ -93,6 +93,7 @@ After save or **Test connection**, the module shows:
 
 Displays last-checked timestamp and error message when available.
 
+<!-- mdx:preserve:sync-logs-tab -->
 ### Sync logs tab
 
 Available on every saved configuration. Lists recent import runs for the
@@ -118,6 +119,7 @@ Log columns:
 | **Rows changed** | Rows that differed from the previous cache. |
 | **Cache tags** | Page-cache tags flushed after changes. |
 | **Message** | Sync date window on success (e.g. `Window 2026-09-22–2027-09-21`); flush summary or exception text on other runs. |
+<!-- /mdx:preserve:sync-logs-tab -->
 
 ### Mapping codes tab
 
@@ -150,10 +152,12 @@ Requires at least one successful sync. Use **Sync now** if the tab shows
 6. **Mapping codes** — tab appears when connection status is OK; lists synced
    room types, rates, and packages with PMS codes for editors.
 
+<!-- mdx:preserve:expected-workflow-note -->
 :::note
 Use **Test connection** anytime to re-verify credentials without running a
 full sync. The scheduler task can be inspected under **System → Scheduler**.
 :::
+<!-- /mdx:preserve:expected-workflow-note -->
 
 In CASABLANCA terminology the **Space** (formerly *Betrieb*) is the BE context
 configured as **Space name**.
@@ -186,6 +190,42 @@ changes (readable in light and dark backend mode).
 * `culture_space` and `culture_only` with the default CASABLANCA domain show
   a non-blocking backend warning (intended for custom IBE domains)
 * Legacy `tenant_only` values are normalized to `culture_space` on load
+
+<!-- mdx:preserve:environment-mode -->
+## CASABLANCA environment mode
+
+:::info CASABLANCA environment mode
+For non-production TYPO3 instances, point API sync and frontend booking links at
+a CASABLANCA staging or development environment without changing the per-site
+configuration record.
+
+Set **Admin Tools → Settings → Extension Configuration → casablanca_booking →
+CASABLANCA environment** to:
+
+* **Production** (default) — no host rewriting
+* **Staging** — `staging-*` hosts at runtime
+* **Development** — `dev-*` hosts at runtime
+
+Only TYPO3 administrators see this setting; it is not on the site configuration
+form.
+
+When staging or development is selected, default production hosts are rewritten
+at runtime only:
+
+| Production host | Staging host at runtime | Development host at runtime |
+| --- | --- | --- |
+| `api.casablanca.at` | `staging-api.casablanca.at` | `dev-api.casablanca.at` |
+| `bookingengine.casablanca.at` | `staging-bookingengine.casablanca.at` | `dev-bookingengine.casablanca.at` |
+
+Custom booking domains (**Use custom IBE domain**) and URLs that already use
+`staging-` or `dev-` prefixes are left unchanged. The database still stores
+production URLs; switching back to Production restores normal behaviour without
+re-saving configurations.
+
+The backend module shows a notice when staging or development is active. Flush
+TYPO3 caches after changing the extension setting.
+:::
+<!-- /mdx:preserve:environment-mode -->
 
 ## API key storage
 

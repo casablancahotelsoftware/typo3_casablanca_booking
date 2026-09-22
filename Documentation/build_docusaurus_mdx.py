@@ -2,8 +2,10 @@
 """Convert extension RST manuals to Docusaurus MDX drop-in files.
 
 Writes to docusaurus/typo_ext/ and preserves existing YAML frontmatter.
-After running, review hand-maintained sections (Sync logs tab table,
-Docusaurus admonitions) in 03_Configuration.mdx and typo_ext.mdx.
+After running, review the diff. Hand-maintained blocks wrapped in
+``<!-- mdx:preserve:NAME -->`` markers in docusaurus/typo_ext/*.mdx are
+spliced back into the export (admonitions, Sync logs table, code fences).
+See docusaurus/typo_ext/README.md.
 """
 
 from __future__ import annotations
@@ -188,7 +190,7 @@ def convert_index_rst(text: str) -> str:
         "",
         "**Extension key:** `casablanca_booking`  ",
         "**Package name:** `casablanca/bookingengine-connector`  ",
-        "**Version:** 1.0.8  ",
+        "**Version:** 1.0.9  ",
         "**Language:** en",
         "",
         "**Author:** Martin Hairer  ",
@@ -368,6 +370,127 @@ def read_frontmatter(path: Path) -> str:
     return match.group(0).rstrip() + "\n"
 
 
+def read_existing_body(path: Path) -> str:
+    if not path.is_file():
+        return ""
+    text = path.read_text(encoding="utf-8")
+    return FRONTMATTER_RE.sub("", text, count=1)
+
+
+PRESERVE_START_RE = re.compile(r"^<!-- mdx:preserve:([\w-]+) -->$")
+PRESERVE_END_RE = re.compile(r"^<!-- /mdx:preserve:([\w-]+) -->$")
+
+
+def extract_preserved_blocks(text: str) -> dict[str, str]:
+    blocks: dict[str, str] = {}
+    lines = text.splitlines()
+    i = 0
+    while i < len(lines):
+        start_match = PRESERVE_START_RE.match(lines[i].strip())
+        if not start_match:
+            i += 1
+            continue
+
+        name = start_match.group(1)
+        block_lines = [lines[i]]
+        i += 1
+        while i < len(lines):
+            block_lines.append(lines[i])
+            end_match = PRESERVE_END_RE.match(lines[i].strip())
+            if end_match and end_match.group(1) == name:
+                break
+            i += 1
+
+        blocks[name] = "\n".join(block_lines).rstrip() + "\n"
+        i += 1
+
+    return blocks
+
+
+def strip_preserve_wrapper(block: str) -> str:
+    lines = block.splitlines()
+    if lines and PRESERVE_START_RE.match(lines[0].strip()):
+        lines = lines[1:]
+    if lines and PRESERVE_END_RE.match(lines[-1].strip()):
+        lines = lines[:-1]
+    return "\n".join(lines).strip()
+
+
+def replace_section_by_heading(body: str, preserved_block: str) -> tuple[str, bool]:
+    heading_match = re.search(r"^(#{2,4}) (.+)$", preserved_block, re.MULTILINE)
+    if not heading_match:
+        return body, False
+
+    level = len(heading_match.group(1))
+    heading_line = heading_match.group(0)
+    pattern = re.compile(
+        rf"^{re.escape(heading_line)}\n.*?(?=^#{{1,{level}}} \S|\Z)",
+        re.MULTILINE | re.DOTALL,
+    )
+    if not pattern.search(body):
+        return body, False
+
+    return pattern.sub(preserved_block.rstrip() + "\n\n", body, count=1), True
+
+
+def merge_by_exact_content(body: str, preserved_block: str) -> tuple[str, bool]:
+    inner = strip_preserve_wrapper(preserved_block).strip()
+    if len(inner) < 20 or inner not in body:
+        return body, False
+
+    return body.replace(inner, preserved_block.rstrip(), 1), True
+
+
+def merge_admonition_block(body: str, preserved_block: str) -> tuple[str, bool]:
+    inner = strip_preserve_wrapper(preserved_block)
+    if not inner.startswith(":::"):
+        return body, False
+
+    content_lines = [line for line in inner.splitlines() if line and not line.startswith(":::")]
+    if not content_lines:
+        return body, False
+
+    needle = content_lines[0]
+    if needle not in body:
+        return body, False
+
+    pattern = re.compile(re.escape(needle) + r".*?(?=\n\n|\Z)", re.DOTALL)
+    return pattern.sub(preserved_block.rstrip() + "\n", body, count=1), True
+
+
+def merge_preserved_blocks(body: str, preserved: dict[str, str], dst_name: str) -> str:
+    if not preserved:
+        return body
+
+    for name, block in preserved.items():
+        merged, ok = replace_section_by_heading(body, block)
+        if ok:
+            body = merged
+            continue
+
+        merged, ok = merge_admonition_block(body, block)
+        if ok:
+            body = merged
+            continue
+
+        merged, ok = merge_by_exact_content(body, block)
+        if ok:
+            body = merged
+            continue
+
+        if f"<!-- mdx:preserve:{name} -->" in body:
+            continue
+
+        print(
+            f"warn: preserved block '{name}' in {dst_name} had no match; appending",
+            file=sys.stderr,
+        )
+        body = body.rstrip() + "\n\n" + block
+
+    body = re.sub(r"\n{3,}", "\n\n", body)
+    return body.strip() + "\n"
+
+
 def main() -> int:
     OUT_ROOT.mkdir(parents=True, exist_ok=True)
 
@@ -379,10 +502,12 @@ def main() -> int:
             continue
 
         frontmatter = read_frontmatter(dst)
+        preserved = extract_preserved_blocks(read_existing_body(dst))
         if src_rel == "Index.rst":
             body = convert_index_rst(src.read_text(encoding="utf-8"))
         else:
             body = convert_rst(src.read_text(encoding="utf-8"))
+        body = merge_preserved_blocks(body, preserved, dst_name)
 
         content = frontmatter + body if frontmatter else body
         dst.write_text(content, encoding="utf-8")

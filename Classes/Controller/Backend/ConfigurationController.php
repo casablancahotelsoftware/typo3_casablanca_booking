@@ -14,6 +14,7 @@ use Casablanca\CasablancaBooking\Domain\Repository\RoomTypeRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\SyncLogRepository;
 use Casablanca\CasablancaBooking\Service\Frontend\ThemeTokenRegistry;
 use Casablanca\CasablancaBooking\Service\Configuration\ConfigurationService;
+use Casablanca\CasablancaBooking\Service\Configuration\StagingHostResolver;
 use Casablanca\CasablancaBooking\Service\Sync\SyncService;
 use Casablanca\CasablancaBooking\Service\UrlBuilder\IbeUrlBuilder;
 use DateTimeImmutable;
@@ -144,6 +145,7 @@ class ConfigurationController extends ActionController
         );
         $this->view->assign('ibeLinkStyleOptions', $this->buildIbeLinkStyleOptions());
         $this->view->assign('themeTokens', ThemeTokenRegistry::getDefaultTokens());
+        $this->view->assign('environmentMode', $this->getStagingHostResolver()->getEnvironmentMode());
         $this->view->assign(
             'bookingEngineUrlPreview',
             $configuration !== null ? $this->buildBookingEngineUrlPreview($configuration) : ''
@@ -588,8 +590,8 @@ class ConfigurationController extends ActionController
                 $configuration->getTenantId(),
                 $configuration->getUrlFriendlyIbeContextId(),
                 'preview',
-                $configuration->getApiBaseUrl(),
-                $configuration->getIbeBaseUrl(),
+                $this->getStagingHostResolver()->applyToApiUrl($configuration->getApiBaseUrl()),
+                $this->getStagingHostResolver()->applyToIbeUrl($configuration->getIbeBaseUrl()),
                 $configuration->getDefaultCulture(),
                 $configuration->getSyncRangeDays(),
                 $configuration->getSyncChunkDays(),
@@ -620,5 +622,10 @@ class ConfigurationController extends ActionController
         $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
         $queue = $flashMessageService->getMessageQueueByIdentifier();
         $queue->addMessage(new FlashMessage($message, $title, $severity));
+    }
+
+    private function getStagingHostResolver(): StagingHostResolver
+    {
+        return GeneralUtility::makeInstance(StagingHostResolver::class);
     }
 }

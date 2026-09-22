@@ -343,6 +343,14 @@
                 <source>Clear all synced room types, rates, and availability for this site and run a fresh sync?</source>
                 <target>Alle synchronisierten Zimmertypen, Raten und Verfügbarkeiten für diese Site löschen und neu synchronisieren?</target>
             </trans-unit>
+            <trans-unit id="module.environment.notice.staging">
+                <source>CASABLANCA staging mode is active for this TYPO3 instance. API sync and booking links use the staging hosts. Values stored in this form are unchanged.</source>
+                <target>CASABLANCA-Staging-Modus ist für diese TYPO3-Instanz aktiv. API-Sync und Buchungslinks nutzen die Staging-Hosts. Gespeicherte Werte in diesem Formular bleiben unverändert.</target>
+            </trans-unit>
+            <trans-unit id="module.environment.notice.development">
+                <source>CASABLANCA development mode is active for this TYPO3 instance. API sync and booking links use the development hosts. Values stored in this form are unchanged.</source>
+                <target>CASABLANCA-Entwicklungsmodus ist für diese TYPO3-Instanz aktiv. API-Sync und Buchungslinks nutzen die Entwicklungs-Hosts. Gespeicherte Werte in diesem Formular bleiben unverändert.</target>
+            </trans-unit>
             <trans-unit id="module.action.save">
                 <source>Save</source>
                 <target>Speichern</target>

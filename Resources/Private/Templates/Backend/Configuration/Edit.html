@@ -20,6 +20,21 @@
         </f:if>
     </h1>
 
+    <f:if condition="{environmentMode} == 'staging'">
+        <div class="cb-backend__staging-notice" role="status">
+            <f:translate key="module.environment.notice.staging"
+                         extensionName="casablanca_booking"
+                         default="CASABLANCA staging mode is active for this TYPO3 instance. API sync and booking links use the staging hosts. Values stored in this form are unchanged." />
+        </div>
+    </f:if>
+    <f:if condition="{environmentMode} == 'development'">
+        <div class="cb-backend__staging-notice" role="status">
+            <f:translate key="module.environment.notice.development"
+                         extensionName="casablanca_booking"
+                         default="CASABLANCA development mode is active for this TYPO3 instance. API sync and booking links use the development hosts. Values stored in this form are unchanged." />
+        </div>
+    </f:if>
+
     <f:if condition="{configuration}">
         <div class="cb-backend__connection cb-backend__connection--{configuration.connectionStatus}">
             <span class="cb-backend__connection-badge" aria-hidden="true"></span>

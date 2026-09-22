@@ -36,6 +36,8 @@ vendor/bin/typo3 casablanca-booking:sync --site=main --days=14
 
 A daily scheduler task is created automatically on first save (staggered to the save time). An initial sync runs when the connection check succeeds; sync also runs after backend cache clears.
 
+**Environment mode:** Set **Admin Tools → Settings → Extension Configuration → casablanca_booking → CASABLANCA environment** to Production (default), Staging (`staging-*` hosts), or Development (`dev-*` hosts). API sync and booking links use the selected hosts at runtime without changing site configuration records.
+
 ## Theming
 
 All widgets use the `.cb-` CSS prefix and `--cb-*` design tokens declared on `.cb-widget`. Agencies typically:

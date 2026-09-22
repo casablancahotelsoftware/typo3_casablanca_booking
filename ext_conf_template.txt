@@ -1,0 +1,2 @@
+# cat=basic; type=options[production=Production (default CASABLANCA hosts),staging=Staging (staging-* hosts),development=Development (dev-* hosts)]; label=CASABLANCA environment
+environmentMode = production

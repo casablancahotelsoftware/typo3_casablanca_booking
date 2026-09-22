@@ -263,6 +263,12 @@
             <trans-unit id="module.confirm.flushAndSync">
                 <source>Clear all synced room types, rates, and availability for this site and run a fresh sync?</source>
             </trans-unit>
+            <trans-unit id="module.environment.notice.staging">
+                <source>CASABLANCA staging mode is active for this TYPO3 instance. API sync and booking links use the staging hosts. Values stored in this form are unchanged.</source>
+            </trans-unit>
+            <trans-unit id="module.environment.notice.development">
+                <source>CASABLANCA development mode is active for this TYPO3 instance. API sync and booking links use the development hosts. Values stored in this form are unchanged.</source>
+            </trans-unit>
             <trans-unit id="module.action.save">
                 <source>Save</source>
             </trans-unit>

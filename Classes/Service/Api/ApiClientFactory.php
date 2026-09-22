@@ -9,6 +9,7 @@ use Casablanca\CasablancaBooking\Domain\Dto\SiteConfigurationDto;
 use Casablanca\CasablancaBooking\Domain\IbeLinkStyle;
 use Casablanca\CasablancaBooking\Domain\Model\Configuration;
 use Casablanca\CasablancaBooking\Domain\Repository\ConfigurationRepository;
+use Casablanca\CasablancaBooking\Service\Configuration\StagingHostResolver;
 use Casablanca\CasablancaBooking\Service\Api\Client\BookingOffersClient;
 use Casablanca\CasablancaBooking\Service\Api\Client\CalendarDatesClient;
 use Casablanca\CasablancaBooking\Service\Api\Client\InventoryCacheClient;
@@ -20,6 +21,7 @@ use TYPO3\CMS\Core\Http\Client\GuzzleClientFactory;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Resolves credentials and builds API clients for a given TYPO3 Site.
@@ -67,7 +69,9 @@ final class ApiClientFactory
             return null;
         }
 
-        $settings = $this->mergeSettings($yamlSettings, $dbConfig);
+        $settings = $this->getStagingHostResolver()->applyToSettings(
+            $this->mergeSettings($yamlSettings, $dbConfig)
+        );
 
         $tenantId = (string)($settings['tenantId'] ?? '');
         $ibeContextId = (string)($settings['urlFriendlyIbeContextId'] ?? '');
@@ -268,5 +272,10 @@ final class ApiClientFactory
         }
 
         return $this->configurationRepository->decryptApiKey($encrypted);
+    }
+
+    private function getStagingHostResolver(): StagingHostResolver
+    {
+        return GeneralUtility::makeInstance(StagingHostResolver::class);
     }
 }

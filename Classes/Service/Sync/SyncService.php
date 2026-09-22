@@ -6,7 +6,10 @@ namespace Casablanca\CasablancaBooking\Service\Sync;
 
 use Casablanca\CasablancaBooking\Domain\Dto\SiteConfigurationDto;
 use Casablanca\CasablancaBooking\Domain\Model\SyncLog;
+use Casablanca\CasablancaBooking\Domain\Repository\AvailabilityRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\ConfigurationRepository;
+use Casablanca\CasablancaBooking\Domain\Repository\RateRepository;
+use Casablanca\CasablancaBooking\Domain\Repository\RoomTypeRepository;
 use Casablanca\CasablancaBooking\Domain\Repository\SyncLogRepository;
 use Casablanca\CasablancaBooking\Install\AvailabilitySchemaMigrator;
 use Casablanca\CasablancaBooking\Install\CatalogSchemaMigrator;
@@ -14,6 +17,7 @@ use Casablanca\CasablancaBooking\Service\Api\ApiClientFactory;
 use DateTimeImmutable;
 use Psr\Log\LoggerInterface;
 use Throwable;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -385,7 +389,7 @@ final class SyncService
             ];
         }
 
-        $flush = GeneralUtility::makeInstance(SyncCatalogFlusher::class)->flushSite($siteIdentifier);
+        $flush = $this->getSyncCatalogFlusher()->flushSite($siteIdentifier);
         $exitCode = $this->sync($siteIdentifier, false, null);
 
         return [
@@ -419,5 +423,21 @@ final class SyncService
         }
 
         return $hadFailure ? 1 : 0;
+    }
+
+    private function getSyncCatalogFlusher(): SyncCatalogFlusher
+    {
+        $container = GeneralUtility::getContainer();
+        if ($container->has(SyncCatalogFlusher::class)) {
+            return $container->get(SyncCatalogFlusher::class);
+        }
+
+        return new SyncCatalogFlusher(
+            GeneralUtility::makeInstance(AvailabilityRepository::class),
+            GeneralUtility::makeInstance(RoomTypeRepository::class),
+            GeneralUtility::makeInstance(RateRepository::class),
+            GeneralUtility::makeInstance(CacheManager::class),
+            GeneralUtility::makeInstance(SyncLogRepository::class)
+        );
     }
 }

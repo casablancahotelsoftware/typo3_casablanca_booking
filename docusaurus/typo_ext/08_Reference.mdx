@@ -79,6 +79,7 @@ When using the `casablanca/booking` site set, these settings appear in
 | `casablancaBooking.theme.accentContrast` | str | `''` | `settings.theme.accentContrast` |
 | `casablancaBooking.theme.radius` | str | `''` | `settings.theme.radius` |
 
+<!-- mdx:preserve:reference-site-settings-yaml -->
 YAML example in `config/sites/main/settings.yaml`:
 
 ```yaml
@@ -89,6 +90,7 @@ casablancaBooking:
     accentContrast: '#ffffff'
     radius: '4px'
 ```
+<!-- /mdx:preserve:reference-site-settings-yaml -->
 
 ## TypoScript constants (TYPO3 v12)
 
@@ -113,6 +115,7 @@ plugin.tx_casablancabooking {
 }
 ```
 
+<!-- mdx:preserve:reference-typoscript-blocks -->
 ## TypoScript setup mapping
 
 `setup.typoscript` wires constants into plugin settings:
@@ -131,7 +134,8 @@ plugin.tx_casablancabooking {
 }
 ```
 
-   # Site Settings bridge (v13+)
+Site Settings bridge (v13+):
+
 ```typoscript
 plugin.tx_casablancabooking.settings {
     includeCss = {$casablancaBooking.includeCss}
@@ -142,6 +146,16 @@ plugin.tx_casablancabooking.settings {
     }
 }
 ```
+
+## Frontend assets
+
+Regardless of `includeCss`, the setup registers assets globally:
+
+```typoscript
+page.includeCSS.casablancaBookingWidget = EXT:casablanca_booking/Resources/Public/Css/widget.css
+page.includeJSFooter.casablancaBookingWidget = EXT:casablanca_booking/Resources/Public/JavaScript/widget.js
+```
+<!-- /mdx:preserve:reference-typoscript-blocks -->
 
 ## Frontend assets
 

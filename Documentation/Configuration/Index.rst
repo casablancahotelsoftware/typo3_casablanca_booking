@@ -279,6 +279,43 @@ Validation
 * Legacy ``tenant_only`` values are normalized to ``culture_space`` on load
 
 
+CASABLANCA environment mode
+===========================
+
+For non-production TYPO3 instances, point API sync and frontend booking links at
+a CASABLANCA staging or development environment without changing the per-site
+configuration record.
+
+Set **Admin Tools → Settings → Extension Configuration → casablanca_booking →
+CASABLANCA environment** to one of:
+
+* **Production** (default) — no host rewriting; normal operation
+* **Staging** — rewrite default production hosts to ``staging-*`` hosts
+* **Development** — rewrite default production hosts to ``dev-*`` hosts
+
+Only TYPO3 administrators see this setting; it is not on the site configuration
+form.
+
+When staging or development is selected, the extension rewrites default
+production hosts at runtime only:
+
++-------------------------------+-------------------------------+--------------------------------+
+| Production host               | Staging host at runtime       | Development host at runtime    |
++===============================+===============================+================================+
+| ``api.casablanca.at``         | ``staging-api.casablanca.at`` | ``dev-api.casablanca.at``      |
++-------------------------------+-------------------------------+--------------------------------+
+| ``bookingengine.casablanca.at`` | ``staging-bookingengine.casablanca.at`` | ``dev-bookingengine.casablanca.at`` |
++-------------------------------+-------------------------------+--------------------------------+
+
+Custom booking domains (``Use custom IBE domain``) and URLs that already use
+``staging-`` or ``dev-`` prefixes are left unchanged. The database still stores
+production URLs; switching back to Production restores normal behaviour without
+re-saving configurations.
+
+The backend module shows a notice when staging or development is active. Flush
+TYPO3 caches after changing the extension setting.
+
+
 API key storage
 ===============
 

@@ -140,6 +140,7 @@ English strings. Dynamic room blocks read `window.CB_LABELS`:
 book/enquiry buttons). If you override a label in Fluid, flush caches
 so the inline script is regenerated.
 
+<!-- mdx:preserve:fluid-viewhelper -->
 ## Fluid ViewHelper
 
 Templates use `casablanca:label` for headings and CTAs with optional
@@ -150,7 +151,9 @@ FlexForm override:
                   override="{labels.bookNow}"
                   default="Book now" />
 ```
+<!-- /mdx:preserve:fluid-viewhelper -->
 
+<!-- mdx:preserve:how-to-read-manual -->
 ## How to read this manual
 
 The `Documentation/` folder in this extension is the **official TYPO3
@@ -169,7 +172,7 @@ Where you **do** see it:
 
 Local HTML preview (authors only):
 
-```
+```bash
 docker run --rm -it \
   -v $(pwd):/project \
   ghcr.io/typo3-documentation/render-guides:latest \
@@ -178,5 +181,4 @@ docker run --rm -it \
 
 Open the generated HTML in `Documentation-GENERATED-temp/` in a browser.
 This is for writing and reviewing docs, not for hotel editors.
-
-See also: [Content elements](./04_ContentElements.mdx) (FlexForm Texts per plugin),
+<!-- /mdx:preserve:how-to-read-manual -->

@@ -58,6 +58,8 @@ services:
     public: true
   Casablanca\CasablancaBooking\Service\Configuration\ConfigurationService:
     public: true
+  Casablanca\CasablancaBooking\Service\Configuration\StagingHostResolver:
+    public: true
 
   Casablanca\CasablancaBooking\Service\Sync\SyncTriggerService:
     public: true
