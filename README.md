@@ -1,6 +1,6 @@
 # CASABLANCA Booking Engine — TYPO3 Extension
 
-Integrates the CASABLANCA Internet Booking Engine (IBE v2) into TYPO3. Replaces the legacy [JavaScript web widgets](https://docs.casablanca.at/cloud/module/widget/) with native CMS content elements, scheduled ARI synchronisation, SSR-rendered prices for SEO, and PCI-safe redirect handover to the booking engine.
+Integrates the CASABLANCA Booking Engine (BE v2) into TYPO3. Replaces the legacy [JavaScript web widgets](https://docs.casablanca.at/cloud/module/widget/) with native CMS content elements, scheduled ARI synchronisation, SSR-rendered prices for SEO, and PCI-safe redirect handover to the booking engine.
 
 **Extension key:** `casablanca_booking`  
 **Composer package:** `casablanca/bookingengine-connector`  
@@ -14,7 +14,7 @@ Integrates the CASABLANCA Internet Booking Engine (IBE v2) into TYPO3. Replaces 
 1. `composer require casablanca/bookingengine-connector`
 2. Activate the extension and run `vendor/bin/typo3 extension:setup`
 3. Open **Tools → CASABLANCA Booking**
-4. Enter **Tenant ID** and **API key** (IBE domain defaults to `https://bookingengine.casablanca.at`)
+4. Enter **Tenant ID** and **API key** (Booking Engine domain defaults to `https://bookingengine.casablanca.at`)
 5. Insert content elements on your pages
 
 ## Content elements
@@ -71,4 +71,4 @@ per arrival day), not from TYPO3 FlexForm.
 
 ## PCI DSS
 
-Widgets never call the CASABLANCA API from the browser. Booking and payment happen only on the IBE after HTTP 303 redirect.
+Widgets never call the CASABLANCA API from the browser. Booking and payment happen only on the BE after HTTP 303 redirect.

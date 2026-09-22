@@ -7,6 +7,13 @@
  * in their own stylesheet without forking this file.
  */
 
+.cb-widget,
+.cb-widget *,
+.cb-widget *::before,
+.cb-widget *::after {
+    box-sizing: border-box;
+}
+
 .cb-widget {
     /* ---- Design tokens ---- */
     --cb-font-family: inherit;
@@ -986,7 +993,7 @@
 
 .cb-calendar__offer:has(.cb-calendar__offer-input:checked) {
     border-color: var(--cb-offer-selected-border);
-    background: var(--cb-offer-bg)bea;
+    background: var(--cb-offer-selected-bg);
 }
 
 .cb-calendar__offer-input {
@@ -1034,7 +1041,6 @@
         grid-template-columns: 1fr;
     }
 }
-
 
 .cb-calendar__grid {
     list-style: none;
@@ -1085,6 +1091,91 @@
 .cb-calendar__price {
     font-variant-numeric: tabular-nums;
     font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
+    .cb-widget:has(.cb-calendar-layout) {
+        padding: 0.75rem;
+    }
+
+    .cb-calendar-layout .cb-calendar-layout__aside {
+        padding: 0.75rem;
+    }
+
+    .cb-calendar-layout .cb-calendar__nav-title {
+        font-size: 0.875rem;
+        letter-spacing: 0.02em;
+    }
+
+    .cb-calendar-layout .cb-calendar__weekday {
+        font-size: 0.5625rem;
+        letter-spacing: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .cb-calendar-layout .cb-calendar__cell {
+        min-height: 44px;
+        padding: 0.25rem;
+        gap: 0.0625rem;
+        align-items: center;
+        text-align: center;
+    }
+
+    .cb-calendar-layout .cb-calendar__date {
+        font-size: 0.8125rem;
+        line-height: 1.1;
+    }
+
+    .cb-calendar-layout .cb-calendar__cell .cb-calendar__price {
+        font-size: 0.625rem;
+        line-height: 1.1;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .cb-calendar-layout .cb-calendar__past-mark {
+        font-size: 0.875rem;
+    }
+
+    .cb-calendar-layout .cb-calendar__clear {
+        top: 0.125rem;
+        right: 0.125rem;
+        width: 1rem;
+        height: 1rem;
+        font-size: 0.75rem;
+    }
+
+    .cb-calendar-layout .cb-calendar__cell--from {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+
+    .cb-calendar-layout .cb-calendar__cell--to {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+
+    .cb-calendar-layout .cb-calendar__cell--from.cb-calendar__cell--to {
+        border-radius: 6px;
+    }
+
+    .cb-calendar-layout .cb-calendar__offer {
+        grid-template-columns: auto 1fr;
+    }
+
+    .cb-calendar-layout .cb-calendar__offer-price {
+        grid-column: 2;
+        white-space: normal;
+        padding-top: 0;
+    }
+
+    .cb-calendar-layout .cb-calendar__price {
+        font-size: 1.375rem;
+    }
 }
 
 .cb-calendar__flag {

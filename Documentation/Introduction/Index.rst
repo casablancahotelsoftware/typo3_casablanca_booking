@@ -8,7 +8,7 @@ What this extension does
 ========================
 
 * **Background sync** — pulls room types, rates/packages, calendar dates and
-  inventory from the CASABLANCA IBE v2 API into local tables.
+  inventory from the CASABLANCA BE v2 API into local tables.
 * **SSR widgets** — five content elements replace the legacy JavaScript web
   widgets with crawlable HTML and JSON-LD.
 * **PCI-safe handover** — guests are redirected to the CASABLANCA booking
@@ -64,7 +64,7 @@ Documentation map
 =================
 
 * :doc:`../Installation/Index` — install via Composer, activate site set
-* :doc:`../Configuration/Index` — backend module, credentials, IBE link styles
+* :doc:`../Configuration/Index` — backend module, credentials, BE link styles
 * :doc:`../ContentElements/Index` — all five plugins and ViewHelpers
 * :doc:`../Localization/Index` — frontend labels, translations, FlexForm Texts
 * :doc:`../Reference/Index` — TypoScript and Site Settings reference

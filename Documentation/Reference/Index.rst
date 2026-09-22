@@ -44,14 +44,14 @@ Global plugin settings
 | ``settings.windowDays``        | int      | ``90``        | Default calendar/price look-ahead window |
 |                                |          |               | (days). Overridden by FlexForm.          |
 +--------------------------------+----------+---------------+------------------------------------------+
-| ``settings.defaultAdults``     | int      | ``2``         | Default adult count for forms and IBE    |
+| ``settings.defaultAdults``     | int      | ``2``         | Default adult count for forms and BE    |
 |                                |          |               | handover when not set in FlexForm.       |
 +--------------------------------+----------+---------------+------------------------------------------+
 | ``settings.defaultChildrenAges``| string  | *(empty)*     | Comma-separated default child ages       |
 |                                |          |               | (e.g. ``4,8``). Falls back to backend    |
 |                                |          |               | module occupancy when empty.             |
 +--------------------------------+----------+---------------+------------------------------------------+
-| ``settings.language``          | string   | *(empty)*     | Default IBE culture code. Empty = site   |
+| ``settings.language``          | string   | *(empty)*     | Default BE culture code. Empty = site   |
 |                                |          |               | default / backend ``defaultCulture``.    |
 +--------------------------------+----------+---------------+------------------------------------------+
 
@@ -239,11 +239,11 @@ Stay length: API vs TYPO3 settings
 |                            | **TYPO3 FlexForm**        | sync compared to ``stayNights``. Disable |
 |                            |                           | with ``filterByStayNights = 0``.         |
 +----------------------------+---------------------------+------------------------------------------+
-| Packages / room IBE links  | **TYPO3 FlexForm**        | ``stayNights`` sets default nights on    |
+| Packages / room BE links  | **TYPO3 FlexForm**        | ``stayNights`` sets default nights on    |
 |                            |                           | book buttons (Packages). Not minimum     |
 |                            |                           | stay enforcement.                        |
 +----------------------------+---------------------------+------------------------------------------+
-| Search bar default dates   | **TYPO3 (hardcoded +7)**  | Form only; IBE receives submitted dates.   |
+| Search bar default dates   | **TYPO3 (hardcoded +7)**  | Form only; BE receives submitted dates.   |
 +----------------------------+---------------------------+------------------------------------------+
 
 To maintain stay rules in one place, configure them in CASABLANCA. The

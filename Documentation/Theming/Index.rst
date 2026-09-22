@@ -311,7 +311,7 @@ Disable **Include default widget CSS** in the Site editor, or in
 When ``includeCss`` is disabled:
 
 * ``widget.js`` is still loaded (calendar interactivity, occupancy
-  steppers, IBE handover).
+  steppers, BE handover).
 * Your sitepackage must define all required ``.cb-*`` classes **or** copy
   ``widget.css`` and customise tokens.
 * Inline theme values from Site Settings (``theme.accent`` etc.) still
@@ -403,6 +403,6 @@ Do's and don'ts
 * Do not rely on un-prefixed class names (``button``, ``card``) — they
   are not used.
 * Do not disable JavaScript — the calendar, multi-room occupancy, and
-  new-tab IBE links require ``widget.js``.
+  new-tab BE links require ``widget.js``.
 * Do not expect FlexForm **Layout style** to change colours; use Site
   Settings or agency CSS for that.

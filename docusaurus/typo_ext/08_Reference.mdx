@@ -27,9 +27,9 @@ See [Content elements](./04_ContentElements.mdx) for content-element-specific op
 | `settings.includeCss` | bool/int | `1` | Include `widget.css` on pages with booking plugins. Set `0` when the sitepackage provides its own stylesheet. JavaScript is always loaded. |
 | `settings.appearance` | string | `default` | Default layout style for all plugins unless overridden in FlexForm. Values: `default`, `inherit`, `compact`. |
 | `settings.windowDays` | int | `90` | Default calendar/price look-ahead window (days). Overridden by FlexForm. |
-| `settings.defaultAdults` | int | `2` | Default adult count for forms and IBE handover when not set in FlexForm. |
+| `settings.defaultAdults` | int | `2` | Default adult count for forms and BE handover when not set in FlexForm. |
 | `settings.defaultChildrenAges` | string | *(empty)* | Comma-separated default child ages (e.g. `4,8`). Falls back to backend module occupancy when empty. |
-| `settings.language` | string | *(empty)* | Default IBE culture code. Empty = site default / backend `defaultCulture`. |
+| `settings.language` | string | *(empty)* | Default BE culture code. Empty = site default / backend `defaultCulture`. |
 
 ### Theme settings (`settings.theme`)
 
@@ -74,7 +74,7 @@ When using the `casablanca/booking` site set, these settings appear in
 
 | Site setting key | Type | Default | Maps to |
 | --- | --- | --- | --- |
-| `casablancaBooking.includeCss` | bool | `true` | `plugin.tx_casablancabooking.settings.includeCss` |
+| `casablancaBooking.includeCss` | bool | `true` | `plugin.tx_casablancabooking.settings. includeCss` |
 | `casablancaBooking.theme.accent` | str | `''` | `settings.theme.accent` |
 | `casablancaBooking.theme.accentContrast` | str | `''` | `settings.theme.accentContrast` |
 | `casablancaBooking.theme.radius` | str | `''` | `settings.theme.radius` |
@@ -174,8 +174,8 @@ See [Content elements](./04_ContentElements.mdx) for occupancy behaviour per plu
 | (Widget, detail calendars) | (`CalendarDates`) | `fetchCalendar`. Enforced in JS when selecting departure. Not editable in TYPO3. |
 | Calendar bookable nights | **API** (synced mirror) | `bookable_nights` per day in sync cache; used for restrictions display. |
 | Packages overview filter | **Synced API data** + **TYPO3 FlexForm** | `bookable_nights_with_packages` from sync compared to `stayNights`. Disable with `filterByStayNights = 0`. |
-| Packages / room IBE links | **TYPO3 FlexForm** | `stayNights` sets default nights on book buttons (Packages). Not minimum stay enforcement. |
-| Search bar default dates | **TYPO3 (hardcoded +7)** | Form only; IBE receives submitted dates. |
+| Packages / room BE links | **TYPO3 FlexForm** | `stayNights` sets default nights on book buttons (Packages). Not minimum stay enforcement. |
+| Search bar default dates | **TYPO3 (hardcoded +7)** | Form only; BE receives submitted dates. |
 
 To maintain stay rules in one place, configure them in CASABLANCA. The
 calendar widget reads restrictions from the API automatically. Packages

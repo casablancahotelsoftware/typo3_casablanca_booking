@@ -23,9 +23,12 @@ The module has two views:
 
 Actions available on saved configurations:
 
-* **Save** — persist credentials and IBE settings; runs connection check.
+* **Save** — persist credentials and BE settings; runs connection check.
 * **Test connection** — verify API credentials without a full sync.
 * **Sync now** — import availability, room types, and rates immediately.
+* **Clear synced data and sync** — delete mirrored room types, rates, and
+  availability for this site, flush page-cache tags, then run a fresh sync.
+  Use after switching tenant, space, or booking engine.
 * **Cancel** — return to the index without saving.
 
 
@@ -43,7 +46,7 @@ Credentials
 |                            |          |               | Must match ``config/sites/*/config.yaml``|
 |                            |          |               | site identifier.                         |
 +----------------------------+----------+---------------+------------------------------------------+
-| **Tenant ID**              | Yes      | —             | CASABLANCA tenant UUID from the IBE      |
+| **Tenant ID**              | Yes      | —             | CASABLANCA tenant UUID from the BE      |
 |                            |          |               | admin panel. Required for API and sync.  |
 +----------------------------+----------+---------------+------------------------------------------+
 | **API key**                | Yes (new)| —             | CASABLANCA API key. Stored **encrypted** |
@@ -62,22 +65,22 @@ Booking Engine and Space settings
 |                            |          |               | hosted booking domain. Affects link-style |
 |                            |          |               | validation warnings.                     |
 +----------------------------+----------+---------------+------------------------------------------+
-| **IBE base URL**           | No       | ``https://bookingengine.casablanca.at`` | Base URL for frontend IBE handover links. |
+| **IBE base URL**           | No       | ``https://bookingengine.casablanca.at`` | Base URL for frontend BE handover links. |
 +----------------------------+----------+---------------+------------------------------------------+
-| **Space name**             | No       | ``bookingengine`` | IBE context slug (URL-friendly space   |
+| **Space name**             | No       | ``bookingengine`` | BE context slug (URL-friendly space   |
 |                            |          |               | ID). In CASABLANCA terminology the       |
 |                            |          |               | **Space** (formerly *Betrieb*) is the    |
-|                            |          |               | IBE context. Required for ``full_path``  |
+|                            |          |               | BE context. Required for ``full_path``  |
 |                            |          |               | link style.                              |
 +----------------------------+----------+---------------+------------------------------------------+
-| **Link style**             | No       | ``full_path`` | Controls IBE handover URL path pattern.  |
-|                            |          |               | See :ref:`configuration-link-styles`.    |
+| **Link style**             | No       | ``full_path`` | Controls BE handover URL path pattern.  |
+|                            |          |               | See :ref:`configuration-be-link-styles`.    |
 +----------------------------+----------+---------------+------------------------------------------+
 | **Booking Engine URL**     | —        | *(preview)*   | Read-only live preview of the resulting  |
-|                            |          |               | IBE URL based on current field values.   |
+|                            |          |               | BE URL based on current field values.   |
 |                            |          |               | Updates as you edit (JavaScript).        |
 +----------------------------+----------+---------------+------------------------------------------+
-| **Default culture**        | No       | ``de``        | Default IBE culture segment (e.g. ``de``,|
+| **Default culture**        | No       | ``de``        | Default BE culture segment (e.g. ``de``,|
 |                            |          |               | ``en``). Used when FlexForm language is |
 |                            |          |               | Auto and for API sync requests.            |
 +----------------------------+----------+---------------+------------------------------------------+
@@ -157,6 +160,45 @@ After save or **Test connection**, the module shows:
 Displays last-checked timestamp and error message when available.
 
 
+Sync logs tab
+-------------
+
+Available on every saved configuration. Lists recent import runs for the
+current site (up to 50 entries).
+
+Actions at the top of the tab:
+
+* **Sync now** — incremental import (upsert only; catalog rows removed from
+  the API are kept locally until you clear synced data).
+* **Clear synced data and sync** — deletes mirrored room types, rates, and
+  availability for this site only (configuration and sync history are kept),
+  flushes page-cache tags, then runs a full sync. The flush is recorded as its
+  own log row. A browser confirmation is shown before delete.
+
+Log columns:
+
++----------------------------+---------------------------------------------------+
+| Column                     | Meaning                                           |
++============================+===================================================+
+| **Started**                | Timestamp when the run began.                     |
++----------------------------+---------------------------------------------------+
+| **Duration**               | Elapsed seconds (empty while still running).      |
++----------------------------+---------------------------------------------------+
+| **Status**                 | ``running``, ``success``, ``partial``, or         |
+|                            | ``failure``.                                      |
++----------------------------+---------------------------------------------------+
+| **Rows written**           | Availability rows written during sync runs.       |
++----------------------------+---------------------------------------------------+
+| **Rows changed**           | Rows that differed from the previous cache.       |
++----------------------------+---------------------------------------------------+
+| **Cache tags**             | Page-cache tags flushed after changes.            |
++----------------------------+---------------------------------------------------+
+| **Message**                | Sync date window on success (e.g.                 |
+|                            | ``Window 2026-09-22–2027-09-21``); flush summary  |
+|                            | or exception text on other runs.                  |
++----------------------------+---------------------------------------------------+
+
+
 Mapping codes tab
 -----------------
 
@@ -194,13 +236,13 @@ Expected workflow
 Use **Test connection** anytime to re-verify credentials without running a
 full sync. The scheduler task can be inspected under **System → Scheduler**.
 
-In CASABLANCA terminology the **Space** (formerly *Betrieb*) is the IBE context
+In CASABLANCA terminology the **Space** (formerly *Betrieb*) is the BE context
 configured as **Space name**.
 
 
-.. _configuration-link-styles:
+.. _configuration-be-link-styles:
 
-IBE link styles
+BE link styles
 ===============
 
 Link style affects **frontend handover URLs only**. API sync URLs always use

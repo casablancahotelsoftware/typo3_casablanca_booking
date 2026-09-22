@@ -54,6 +54,8 @@ services:
 
   Casablanca\CasablancaBooking\Service\Sync\SyncService:
     public: true
+  Casablanca\CasablancaBooking\Service\Sync\SyncCatalogFlusher:
+    public: true
   Casablanca\CasablancaBooking\Service\Configuration\ConfigurationService:
     public: true
 

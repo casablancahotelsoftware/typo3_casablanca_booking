@@ -14,6 +14,7 @@ use Casablanca\CasablancaBooking\Service\Api\ApiClientFactory;
 use DateTimeImmutable;
 use Psr\Log\LoggerInterface;
 use Throwable;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Orchestrates price and catalog synchronisation for one or more TYPO3 sites.
@@ -355,6 +356,42 @@ final class SyncService
                 'message' => $message,
             ];
         }
+    }
+
+    /**
+     * @return array{
+     *     flush: array{
+     *         roomTypesDeleted: int,
+     *         ratesDeleted: int,
+     *         availabilityDeleted: int,
+     *         cacheTagsFlushed: int,
+     *         message: string
+     *     },
+     *     exitCode: int
+     * }
+     */
+    public function flushSyncedDataAndSync(string $siteIdentifier): array
+    {
+        if ($siteIdentifier === '') {
+            return [
+                'flush' => [
+                    'roomTypesDeleted' => 0,
+                    'ratesDeleted' => 0,
+                    'availabilityDeleted' => 0,
+                    'cacheTagsFlushed' => 0,
+                    'message' => 'Site identifier is required.',
+                ],
+                'exitCode' => 1,
+            ];
+        }
+
+        $flush = GeneralUtility::makeInstance(SyncCatalogFlusher::class)->flushSite($siteIdentifier);
+        $exitCode = $this->sync($siteIdentifier, false, null);
+
+        return [
+            'flush' => $flush,
+            'exitCode' => $exitCode,
+        ];
     }
 
     public function sync(?string $siteIdentifier, bool $force, ?int $overrideDays): int

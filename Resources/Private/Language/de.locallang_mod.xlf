@@ -335,6 +335,14 @@
                 <source>Sync now</source>
                 <target>Jetzt synchronisieren</target>
             </trans-unit>
+            <trans-unit id="module.action.flushAndSync">
+                <source>Clear synced data and sync</source>
+                <target>Synchronisierte Daten löschen und synchronisieren</target>
+            </trans-unit>
+            <trans-unit id="module.confirm.flushAndSync">
+                <source>Clear all synced room types, rates, and availability for this site and run a fresh sync?</source>
+                <target>Alle synchronisierten Zimmertypen, Raten und Verfügbarkeiten für diese Site löschen und neu synchronisieren?</target>
+            </trans-unit>
             <trans-unit id="module.action.save">
                 <source>Save</source>
                 <target>Speichern</target>

@@ -18,6 +18,17 @@
         return Math.min(Math.max(n, lo), hi);
     }
 
+    var CALENDAR_MOBILE_MAX_WIDTH = 640;
+
+    function isCalendarMobileViewport() {
+        return window.matchMedia('(max-width: ' + CALENDAR_MOBILE_MAX_WIDTH + 'px)').matches;
+    }
+
+    function resolveVisibleMonthCount(form) {
+        var configured = clamp(parseInt(form.getAttribute('data-cb-initial-months') || '1', 10), 1, 2);
+        return isCalendarMobileViewport() ? 1 : configured;
+    }
+
     function label(template, n) {
         if (!template) {
             return String(n);
@@ -1466,7 +1477,7 @@
         state.selectedTo = null;
         state.nextPick = 'from';
         state.fromMinStay = 1;
-        state.visibleCount = clamp(parseInt(form.getAttribute('data-cb-initial-months') || '1', 10), 1, 2);
+        state.visibleCount = resolveVisibleMonthCount(form);
         state.visibleStartIndex = 0;
 
         attachBookNowHandler(form);
@@ -1532,7 +1543,7 @@
             state.months = payload.months || {};
             state.monthKeys = Object.keys(state.months).sort();
             state.dayMap = buildDayMap(state.months);
-            state.visibleCount = clamp(parseInt(form.getAttribute('data-cb-initial-months') || '1', 10), 1, 2);
+            state.visibleCount = resolveVisibleMonthCount(form);
             if (state.visibleStartIndex + state.visibleCount > state.monthKeys.length) {
                 state.visibleStartIndex = Math.max(0, state.monthKeys.length - state.visibleCount);
             }
@@ -1795,12 +1806,42 @@
         });
     }
 
+    function bindCalendarResize() {
+        if (window.__cbCalendarResizeBound) {
+            return;
+        }
+        window.__cbCalendarResizeBound = true;
+
+        var resizeTimer = null;
+        window.addEventListener('resize', function () {
+            if (resizeTimer) {
+                clearTimeout(resizeTimer);
+            }
+            resizeTimer = setTimeout(function () {
+                document.querySelectorAll('.cb-widget__form[data-cb-mode="calendar"]').forEach(function (form) {
+                    var state = getCalendarState(form);
+                    var nextCount = resolveVisibleMonthCount(form);
+                    if (nextCount === state.visibleCount) {
+                        return;
+                    }
+
+                    state.visibleCount = nextCount;
+                    if (state.visibleStartIndex + state.visibleCount > state.monthKeys.length) {
+                        state.visibleStartIndex = Math.max(0, state.monthKeys.length - state.visibleCount);
+                    }
+                    renderCalendarViewport(form);
+                });
+            }, 150);
+        });
+    }
+
     function init() {
         if (window.__cbWidgetInit) {
             return;
         }
         window.__cbWidgetInit = true;
 
+        bindCalendarResize();
         document.querySelectorAll('.cb-widget__form').forEach(attachForm);
         attachBookButtons();
         attachDescriptionToggles();

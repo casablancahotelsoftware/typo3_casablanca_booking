@@ -31,7 +31,7 @@ CASABLANCA Booking Engine
 
 ----
 
-Integrates the CASABLANCA Internet Booking Engine (IBE v2) into TYPO3 with
+Integrates the CASABLANCA Booking Engine (BE v2) into TYPO3 with
 SSR widgets, scheduled ARI synchronisation, and PCI-safe redirect handover.
 
 .. toctree::

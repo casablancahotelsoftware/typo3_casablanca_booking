@@ -179,6 +179,18 @@ final class RateRepository
         return $this->hydrate($rows[0]);
     }
 
+    public function deleteBySiteIdentifier(string $siteIdentifier): int
+    {
+        if ($siteIdentifier === '') {
+            return 0;
+        }
+
+        return $this->getConnection()->delete(
+            self::TABLE,
+            ['site_identifier' => $siteIdentifier]
+        );
+    }
+
     public function getConnection(): Connection
     {
         return $this->connectionPool->getConnectionForTable(self::TABLE);

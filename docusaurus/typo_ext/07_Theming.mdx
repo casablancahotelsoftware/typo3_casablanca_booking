@@ -23,7 +23,7 @@ Theming is applied in layers (lowest to highest priority):
 3. **Backend Site CSS overrides** — per-site CSS from
    **Tools → CASABLANCA Booking → Configuration → Theming**, stored in
    the `theme_css` database field and injected as inline `<style>`
-   inside each widget (see [Layer 4 below](#layer-4-backend-site-css-overrides)).
+   inside each widget (see **theming-backend-css**).
 4. **FlexForm appearance** — per content element: `default`,
    `inherit`, or `compact` (outer chrome only, not colours).
 5. **Agency CSS** — override `--cb-*` tokens in the sitepackage
@@ -32,7 +32,7 @@ Theming is applied in layers (lowest to highest priority):
    `plugin.tx_casablancabooking.view.*RootPaths`.
 
 JavaScript (`widget.js`) is always loaded. CSS can be disabled when the
-sitepackage provides its own styling (see [Disabling bundled CSS](#disabling-bundled-css-includecss--0)).
+sitepackage provides its own styling (see **theming-include-css**).
 
 ## CSS design tokens
 
@@ -264,7 +264,7 @@ casablancaBooking:
 When `includeCss` is disabled:
 
 * `widget.js` is still loaded (calendar interactivity, occupancy
-  steppers, IBE handover).
+  steppers, BE handover).
 * Your sitepackage must define all required `.cb-*` classes **or** copy
   `widget.css` and customise tokens.
 * Inline theme values from Site Settings (`theme.accent` etc.) still
@@ -346,6 +346,6 @@ plugin.tx_casablancabooking.theme {
 * Do not rely on un-prefixed class names (`button`, `card`) — they
   are not used.
 * Do not disable JavaScript — the calendar, multi-room occupancy, and
-  new-tab IBE links require `widget.js`.
+  new-tab BE links require `widget.js`.
 * Do not expect FlexForm **Layout style** to change colours; use Site
   Settings or agency CSS for that.

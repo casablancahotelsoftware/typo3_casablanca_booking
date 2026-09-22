@@ -2,6 +2,8 @@
 sidebar_position: 50
 title: Background sync
 ---
+## Background sync
+
 On the first save in **Tools → CASABLANCA Booking**, the extension:
 
 * registers a TYPO3 Scheduler task (**CASABLANCA availability sync**) that runs
@@ -30,10 +32,6 @@ vendor/bin/typo3 casablanca-booking:sync [--site=main] [--force] [--days=14]
 * `tx_casablancabooking_domain_model_roomtype` — room metadata
 * `tx_casablancabooking_domain_model_rate` — rates and packages
 * `tx_casablancabooking_domain_model_synclog` — audit trail
-
-To inspect recent runs in the backend, open **Tools → CASABLANCA Booking →
-Sync logs** on a saved configuration. See [Configuration](./03_Configuration.mdx)
-for column descriptions.
 
 ## Cache invalidation
 

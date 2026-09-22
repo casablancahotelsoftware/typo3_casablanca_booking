@@ -6,7 +6,7 @@ Content elements
 
 Insert via **Create new content → Plugins**. Five plugins are available,
 each replacing a legacy CASABLANCA JavaScript widget with SSR-rendered
-HTML, local ARI cache lookups, and PCI-safe IBE redirect handover.
+HTML, local ARI cache lookups, and PCI-safe BE redirect handover.
 
 
 Prerequisites
@@ -45,7 +45,7 @@ per content element; defaults come from TypoScript and the backend module
 +----------------------------+----------+---------+------------------------------------------+
 | ``settings.defaultAdults`` | int      | ``2``   | Default adults per room (1–10). Used to  |
 |                            |          |         | pre-fill forms (Widget, Search Bar) or   |
-|                            |          |         | IBE handover (Room Types, Packages).     |
+|                            |          |         | BE handover (Room Types, Packages).     |
 +----------------------------+----------+---------+------------------------------------------+
 | ``settings.defaultChildren``| int     | ``0``   | Default children per room (0–10). Set to |
 |                            |          |         | 0 to hide child age inputs on forms.     |
@@ -55,7 +55,7 @@ per content element; defaults come from TypoScript and the backend module
 |                            |          |         | Used when children > 0. Padded with 0    |
 |                            |          |         | for missing ages.                        |
 +----------------------------+----------+---------+------------------------------------------+
-| ``settings.language``      | select   | Auto    | IBE culture on handover: ``de``, ``en``, |
+| ``settings.language``      | select   | Auto    | BE culture on handover: ``de``, ``en``, |
 |                            |          |         | ``it``, ``fr``, or Auto (site default).  |
 +----------------------------+----------+---------+------------------------------------------+
 | ``settings.ibeLinkTarget`` | select   | ``_self``| ``_self`` = same window; ``_blank`` =   |
@@ -96,7 +96,7 @@ Purpose
 
 Full availability calendar with month grid, per-day prices, date-range
 selection, multi-room occupancy sidebar, optional offer selection, and
-IBE handover. Data is fetched live from the CASABLANCA API on demand;
+BE handover. Data is fetched live from the CASABLANCA API on demand;
 the local sync cache provides SSR seed data and SEO JSON-LD.
 
 Typical placement
@@ -161,7 +161,7 @@ Occupancy (Widget)
 * Supports **1–5 rooms** via ``defaultRooms``.
 * Each room has independent adults, children, and per-child age inputs.
 * JavaScript steppers in the calendar sidebar allow live adjustment.
-* On submit, occupancy is passed to the IBE as ``rooms_N__adults``,
+* On submit, occupancy is passed to the BE as ``rooms_N__adults``,
   ``rooms_N__children``, and age parameters.
 * When a room type is pre-selected, occupancy is clamped to that room's
   ``maxOccupancy`` from the synced mirror.
@@ -201,7 +201,7 @@ Purpose
 -------
 
 Compact arrival/departure/occupancy form **without** a calendar grid.
-Submits directly to the IBE via HTTP 303 redirect. Ideal for site headers,
+Submits directly to the BE via HTTP 303 redirect. Ideal for site headers,
 hero sections, and sticky booking bars.
 
 Typical placement
@@ -270,12 +270,12 @@ General sheet (Room Types-specific)
 +============================+==========+=========+==========================================+
 | ``settings.filterRoomType``| select   | *(all)* | Show only one room in overview mode.     |
 +----------------------------+----------+---------+------------------------------------------+
-| ``settings.stayNights``    | int      | ``7``   | Default stay length for IBE book links   |
+| ``settings.stayNights``    | int      | ``7``   | Default stay length for BE book links   |
 |                            |          |         | (arrival + N nights). Range 1–30.        |
 +----------------------------+----------+---------+------------------------------------------+
 
 Plus ``windowDays``, ``defaultAdults``, ``defaultChildren``, ``language``
-from shared settings (children count used for IBE handover only).
+from shared settings (children count used for BE handover only).
 
 **Texts sheet (overview):** ``settings.labels.heading`` (empty =
 ``roomtypes.heading``), ``settings.labels.book`` (empty = ``roomtypes.book``),
@@ -306,7 +306,7 @@ Display sheet
 +----------------------------------+----------+---------+------------------------------------------+
 | ``settings.showImage``           | checkbox | ``1``   | Show room image.                         |
 +----------------------------------+----------+---------+------------------------------------------+
-| ``settings.cardLinkType``        | select   | ``book``| Overview only: ``book`` = IBE direct;    |
+| ``settings.cardLinkType``        | select   | ``book``| Overview only: ``book`` = BE direct;    |
 |                                  |          |         | ``details`` = TYPO3 detail page link.    |
 +----------------------------------+----------+---------+------------------------------------------+
 | ``settings.detailPageUid``       | page     | *(none)*| Target page for Details links. Must host |
@@ -331,7 +331,7 @@ Display modes
 **Overview mode**
 
 * Renders a responsive card grid of all synced room types.
-* Cards link to IBE (book) or detail page (details) per ``cardLinkType``.
+* Cards link to BE (book) or detail page (details) per ``cardLinkType``.
 * From-price uses ``windowDays`` look-ahead from local availability cache.
 
 **Detail mode**
@@ -418,7 +418,7 @@ General sheet (Packages-specific)
 |                            |          |         | *(all)* does not bypass stay-length       |
 |                            |          |         | filtering — see below.                   |
 +----------------------------+----------+---------+------------------------------------------+
-| ``settings.stayNights``    | int      | ``7``   | Default stay for IBE book links and the  |
+| ``settings.stayNights``    | int      | ``7``   | Default stay for BE book links and the  |
 |                            |          |         | nights label on cards. When stay-length   |
 |                            |          |         | filtering is on, overview lists only     |
 |                            |          |         | packages bookable for this length.       |
@@ -443,7 +443,7 @@ Display sheet
 Same fields as Room Types Display sheet, with package-specific labels:
 
 * ``displayMode`` — overview list vs. detail from ``packageSlug``
-* ``cardLinkType`` — book opens IBE with ``rateIds`` preselection; details
+* ``cardLinkType`` — book opens BE with ``rateIds`` preselection; details
   links to package detail page
 * ``detailPageUid`` — target for Details card links
 * ``showDetailCalendar``, ``detailCalendarPosition``,
@@ -461,12 +461,12 @@ Display modes
 * Grid of package cards. By default only packages bookable for
   ``stayNights`` are listed; disable ``filterByStayNights`` to show all
   synced packages.
-* Book button opens IBE with ``rateIds={rateId}``.
+* Book button opens BE with ``rateIds={rateId}``.
 
 **Detail mode**
 
 * Single package from ``packageSlug`` URL argument.
-* Book now preselects the package rate in the IBE.
+* Book now preselects the package rate in the BE.
 
 
 Route enhancer (Packages)
@@ -536,7 +536,7 @@ FlexForm settings
 |                            |          |         | heading (price line only).               |
 +----------------------------+----------+---------+------------------------------------------+
 
-No occupancy, language, or IBE link settings — display only.
+No occupancy, language, or BE link settings — display only.
 
 
 ViewHelpers
@@ -586,7 +586,7 @@ Returns empty string when no price is available.
 casablanca:ibeLink
 ------------------
 
-Builds an IBE deep-link URL for custom templates (buttons, links, CTAs).
+Builds a BE deep-link URL for custom templates (buttons, links, CTAs).
 
 **Usage:**
 
@@ -621,7 +621,7 @@ Builds an IBE deep-link URL for custom templates (buttons, links, CTAs).
 +---------------+----------+----------+------------------------------------------+
 | ``rateIds``   | string   | ``''``   | Package rate ID for preselection.        |
 +---------------+----------+----------+------------------------------------------+
-| ``culture``   | string   | ``''``   | IBE culture segment override.            |
+| ``culture``   | string   | ``''``   | BE culture segment override.            |
 +---------------+----------+----------+------------------------------------------+
 | ``linkStyle`` | string   | ``''``   | Override link style: ``full_path``,      |
 |               |          |          | ``culture_space``, ``culture_only``.     |

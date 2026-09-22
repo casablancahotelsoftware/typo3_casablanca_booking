@@ -154,6 +154,18 @@ final class RoomTypeRepository
         return $rows !== [];
     }
 
+    public function deleteBySiteIdentifier(string $siteIdentifier): int
+    {
+        if ($siteIdentifier === '') {
+            return 0;
+        }
+
+        return $this->getConnection()->delete(
+            self::TABLE,
+            ['site_identifier' => $siteIdentifier]
+        );
+    }
+
     public function getConnection(): Connection
     {
         return $this->connectionPool->getConnectionForTable(self::TABLE);

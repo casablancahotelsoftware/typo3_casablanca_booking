@@ -188,7 +188,7 @@ def convert_index_rst(text: str) -> str:
         "",
         "**Extension key:** `casablanca_booking`  ",
         "**Package name:** `casablanca/bookingengine-connector`  ",
-        "**Version:** 1.0.6  ",
+        "**Version:** 1.0.8  ",
         "**Language:** en",
         "",
         "**Author:** Martin Hairer  ",
@@ -197,7 +197,7 @@ def convert_index_rst(text: str) -> str:
         "Licensed under the **GNU Affero General Public License v3.0 only** (AGPL-3.0-only). "
         "See the `LICENSE` file in the extension root.",
         "",
-        "Integrates the CASABLANCA Internet Booking Engine (IBE v2) into TYPO3 with "
+        "Integrates the CASABLANCA Booking Engine (BE v2) into TYPO3 with "
         "SSR widgets, scheduled ARI synchronisation, and PCI-safe redirect handover.",
         "",
     ]

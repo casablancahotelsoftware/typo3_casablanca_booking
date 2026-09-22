@@ -348,6 +348,57 @@ class ConfigurationController extends ActionController
     /**
      * @return ResponseInterface|void
      */
+    public function flushAndSyncNowAction(string $siteIdentifier = '')
+    {
+        if ($siteIdentifier === '') {
+            $this->enqueueFlashMessage(
+                LocalizationUtility::translate('module.error.not_found', 'casablanca_booking') ?: 'Configuration not found.',
+                '',
+                ContextualFeedbackSeverity::ERROR
+            );
+
+            return $this->redirect('index');
+        }
+
+        $result = $this->syncService->flushSyncedDataAndSync($siteIdentifier);
+        $flushMessage = $result['flush']['message'] ?? '';
+
+        if ($result['exitCode'] === 0) {
+            $this->enqueueFlashMessage(
+                sprintf(
+                    '%s %s',
+                    $flushMessage,
+                    LocalizationUtility::translate('module.success.sync', 'casablanca_booking') ?: 'Sync completed successfully.'
+                ),
+                '',
+                ContextualFeedbackSeverity::OK
+            );
+        } else {
+            $this->enqueueFlashMessage(
+                sprintf(
+                    '%s %s',
+                    $flushMessage,
+                    LocalizationUtility::translate('module.error.sync', 'casablanca_booking') ?: 'Sync failed or partially failed.'
+                ),
+                '',
+                ContextualFeedbackSeverity::ERROR
+            );
+        }
+
+        $configuration = $this->configurationRepository->findBySiteIdentifier($siteIdentifier);
+        if ($configuration !== null) {
+            return $this->redirect('edit', null, null, [
+                'uid' => $configuration->getUid(),
+                'tab' => 'logs',
+            ]);
+        }
+
+        return $this->redirect('index');
+    }
+
+    /**
+     * @return ResponseInterface|void
+     */
     private function renderModuleResponse(string $templateName)
     {
         if ($this->moduleTemplate !== null && method_exists($this->moduleTemplate, 'renderResponse')) {

@@ -10,6 +10,14 @@
                          extensionName="casablanca_booking"
                          default="Sync now" />
         </f:link.action>
+        <f:link.action action="flushAndSyncNow"
+                       arguments="{siteIdentifier: configuration.siteIdentifier}"
+                       class="btn btn-default"
+                       additionalAttributes="{onclick: 'return confirm(&quot;Clear all synced room types, rates, and availability for this site and run a fresh sync?&quot;);'}">
+            <f:translate key="module.action.flushAndSync"
+                         extensionName="casablanca_booking"
+                         default="Clear synced data and sync" />
+        </f:link.action>
         <f:link.action action="edit"
                        arguments="{uid: configuration.uid, tab: 'config'}"
                        class="btn btn-default">

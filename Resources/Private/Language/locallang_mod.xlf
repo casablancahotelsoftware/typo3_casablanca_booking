@@ -257,6 +257,12 @@
             <trans-unit id="module.action.sync">
                 <source>Sync now</source>
             </trans-unit>
+            <trans-unit id="module.action.flushAndSync">
+                <source>Clear synced data and sync</source>
+            </trans-unit>
+            <trans-unit id="module.confirm.flushAndSync">
+                <source>Clear all synced room types, rates, and availability for this site and run a fresh sync?</source>
+            </trans-unit>
             <trans-unit id="module.action.save">
                 <source>Save</source>
             </trans-unit>

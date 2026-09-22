@@ -23,6 +23,7 @@ return [
                 'save',
                 'testConnection',
                 'syncNow',
+                'flushAndSyncNow',
             ],
         ],
     ],
