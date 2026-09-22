@@ -74,6 +74,11 @@ Leave theme values empty to use the extension defaults from ``widget.css``
 (``#8b1e1e`` accent, ``6px`` radius). Accepts any valid CSS colour or
 length value (e.g. ``#0a6e5e``, ``4px``, ``0.25rem``).
 
+The backend module field **Site CSS overrides** (``theme_css``) applies
+after TypoScript/Site Settings inline theme values and can override or
+extend them with arbitrary CSS scoped to ``.cb-widget``. See
+:doc:`../Configuration/Index` and :doc:`../Theming/Index`.
+
 
 View paths (``plugin.tx_casablancabooking.view``)
 -------------------------------------------------

@@ -85,16 +85,22 @@ Booking Engine and Space settings
 Theming
 ~~~~~~~
 
+Useful for agencies without sitepackage deploy access; complements
+TypoScript ``theme.*`` settings. See :doc:`../Theming/Index` for the
+full token list, layering order, and examples.
+
 +----------------------------+----------+---------------+------------------------------------------+
 | Field                      | Required | Default       | Effect                                   |
 +============================+==========+===============+==========================================+
 | **CSS design tokens**      | —        | *(reference)* | Collapsible list of all ``--cb-*``       |
 |                            |          |               | defaults from ``widget.css``.            |
 +----------------------------+----------+---------------+------------------------------------------+
-| **Site CSS overrides**     | No       | empty         | Per-site CSS stored in the database.   |
-|                            |          |               | Applied after bundled CSS and          |
-|                            |          |               | TypoScript theme settings. Scope rules   |
-|                            |          |               | to ``.cb-widget``.                       |
+| **Site CSS overrides**     | No       | empty         | Per-site CSS stored in the database    |
+|                            |          |               | (``theme_css``). Applied after bundled |
+|                            |          |               | CSS and TypoScript theme settings.       |
+|                            |          |               | Injected as inline ``<style>`` inside    |
+|                            |          |               | each widget. Scope rules to              |
+|                            |          |               | ``.cb-widget``.                          |
 +----------------------------+----------+---------------+------------------------------------------+
 
 Sync

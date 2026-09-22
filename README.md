@@ -42,7 +42,8 @@ All widgets use the `.cb-` CSS prefix and `--cb-*` design tokens declared on `.c
 
 1. Override tokens in the sitepackage stylesheet (accent colour, radius, fonts).
 2. Set global accent/radius via Site Settings or TypoScript (`plugin.tx_casablancabooking.theme`).
-3. Disable bundled CSS (`includeCss = 0`) only when the sitepackage ships a complete replacement.
+3. Add per-site CSS in **Tools → CASABLANCA Booking → Configuration → Site CSS overrides** (stored as `theme_css`; no deploy required).
+4. Disable bundled CSS (`includeCss = 0`) only when the sitepackage ships a complete replacement.
 
 See the full theming cookbook: [Documentation/Theming/Index.rst](Documentation/Theming/Index.rst) (CSS token table, appearance modes, Fluid overrides, do's and don'ts).
 

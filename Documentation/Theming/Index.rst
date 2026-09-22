@@ -24,11 +24,15 @@ Theming is applied in layers (lowest to highest priority):
 2. **Site settings / TypoScript** — global ``theme.accent``,
    ``theme.accentContrast``, and ``theme.radius`` are injected as inline
    styles on the widget wrapper (see :doc:`../Reference/Index`).
-3. **FlexForm appearance** — per content element: ``default``,
+3. **Backend Site CSS overrides** — per-site CSS from
+   **Tools → CASABLANCA Booking → Configuration → Theming**, stored in
+   the ``theme_css`` database field and injected as inline ``<style>``
+   inside each widget (see :ref:`theming-backend-css`).
+4. **FlexForm appearance** — per content element: ``default``,
    ``inherit``, or ``compact`` (outer chrome only, not colours).
-4. **Agency CSS** — override ``--cb-*`` tokens in the sitepackage
+5. **Agency CSS** — override ``--cb-*`` tokens in the sitepackage
    stylesheet.
-5. **Fluid overrides** — replace templates, partials, or layouts via
+6. **Fluid overrides** — replace templates, partials, or layouts via
    ``plugin.tx_casablancabooking.view.*RootPaths``.
 
 JavaScript (``widget.js``) is always loaded. CSS can be disabled when the
@@ -198,7 +202,44 @@ Use **inherit** in headers/footers where the sitepackage already provides
 a styled container. Use **compact** in sidebars or narrow columns.
 
 
-Layer 4: Agency CSS
+.. _theming-backend-css:
+
+Layer 4: Backend Site CSS overrides
+-----------------------------------
+
+Since extension version 1.0.5, **Tools → CASABLANCA Booking →
+Configuration** includes a **Theming** fieldset:
+
+* A collapsible reference table of all ``--cb-*`` tokens and their
+  bundled defaults from ``widget.css``.
+* A **Site CSS overrides** textarea stored per site configuration
+  (database field ``theme_css``).
+
+Useful for agencies without sitepackage deploy access; complements
+TypoScript ``theme.*`` settings. Each TYPO3 site can have different
+overrides when running a multi-site instance.
+
+The CSS is injected as an inline ``<style>`` block inside each widget
+``<section>`` (see ``Resources/Private/Layouts/Default.html``). Scope
+rules to ``.cb-widget`` so they do not leak into the rest of the page.
+Dangerous fragments (``</style``, ``<script``) are stripped before output.
+
+Example (same as the backend placeholder):
+
+.. code-block:: css
+
+   .cb-widget {
+       --cb-accent: #006633;
+       --cb-radius: 4px;
+   }
+
+Among extension-provided layers, backend overrides have the highest
+priority: they apply after ``widget.css`` and TypoScript/Site Settings
+inline theme (``cbThemeStyle``). Agency sitepackage CSS may still win if
+it loads later on the page. See also :doc:`../Configuration/Index`.
+
+
+Layer 5: Agency CSS
 -------------------
 
 Add overrides to your sitepackage stylesheet **after** the extension CSS
@@ -221,7 +262,7 @@ Add overrides to your sitepackage stylesheet **after** the extension CSS
    }
 
 
-Layer 5: Fluid overrides
+Layer 6: Fluid overrides
 ------------------------
 
 Point TypoScript view paths to your sitepackage:
@@ -280,21 +321,9 @@ When ``includeCss`` is disabled:
 Backend per-site overrides
 --------------------------
 
-Since extension version 1.0.5, **Tools → CASABLANCA Booking → Configuration**
-includes a **Theming** fieldset:
-
-* A collapsible reference table of all ``--cb-*`` tokens and their
-  bundled defaults.
-* A **Site CSS overrides** textarea stored per site configuration.
-
-Layering order (lowest → highest priority):
-
-1. ``widget.css`` defaults
-2. TypoScript / Site Settings inline theme (``theme.accent``, etc.)
-3. Backend **Site CSS overrides**
-
-Agencies can still override tokens in the sitepackage or disable bundled
-CSS entirely (``includeCss = 0``).
+See :ref:`theming-backend-css` for the **Theming** fieldset, ``theme_css``
+storage, and CSS priority. Agencies can still override tokens in the
+sitepackage or disable bundled CSS entirely (``includeCss = 0``).
 
 
 Examples
