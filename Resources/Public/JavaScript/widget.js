@@ -291,6 +291,7 @@
             departure = defaultDeparture(arrival, stayNights);
         }
         if (!arrival || !departure) return null;
+        if (departure <= arrival) return null;
 
         var rooms = form ? readRoomOccupancies(form) : [{
             adults: clamp(source.getAttribute('data-cb-adults') || '2', 1, 20),
@@ -1671,6 +1672,26 @@
                 return;
             }
 
+            var arrivalElSubmit = form.querySelector('[data-cb-field="arrival"]');
+            var departureElSubmit = form.querySelector('[data-cb-field="departure"]');
+            if (mode === 'search' && arrivalElSubmit && departureElSubmit) {
+                syncSearchBarDates(arrivalElSubmit, departureElSubmit);
+                if (
+                    departureElSubmit.value
+                    && arrivalElSubmit.value
+                    && departureElSubmit.value <= arrivalElSubmit.value
+                ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    departureElSubmit.setCustomValidity(
+                        'Departure must be at least one day after arrival.'
+                    );
+                    departureElSubmit.reportValidity();
+                    return;
+                }
+                departureElSubmit.setCustomValidity('');
+            }
+
             var url = buildIbeUrl(form);
             if (url) {
                 e.preventDefault();
@@ -1682,12 +1703,43 @@
         var arrivalEl = form.querySelector('[data-cb-field="arrival"]');
         var departureEl = form.querySelector('[data-cb-field="departure"]');
         if (arrivalEl && departureEl) {
-            arrivalEl.addEventListener('change', function () {
-                if (!departureEl.value || departureEl.value <= arrivalEl.value) {
-                    departureEl.value = defaultDeparture(arrivalEl.value, 7);
-                }
-                departureEl.min = arrivalEl.value;
-            });
+            if (mode === 'search') {
+                syncSearchBarDates(arrivalEl, departureEl);
+                arrivalEl.addEventListener('change', function () {
+                    syncSearchBarDates(arrivalEl, departureEl);
+                });
+                departureEl.addEventListener('change', function () {
+                    if (
+                        departureEl.value
+                        && arrivalEl.value
+                        && departureEl.value <= arrivalEl.value
+                    ) {
+                        departureEl.value = defaultDeparture(arrivalEl.value, 1);
+                    }
+                    departureEl.setCustomValidity('');
+                });
+            } else {
+                arrivalEl.addEventListener('change', function () {
+                    if (!departureEl.value || departureEl.value <= arrivalEl.value) {
+                        departureEl.value = defaultDeparture(arrivalEl.value, 7);
+                    }
+                    departureEl.min = arrivalEl.value;
+                });
+            }
+        }
+    }
+
+    function syncSearchBarDates(arrivalEl, departureEl) {
+        if (!arrivalEl || !departureEl || !arrivalEl.value) {
+            return;
+        }
+
+        var minDeparture = defaultDeparture(arrivalEl.value, 1);
+        if (minDeparture) {
+            departureEl.min = minDeparture;
+        }
+        if (!departureEl.value || departureEl.value <= arrivalEl.value) {
+            departureEl.value = minDeparture;
         }
     }
 

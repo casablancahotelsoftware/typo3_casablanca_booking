@@ -246,8 +246,8 @@ class RoomTypesController extends AbstractWidgetController
             return trim((string)$this->request->getArgument('roomSlug'));
         }
 
-        $pluginSignature = Typo3Adapter::getPluginSignature('CasablancaBooking', 'RoomTypes');
-        $params = (array)($this->request->getQueryParams()[$pluginSignature] ?? []);
+        $pluginNamespace = Typo3Adapter::getPluginNamespace('CasablancaBooking', 'RoomTypes');
+        $params = (array)($this->request->getQueryParams()[$pluginNamespace] ?? []);
 
         return trim((string)($params['roomSlug'] ?? ''));
     }
@@ -306,7 +306,11 @@ class RoomTypesController extends AbstractWidgetController
                     'RoomTypes'
                 );
 
-            return $url !== '' ? $url : $this->buildDetailUrlFallback($detailPageUid, $roomSlug);
+            if ($url !== '' && $this->detailUrlContainsSlug($url, $roomSlug)) {
+                return $url;
+            }
+
+            return $this->buildDetailUrlFallback($detailPageUid, $roomSlug);
         } catch (\Throwable) {
             return $this->buildDetailUrlFallback($detailPageUid, $roomSlug);
         }
@@ -314,18 +318,29 @@ class RoomTypesController extends AbstractWidgetController
 
     private function buildDetailUrlFallback(int $detailPageUid, string $roomSlug): string
     {
-        $pluginSignature = Typo3Adapter::getPluginSignature('CasablancaBooking', 'RoomTypes');
+        $pluginNamespace = Typo3Adapter::getPluginNamespace('CasablancaBooking', 'RoomTypes');
 
         return (string)$this->uriBuilder
             ->reset()
             ->setTargetPageUid($detailPageUid)
             ->setCreateAbsoluteUri(false)
             ->setArguments([
-                $pluginSignature => [
+                $pluginNamespace => [
+                    'controller' => 'RoomTypes',
+                    'action' => 'show',
                     'roomSlug' => $roomSlug,
                 ],
             ])
             ->build();
+    }
+
+    private function detailUrlContainsSlug(string $url, string $slug): bool
+    {
+        if ($slug === '') {
+            return false;
+        }
+
+        return str_contains($url, rawurlencode($slug)) || str_contains($url, $slug);
     }
 
     /**

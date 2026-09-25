@@ -84,6 +84,51 @@ final class OccupancyParsingTest extends TestCase
         self::assertSame('en', $this->invokeResolveEffectiveCulture($controller, $config));
     }
 
+    public function testEnsureDepartureAfterArrivalAddsOneNightWhenSameDay(): void
+    {
+        $controller = $this->getMockBuilder(SearchBarController::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $method = new ReflectionMethod(SearchBarController::class, 'ensureDepartureAfterArrival');
+        $method->setAccessible(true);
+
+        $result = $method->invoke($controller, '2026-10-05', '2026-10-05');
+
+        self::assertSame('2026-10-05', $result['arrival']);
+        self::assertSame('2026-10-06', $result['departure']);
+    }
+
+    public function testEnsureDepartureAfterArrivalKeepsValidRange(): void
+    {
+        $controller = $this->getMockBuilder(SearchBarController::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $method = new ReflectionMethod(SearchBarController::class, 'ensureDepartureAfterArrival');
+        $method->setAccessible(true);
+
+        $result = $method->invoke($controller, '2026-10-05', '2026-10-09');
+
+        self::assertSame('2026-10-05', $result['arrival']);
+        self::assertSame('2026-10-09', $result['departure']);
+    }
+
+    public function testEnsureDepartureAfterArrivalFillsMissingDeparture(): void
+    {
+        $controller = $this->getMockBuilder(SearchBarController::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $method = new ReflectionMethod(SearchBarController::class, 'ensureDepartureAfterArrival');
+        $method->setAccessible(true);
+
+        $result = $method->invoke($controller, '2026-10-05', '');
+
+        self::assertSame('2026-10-05', $result['arrival']);
+        self::assertSame('2026-10-06', $result['departure']);
+    }
+
     public function testResolveRequestDateParamReadsPlainQueryParameter(): void
     {
         $controller = $this->getMockBuilder(SearchBarController::class)

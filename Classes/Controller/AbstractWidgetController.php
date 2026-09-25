@@ -372,6 +372,36 @@ abstract class AbstractWidgetController extends ActionController
         return trim((string)($params[$plainName] ?? ''));
     }
 
+    /**
+     * @return array{arrival: string, departure: string}
+     */
+    protected function ensureDepartureAfterArrival(string $arrival, string $departure): array
+    {
+        $arrival = trim($arrival);
+        $departure = trim($departure);
+
+        if ($arrival === '') {
+            $arrivalDate = new DateTimeImmutable('tomorrow');
+        } else {
+            $arrivalDate = new DateTimeImmutable($arrival);
+        }
+
+        if ($departure === '') {
+            $departureDate = $arrivalDate->modify('+1 day');
+        } else {
+            $departureDate = new DateTimeImmutable($departure);
+        }
+
+        if ($departureDate <= $arrivalDate) {
+            $departureDate = $arrivalDate->modify('+1 day');
+        }
+
+        return [
+            'arrival' => $arrivalDate->format('Y-m-d'),
+            'departure' => $departureDate->format('Y-m-d'),
+        ];
+    }
+
     protected function sanitizeThemeCss(string $css): string
     {
         $css = trim($css);

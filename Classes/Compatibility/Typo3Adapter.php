@@ -81,6 +81,14 @@ final class Typo3Adapter
     }
 
     /**
+     * Extbase plugin namespace for frontend query parameters (e.g. tx_casablancabooking_roomtypes).
+     */
+    public static function getPluginNamespace(string $extensionName, string $pluginName): string
+    {
+        return 'tx_' . self::getPluginSignature($extensionName, $pluginName);
+    }
+
+    /**
      * @param array<int, string> $tagNames
      */
     public static function addPageCacheTags(ServerRequestInterface $request, array $tagNames): void
@@ -313,8 +321,7 @@ type_' . $pageType . ' {
         string $pluginName,
         string $argumentName
     ): void {
-        $pluginSignature = self::getPluginSignature($extensionName, $pluginName);
-        $parameterName = $pluginSignature . '[' . $argumentName . ']';
+        $parameterName = self::getPluginNamespace($extensionName, $pluginName) . '[' . $argumentName . ']';
 
         if (!isset($GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['cachedParametersWhiteList'])) {
             $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['cachedParametersWhiteList'] = [];

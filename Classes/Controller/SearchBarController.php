@@ -30,6 +30,7 @@ class SearchBarController extends AbstractWidgetController
         $from = new DateTimeImmutable('today');
         $formArrival = $from->modify('+2 days');
         $formDeparture = $formArrival->modify('+7 days');
+        $formDepartureMin = $formArrival->modify('+1 day');
         $compactOccupancy = (int)($settings['compactOccupancy'] ?? 1) === 1;
 
         $this->tagPageCache($config);
@@ -41,6 +42,7 @@ class SearchBarController extends AbstractWidgetController
             'rooms' => $this->buildDefaultRooms($common),
             'formArrival' => $formArrival,
             'formDeparture' => $formDeparture,
+            'formDepartureMin' => $formDepartureMin,
             'culture' => $common['culture'],
             'ibeBaseUrl' => $config->ibeBaseUrl,
             'tenantId' => $config->tenantId,
@@ -67,10 +69,14 @@ class SearchBarController extends AbstractWidgetController
         $settings = is_array($this->settings) ? $this->settings : [];
         $culture = $this->resolveEffectiveCulture($config, $settings);
 
+        $arrivalDate = $this->resolveRequestDateParam($arrival, 'arrival');
+        $departureDate = $this->resolveRequestDateParam($departure, 'departure');
+        $normalized = $this->ensureDepartureAfterArrival($arrivalDate, $departureDate);
+
         $this->redirectToIbeWithRooms(
             $config,
-            $this->resolveRequestDateParam($arrival, 'arrival'),
-            $this->resolveRequestDateParam($departure, 'departure'),
+            $normalized['arrival'],
+            $normalized['departure'],
             $this->parseRoomOccupanciesFromRequest(),
             $room !== '' ? $room : null,
             $culture
