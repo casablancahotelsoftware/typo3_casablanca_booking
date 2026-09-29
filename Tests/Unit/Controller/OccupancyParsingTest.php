@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Casablanca\CasablancaBooking\Tests\Unit\Controller;
 
 use Casablanca\CasablancaBooking\Controller\SearchBarController;
+use DateTimeImmutable;
 use Casablanca\CasablancaBooking\Domain\Dto\RoomOccupancyDto;
 use Casablanca\CasablancaBooking\Domain\Dto\SiteConfigurationDto;
 use PHPUnit\Framework\TestCase;
@@ -127,6 +128,25 @@ final class OccupancyParsingTest extends TestCase
 
         self::assertSame('2026-10-05', $result['arrival']);
         self::assertSame('2026-10-06', $result['departure']);
+    }
+
+    public function testEnsureDepartureAfterArrivalClampsTodayToTomorrow(): void
+    {
+        $controller = $this->getMockBuilder(SearchBarController::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $method = new ReflectionMethod(SearchBarController::class, 'ensureDepartureAfterArrival');
+        $method->setAccessible(true);
+
+        $today = (new DateTimeImmutable('today'))->format('Y-m-d');
+        $tomorrow = (new DateTimeImmutable('tomorrow'))->format('Y-m-d');
+        $dayAfterTomorrow = (new DateTimeImmutable('tomorrow'))->modify('+1 day')->format('Y-m-d');
+
+        $result = $method->invoke($controller, $today, $today);
+
+        self::assertSame($tomorrow, $result['arrival']);
+        self::assertSame($dayAfterTomorrow, $result['departure']);
     }
 
     public function testResolveRequestDateParamReadsPlainQueryParameter(): void

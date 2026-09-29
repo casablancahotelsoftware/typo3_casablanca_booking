@@ -291,6 +291,7 @@
             departure = defaultDeparture(arrival, stayNights);
         }
         if (!arrival || !departure) return null;
+        if (arrival < tomorrowIso()) return null;
         if (departure <= arrival) return null;
 
         var rooms = form ? readRoomOccupancies(form) : [{
@@ -355,6 +356,15 @@
         if (isNaN(d.getTime())) return '';
         var nights = Math.max(parseInt(minStay, 10) || 1, 1);
         d.setDate(d.getDate() + nights);
+        var mm = String(d.getMonth() + 1).padStart(2, '0');
+        var dd = String(d.getDate()).padStart(2, '0');
+        return d.getFullYear() + '-' + mm + '-' + dd;
+    }
+
+    function tomorrowIso() {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        d.setDate(d.getDate() + 1);
         var mm = String(d.getMonth() + 1).padStart(2, '0');
         var dd = String(d.getDate()).padStart(2, '0');
         return d.getFullYear() + '-' + mm + '-' + dd;
@@ -1677,6 +1687,19 @@
             if (mode === 'search' && arrivalElSubmit && departureElSubmit) {
                 syncSearchBarDates(arrivalElSubmit, departureElSubmit);
                 if (
+                    arrivalElSubmit.value
+                    && arrivalElSubmit.value < tomorrowIso()
+                ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    arrivalElSubmit.setCustomValidity(
+                        'Arrival must be at least tomorrow.'
+                    );
+                    arrivalElSubmit.reportValidity();
+                    return;
+                }
+                arrivalElSubmit.setCustomValidity('');
+                if (
                     departureElSubmit.value
                     && arrivalElSubmit.value
                     && departureElSubmit.value <= arrivalElSubmit.value
@@ -1707,6 +1730,7 @@
                 syncSearchBarDates(arrivalEl, departureEl);
                 arrivalEl.addEventListener('change', function () {
                     syncSearchBarDates(arrivalEl, departureEl);
+                    arrivalEl.setCustomValidity('');
                 });
                 departureEl.addEventListener('change', function () {
                     if (
@@ -1730,8 +1754,14 @@
     }
 
     function syncSearchBarDates(arrivalEl, departureEl) {
-        if (!arrivalEl || !departureEl || !arrivalEl.value) {
+        if (!arrivalEl || !departureEl) {
             return;
+        }
+
+        var minArrival = tomorrowIso();
+        arrivalEl.min = minArrival;
+        if (!arrivalEl.value || arrivalEl.value < minArrival) {
+            arrivalEl.value = minArrival;
         }
 
         var minDeparture = defaultDeparture(arrivalEl.value, 1);

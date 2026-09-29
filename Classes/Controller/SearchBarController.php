@@ -28,6 +28,7 @@ class SearchBarController extends AbstractWidgetController
         $settings = is_array($this->settings) ? $this->settings : [];
         $common = $this->parseCommonSettings($config);
         $from = new DateTimeImmutable('today');
+        $formArrivalMin = $from->modify('+1 day');
         $formArrival = $from->modify('+2 days');
         $formDeparture = $formArrival->modify('+7 days');
         $formDepartureMin = $formArrival->modify('+1 day');
@@ -41,6 +42,7 @@ class SearchBarController extends AbstractWidgetController
             'defaultRooms' => $common['defaultRooms'],
             'rooms' => $this->buildDefaultRooms($common),
             'formArrival' => $formArrival,
+            'formArrivalMin' => $formArrivalMin,
             'formDeparture' => $formDeparture,
             'formDepartureMin' => $formDepartureMin,
             'culture' => $common['culture'],

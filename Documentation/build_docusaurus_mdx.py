@@ -190,7 +190,7 @@ def convert_index_rst(text: str) -> str:
         "",
         "**Extension key:** `casablanca_booking`  ",
         "**Package name:** `casablanca/bookingengine-connector`  ",
-        "**Version:** 1.0.10  ",
+        "**Version:** 1.0.11  ",
         "**Language:** en",
         "",
         "**Author:** Martin Hairer  ",

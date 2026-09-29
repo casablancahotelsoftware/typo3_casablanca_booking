@@ -380,10 +380,16 @@ abstract class AbstractWidgetController extends ActionController
         $arrival = trim($arrival);
         $departure = trim($departure);
 
+        $minimumArrival = new DateTimeImmutable('tomorrow');
+
         if ($arrival === '') {
-            $arrivalDate = new DateTimeImmutable('tomorrow');
+            $arrivalDate = $minimumArrival;
         } else {
             $arrivalDate = new DateTimeImmutable($arrival);
+        }
+
+        if ($arrivalDate < $minimumArrival) {
+            $arrivalDate = $minimumArrival;
         }
 
         if ($departure === '') {

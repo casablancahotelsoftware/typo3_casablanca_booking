@@ -42,6 +42,7 @@
                                     <input type="date"
                                            name="arrival"
                                            required="required"
+                                           min="{formArrivalMin -> f:format.date(format: 'Y-m-d')}"
                                            value="{formArrival -> f:format.date(format: 'Y-m-d')}"
                                            data-cb-field="arrival" />
                                 </label>
@@ -99,6 +100,7 @@
                                     <input type="date"
                                            name="arrival"
                                            required="required"
+                                           min="{formArrivalMin -> f:format.date(format: 'Y-m-d')}"
                                            value="{formArrival -> f:format.date(format: 'Y-m-d')}"
                                            data-cb-field="arrival" />
                                 </label>
