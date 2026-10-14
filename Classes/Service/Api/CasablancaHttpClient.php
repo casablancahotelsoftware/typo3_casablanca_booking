@@ -101,12 +101,11 @@ final class CasablancaHttpClient
     private function sendJson(string $method, string $path, array $query, ?array $body): array
     {
         $url = $this->buildUrl($path, $query);
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->config->apiKey,
+        $headers = array_merge($this->buildAuthHeaders(), [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
             'User-Agent' => 'CASABLANCA-TYPO3-Booking/1.0',
-        ];
+        ]);
 
         $json = null;
         if ($body !== null) {
@@ -173,6 +172,37 @@ final class CasablancaHttpClient
         }
 
         return $decoded;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function buildAuthHeaders(): array
+    {
+        $apiKey = $this->normalizeApiKey($this->config->apiKey);
+        if ($apiKey === '') {
+            throw new RuntimeException(
+                'CASABLANCA API key is missing for site "' . $this->config->siteIdentifier . '".'
+            );
+        }
+
+        return [
+            'api-key' => $apiKey,
+        ];
+    }
+
+    private function normalizeApiKey(string $apiKey): string
+    {
+        $apiKey = trim($apiKey);
+        if ($apiKey === '') {
+            return '';
+        }
+
+        if (stripos($apiKey, 'Bearer ') === 0) {
+            return trim(substr($apiKey, 7));
+        }
+
+        return $apiKey;
     }
 
     /**

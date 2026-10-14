@@ -94,10 +94,14 @@ final class OccupancyParsingTest extends TestCase
         $method = new ReflectionMethod(SearchBarController::class, 'ensureDepartureAfterArrival');
         $method->setAccessible(true);
 
-        $result = $method->invoke($controller, '2026-10-05', '2026-10-05');
+        $arrival = (new DateTimeImmutable('+10 days'))->format('Y-m-d');
+        $departureSame = $arrival;
+        $departureNext = (new DateTimeImmutable($arrival))->modify('+1 day')->format('Y-m-d');
 
-        self::assertSame('2026-10-05', $result['arrival']);
-        self::assertSame('2026-10-06', $result['departure']);
+        $result = $method->invoke($controller, $arrival, $departureSame);
+
+        self::assertSame($arrival, $result['arrival']);
+        self::assertSame($departureNext, $result['departure']);
     }
 
     public function testEnsureDepartureAfterArrivalKeepsValidRange(): void
@@ -109,10 +113,13 @@ final class OccupancyParsingTest extends TestCase
         $method = new ReflectionMethod(SearchBarController::class, 'ensureDepartureAfterArrival');
         $method->setAccessible(true);
 
-        $result = $method->invoke($controller, '2026-10-05', '2026-10-09');
+        $arrival = (new DateTimeImmutable('+10 days'))->format('Y-m-d');
+        $departure = (new DateTimeImmutable('+14 days'))->format('Y-m-d');
 
-        self::assertSame('2026-10-05', $result['arrival']);
-        self::assertSame('2026-10-09', $result['departure']);
+        $result = $method->invoke($controller, $arrival, $departure);
+
+        self::assertSame($arrival, $result['arrival']);
+        self::assertSame($departure, $result['departure']);
     }
 
     public function testEnsureDepartureAfterArrivalFillsMissingDeparture(): void
@@ -124,10 +131,13 @@ final class OccupancyParsingTest extends TestCase
         $method = new ReflectionMethod(SearchBarController::class, 'ensureDepartureAfterArrival');
         $method->setAccessible(true);
 
-        $result = $method->invoke($controller, '2026-10-05', '');
+        $arrival = (new DateTimeImmutable('+10 days'))->format('Y-m-d');
+        $departureNext = (new DateTimeImmutable($arrival))->modify('+1 day')->format('Y-m-d');
 
-        self::assertSame('2026-10-05', $result['arrival']);
-        self::assertSame('2026-10-06', $result['departure']);
+        $result = $method->invoke($controller, $arrival, '');
+
+        self::assertSame($arrival, $result['arrival']);
+        self::assertSame($departureNext, $result['departure']);
     }
 
     public function testEnsureDepartureAfterArrivalClampsTodayToTomorrow(): void
