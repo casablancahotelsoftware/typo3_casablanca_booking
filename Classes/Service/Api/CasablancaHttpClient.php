@@ -60,6 +60,16 @@ final class CasablancaHttpClient
     }
 
     /**
+     * @param array<string, mixed> $body
+     * @param array<string, scalar|null> $query
+     * @return array<string, mixed>|array<int, array<string, mixed>>
+     */
+    public function putJson(string $path, array $body, array $query = []): array
+    {
+        return $this->sendJson('PUT', $path, $query, $body);
+    }
+
+    /**
      * @param array<string, scalar|null> $query
      * @return iterable<int, array<int, array<string, mixed>>>
      */

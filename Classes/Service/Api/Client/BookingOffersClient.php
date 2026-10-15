@@ -9,9 +9,9 @@ use Casablanca\CasablancaBooking\Domain\Dto\SiteConfigurationDto;
 use Casablanca\CasablancaBooking\Service\Api\CasablancaHttpClient;
 
 /**
- * Endpoint wrapper for POST /booking-offers/{arrivalDate}/{departureDate}.
+ * Endpoint wrapper for booking-offers create, recalculate, and get-by-id.
  */
-final class BookingOffersClient
+final class BookingOffersClient implements BookingOffersClientInterface
 {
     /** @var CasablancaHttpClient */
     private $http;
@@ -54,6 +54,36 @@ final class BookingOffersClient
         );
 
         return $this->http->postJson($path, $body, [
+            'culture' => $this->config->defaultCulture,
+        ]);
+    }
+
+    /**
+     * Recalculates an existing booking offer for new dates and occupancy.
+     *
+     * @param array<string, mixed> $selectionCriteria
+     * @return array<string, mixed>
+     */
+    public function recalculate(
+        string $bookingOfferId,
+        string $arrivalDate,
+        string $departureDate,
+        RoomOccupancyDto $roomOccupancy,
+        array $selectionCriteria = []
+    ): array {
+        $body = [
+            'selectionCriteria' => $selectionCriteria,
+            'roomOccupancy' => $roomOccupancy->toArray(),
+        ];
+
+        $path = sprintf(
+            '/booking-offers/%s/%s/%s',
+            rawurlencode($bookingOfferId),
+            rawurlencode($arrivalDate),
+            rawurlencode($departureDate)
+        );
+
+        return $this->http->putJson($path, $body, [
             'culture' => $this->config->defaultCulture,
         ]);
     }

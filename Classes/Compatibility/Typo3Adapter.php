@@ -276,6 +276,7 @@ final class Typo3Adapter
             'room',
             'rateIds',
             'offerMode',
+            'bookingOfferId',
             '^rooms[',
         ];
 

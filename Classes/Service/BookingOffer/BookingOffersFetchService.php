@@ -8,7 +8,8 @@ use Casablanca\CasablancaBooking\Domain\Dto\RoomOccupancyDto;
 use Casablanca\CasablancaBooking\Domain\Dto\SiteConfigurationDto;
 use Casablanca\CasablancaBooking\Domain\Model\Rate;
 use Casablanca\CasablancaBooking\Domain\Repository\RateRepository;
-use Casablanca\CasablancaBooking\Service\Api\Client\BookingOffersClient;
+use Casablanca\CasablancaBooking\Service\Api\Client\BookingOffersClientInterface;
+use RuntimeException;
 
 /**
  * Fetches and normalises booking offers for the availability calendar sidebar.
@@ -32,17 +33,19 @@ final class BookingOffersFetchService
      * @return array<string, mixed>
      */
     public function fetch(
-        BookingOffersClient $client,
+        BookingOffersClientInterface $client,
         SiteConfigurationDto $config,
         string $arrivalDate,
         string $departureDate,
         RoomOccupancyDto $roomOccupancy,
         string $offerMode,
-        ?string $preselectedRoomTypeId = null
+        ?string $preselectedRoomTypeId = null,
+        ?string $existingBookingOfferId = null
     ): array {
         $offerMode = self::normaliseOfferMode($offerMode);
         if ($offerMode === self::MODE_NONE) {
             return [
+                'bookingOfferId' => null,
                 'offerMode' => self::MODE_NONE,
                 'offers' => [],
                 'lowestTotalPrice' => null,
@@ -60,13 +63,18 @@ final class BookingOffersFetchService
             ];
         }
 
-        $response = $client->create(
+        $existingId = trim((string)($existingBookingOfferId ?? ''));
+        $response = $this->requestBookingOffer(
+            $client,
+            $existingId,
             $arrivalDate,
             $departureDate,
             $roomOccupancy,
             $selectionCriteria,
             $stayFilter ?? []
         );
+
+        $bookingOfferId = trim((string)($response['id'] ?? ''));
 
         $offers = $this->parseOffers($config, $offerMode, $response);
         $lowest = null;
@@ -86,11 +94,58 @@ final class BookingOffersFetchService
         }
 
         return [
+            'bookingOfferId' => $bookingOfferId !== '' ? $bookingOfferId : null,
             'offerMode' => $offerMode,
             'offers' => $offers,
             'lowestTotalPrice' => $lowest,
             'currency' => $currency,
         ];
+    }
+
+    /**
+     * @param array<string, mixed> $selectionCriteria
+     * @param array<string, mixed> $stayFilter
+     * @return array<string, mixed>
+     */
+    private function requestBookingOffer(
+        BookingOffersClientInterface $client,
+        string $existingBookingOfferId,
+        string $arrivalDate,
+        string $departureDate,
+        RoomOccupancyDto $roomOccupancy,
+        array $selectionCriteria,
+        array $stayFilter
+    ): array {
+        if ($existingBookingOfferId !== '') {
+            try {
+                return $client->recalculate(
+                    $existingBookingOfferId,
+                    $arrivalDate,
+                    $departureDate,
+                    $roomOccupancy,
+                    $selectionCriteria
+                );
+            } catch (RuntimeException $e) {
+                if (!$this->shouldFallbackToCreateAfterRecalculateFailure($e)) {
+                    throw $e;
+                }
+            }
+        }
+
+        return $client->create(
+            $arrivalDate,
+            $departureDate,
+            $roomOccupancy,
+            $selectionCriteria,
+            $stayFilter
+        );
+    }
+
+    private function shouldFallbackToCreateAfterRecalculateFailure(RuntimeException $e): bool
+    {
+        $message = $e->getMessage();
+
+        return (bool)preg_match('/\bAPI error (404|400)\b/', $message);
     }
 
     public static function normaliseOfferMode(string $offerMode): string

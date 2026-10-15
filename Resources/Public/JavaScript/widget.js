@@ -280,7 +280,7 @@
             }
             if (!form) return '';
             var el = form.querySelector('[data-cb-field="' + name + '"]');
-            return el ? el.value : '';
+                return el ? el.value : '';
         };
 
         var arrival = getField('arrival');
@@ -434,7 +434,9 @@
                 offersRequestId: 0,
                 selectedRateId: null,
                 offerTotalPrice: null,
-                offerCurrency: 'EUR'
+                offerCurrency: 'EUR',
+                bookingOfferId: null,
+                bookingOfferContextKey: null
             });
         }
         return calendarSelections.get(form);
@@ -495,6 +497,28 @@
             && form.getAttribute('data-cb-offers-url') !== '';
     }
 
+    function buildBookingOfferContextKey(form) {
+        var params = new URLSearchParams(serializeCalendarRequest(form));
+        var room = params.get('room') || '';
+        var numberOfRooms = params.get('numberOfRooms') || '';
+        return getOfferMode(form) + '|' + room + '|' + numberOfRooms;
+    }
+
+    function syncBookingOfferContext(form) {
+        var state = getCalendarState(form);
+        var contextKey = buildBookingOfferContextKey(form);
+        if (state.bookingOfferContextKey !== null && state.bookingOfferContextKey !== contextKey) {
+            state.bookingOfferId = null;
+        }
+        state.bookingOfferContextKey = contextKey;
+    }
+
+    function resetBookingOfferSession(form) {
+        var state = getCalendarState(form);
+        state.bookingOfferId = null;
+        state.bookingOfferContextKey = null;
+    }
+
     function countNights(arrival, departure) {
         if (!arrival || !departure) return 0;
         var start = new Date(arrival + 'T00:00:00');
@@ -533,6 +557,7 @@
         state.selectedTo = null;
         state.nextPick = 'from';
         state.fromMinStay = 1;
+        resetBookingOfferSession(form);
         clearOffersSelection(form);
         applyCalendarSelection(form);
     }
@@ -701,6 +726,9 @@
 
         var state = getCalendarState(form);
         if (!state.selectedFrom || !state.selectedTo) {
+            if (!state.selectedFrom && !state.selectedTo) {
+                resetBookingOfferSession(form);
+            }
             clearOffersSelection(form);
             return Promise.resolve();
         }
@@ -723,8 +751,13 @@
         state.offersRequestId += 1;
         var requestId = state.offersRequestId;
 
+        syncBookingOfferContext(form);
+
         var params = new URLSearchParams(serializeCalendarRequest(form));
         params.set('offerMode', getOfferMode(form));
+        if (state.bookingOfferId) {
+            params.set('bookingOfferId', state.bookingOfferId);
+        }
         var separator = url.indexOf('?') >= 0 ? '&' : '?';
 
         return fetch(url + separator + params.toString(), {
@@ -755,6 +788,9 @@
         }).then(function (payload) {
             if (requestId !== state.offersRequestId) return;
             if (payload.error) throw new Error(payload.message || payload.error);
+            if (payload.bookingOfferId) {
+                state.bookingOfferId = payload.bookingOfferId;
+            }
             renderOffers(form, payload);
         }).catch(function (error) {
             if (requestId !== state.offersRequestId) return;
@@ -865,7 +901,7 @@
         if (summary) {
             if (state.selectedFrom) {
                 summary.removeAttribute('hidden');
-            } else {
+        } else {
                 summary.setAttribute('hidden', 'hidden');
             }
         }
@@ -1743,12 +1779,12 @@
                     departureEl.setCustomValidity('');
                 });
             } else {
-                arrivalEl.addEventListener('change', function () {
-                    if (!departureEl.value || departureEl.value <= arrivalEl.value) {
-                        departureEl.value = defaultDeparture(arrivalEl.value, 7);
-                    }
-                    departureEl.min = arrivalEl.value;
-                });
+            arrivalEl.addEventListener('change', function () {
+                if (!departureEl.value || departureEl.value <= arrivalEl.value) {
+                    departureEl.value = defaultDeparture(arrivalEl.value, 7);
+                }
+                departureEl.min = arrivalEl.value;
+            });
             }
         }
     }

@@ -108,6 +108,7 @@ trait CalendarApiActionsTrait
         $roomTypeId = $this->resolveCalendarRoomTypeId($params, $settings);
         $occupancies = $this->parseRoomOccupanciesFromRequest();
         $roomOccupancy = $occupancies[0];
+        $bookingOfferId = trim((string)($params['bookingOfferId'] ?? ''));
 
         try {
             $client = $this->apiClientFactory->createBookingOffersClient($config);
@@ -118,7 +119,8 @@ trait CalendarApiActionsTrait
                 $departure,
                 $roomOccupancy,
                 $offerMode,
-                $roomTypeId !== '' ? $roomTypeId : null
+                $roomTypeId !== '' ? $roomTypeId : null,
+                $bookingOfferId !== '' ? $bookingOfferId : null
             );
 
             return $this->jsonResponseOrNull($payload);
